@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from LanguageTest.views import index, links, about_us, profile, register, letter_verification, check_word, login, userList
+from LanguageTest.views import index, links, about_us, profile, register, letter_verification, check_word, login, userList, translateWord
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,5 +27,6 @@ urlpatterns = [
     path('letter_verification/', letter_verification, name='letter_verification'),
     path('check_word/', check_word, name='check_word'),
     path('login/', login, name='login'),
-    path('usersList/', userList, name='UserList')
+    path('usersList/', userList, name='UserList'),
+    path('translate/', translateWord, name='translateWord')
 ]
