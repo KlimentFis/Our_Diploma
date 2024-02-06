@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    /* Выравниваем элементы навбара по центру */
+    .navbar-nav {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .nav-item {
+        flex: 1;
+        text-align: center;
+    }
+
+    .navbar .container-fluid {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    /* Дополнительно центрируем бренд и кнопку тогглера, если требуется */
+    .navbar-brand {
+    flex-grow: 1; /* Позволяет бренду расти, занимая доступное пространство для центрирования */
+    text-align: center; /* Центрируем текст */
+    }
+
+    .navbar-toggler {
+        position: absolute;
+        right: 0; /* Размещаем кнопку тогглера на краю справа */
+    }
+
+    /* Адаптируем внешний вид collapse меню */
+    .navbar-collapse {
+        flex-basis: 100%; /* Определяем размер ширины */
+        justify-content: center; /* Центрируем содержимое */
+    }
+
+    .white-text {
+        color: white;
+    }
+
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+
+    body {
+        background-image: url('https://avatars.mds.yandex.net/i?id=d807031a1c65e92a59779c3c5b3920fcc5bb6ce8-10836596-images-thumbs&n=13');
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container {
+        flex: 1 0 auto;
+    }
+
+    .footer {
+        text-align: center; /* Центрирование текста */
+        display: flex;
+        justify-content: center; /* Центрирование контента футера, если он использует flexbox */
+        align-items: center; /* Выравнивание элементов по центру по вертикали, если они используют flexbox */
+        width: 100%;
+        background-color: rgb(33, 37, 41);
+        color: white;
+    }
+
+    .form-signin {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 15px;
+        border-radius: 5px;
+        background: rgba(255, 255, 255, 0.8); /* Слегка прозрачный фон */
+        backdrop-filter: blur(5px); /* Размытие фона под формой */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень для формы */
+    }
+
+    .form-floating {
+        margin-bottom: 15px; /* Отступ для элементов форм */
+    }
+
+    .form-floating>label {
+        margin-left: 12px; /* Отступ для лейблов */
+        font-weight: 500; /* Жирность текста */
+    }
+
+    .form-control {
+        height: 50px; /* Высота полей ввода */
+        line-height: 50px; /* Высота строки совпадает с полем ввода */
+        padding-left: 20px; /* Отступ внутри полей ввода */
+        border-radius: 25px; /* Скругленные углы */
+    }
+
+    .btn-primary {
+        border-radius: 25px; /* Скругленные углы для кнопки */
+        font-size: 16px; /* Размер шрифта кнопки */
+        padding: 10px 20px; /* Паддинги для кнопки */
+    }
+
+    .form-signin {
+        border-radius: 25px;
+    }
+</style>
+
+<h1 class="first-text white-text">Выберите метод входа:</h1>
+<div class="content">
+    <div class="content" style="color: white;">
+        <main class="form-signin" style="background-color: rgb(33, 37, 41); margin-top: 25vh;">
+            <div>
+                <a href="{% url 'register' %}" class="btn btn-primary w-100 btn-login">Зарегистрироваться</a>
+            </div>
+            <div style="margin-top: 3vh;">
+                <a href="{% url 'login' %}" class="btn btn-primary w-100 btn-login">Войти</a>
+            </div>
+        </main>
+    </div>
+</div>
+{% endblock %}

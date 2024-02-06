@@ -15,11 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from LanguageTest.views import index, links, about_us, profile, register, letter_verification, check_word, login, userList, translateWord
+from LanguageTest.views import index, links, about_us, profile, register, letter_verification, check_word, login, userList, translateWord, login_or_register, tests
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index, name='index'),
+    path('', login_or_register, name='index'),
+    path('tests/', tests, name='tests'),
     path('links/', links, name='links'),
     path('about_us/', about_us, name='about_us'),
     path('profile/', profile, name='profile'),
@@ -28,5 +29,6 @@ urlpatterns = [
     path('check_word/', check_word, name='check_word'),
     path('login/', login, name='login'),
     path('usersList/', userList, name='UserList'),
-    path('translate/', translateWord, name='translateWord')
+    path('translate/', translateWord, name='translateWord'),
+    path('login_or_register/', login_or_register, name='login_or_register')
 ]

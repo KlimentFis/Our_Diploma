@@ -4,6 +4,9 @@ from django.shortcuts import render
 def index(request):
     return render(request, 'main.html')
 
+def tests(request):
+    return render(request, 'main.html')
+
 def links(request):
     return render(request, 'links.html')
 
@@ -30,3 +33,6 @@ def userList(request):
 
 def translateWord(request):
     return render(request, 'translateWord.html')
+
+def login_or_register(request):
+    return render(request, 'login_or_register.html')

@@ -102,6 +102,10 @@
                 font-size: 16px; /* Размер шрифта кнопки */
                 padding: 10px 20px; /* Паддинги для кнопки */
             }
+
+            .form-signin {
+                border-radius: 25px;
+            }
         </style>
     </head>
         <nav class="navbar navbar-dark bg-dark" aria-label="First navbar example">
@@ -140,8 +144,9 @@
             </div>
         </nav>
         <div class="content" color: white;>
-            <main class="form-signin" style="background-color: rgb(33, 37, 41);">
+            <main class="form-signin" style="background-color: rgb(33, 37, 41); margin-top: 10vh;">
                 <form>
+                    {% if False %}
                     <div class="alert alert-danger" role="alert">
                         <strong>
                             Данный Логин уже используется
@@ -149,7 +154,13 @@
                     </div>
                     <div class="alert alert-danger" role="alert">
                         <strong>
-                            Не верные данные
+                            Пароли не совпадают
+                        </strong>
+                    </div>
+                    {% endif %}
+                    <div class="alert alert-danger" role="alert">
+                        <strong>
+                            Научись пользоваться компьютером !!!
                         </strong>
                     </div>
                     <div class="form-floating text-center">

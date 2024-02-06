@@ -102,6 +102,10 @@
                 font-size: 16px; /* Размер шрифта кнопки */
                 padding: 10px 20px; /* Паддинги для кнопки */
             }
+
+            .form-signin {
+                border-radius: 25px;
+            }
         </style>
     </head>
         <nav class="navbar navbar-dark bg-dark" aria-label="First navbar example">
@@ -121,7 +125,7 @@
                         <a class="nav-link" href="#" onclick="exit()" style="color: red;">Выход</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'index' %}">Главная</a>
+                        <a class="nav-link" href="{% url 'index' %}" aria-disabled="true">Главная</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'profile' %}">Профиль</a>
@@ -140,7 +144,7 @@
             </div>
         </nav>
         <div class="content" color: white;>
-            <main class="form-signin" style="background-color: rgb(33, 37, 41);">
+            <main class="form-signin" style="background-color: rgb(33, 37, 41); margin-top: 20vh;">
                 <form>
                     <div class="alert alert-danger" role="alert">
                         <strong>
