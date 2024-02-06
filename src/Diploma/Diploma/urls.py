@@ -30,5 +30,5 @@ urlpatterns = [
     path('login/', login, name='login'),
     path('usersList/', userList, name='UserList'),
     path('translate/', translateWord, name='translateWord'),
-    path('login_or_register/', login_or_register, name='login_or_register')
+    path('login_or_register/', login_or_register, name='login_or_register'),
 ]

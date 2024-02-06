@@ -1,10 +1,41 @@
 {% extends 'base.html' %}
 <!--{% load static %}-->
+
 {% block content %}
 <div class="container">
-    <h1 class="first-text white-text">Поиск картинки по слову</h1>
-<!--    <img src="{% static 'LanguageTest/NoFoto.jpg' %}" alt="">-->
-    <input type="text">
-    <input type="submit">
+    <form id="search-form">
+        <input type="text" id="search-term" placeholder="Введите запрос">
+        <button type="submit">Найти</button>
+    </form>
+
+    <div id="image-container"></div>
+
+    <script>
+        document.getElementById("search-form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Предотвратить отправку формы
+            var searchTerm = document.getElementById("search-term").value;
+            searchImages(searchTerm);
+        });
+
+        function searchImages(term) {
+            var formData = new FormData();
+            formData.append("text", term);
+
+            fetch("https://yandex.ru/images/search", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.text())
+            .then(data => {
+                displayImages(data);
+            })
+            .catch(error => console.log(error));
+        }
+
+        function displayImages(html) {
+            var container = document.getElementById("image-container");
+            container.innerHTML = html;
+        }
+    </script>
 </div>
 {% endblock %}
