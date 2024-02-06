@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        textarea {
+            width: 100%;
+            height: 40%;
+
+            box-sizing: border-box;
+        }
+    </style>
+    <div class="container" style="text-align: center;">
+        <h1 class="white-text first-text">Письмо</h1>
+        <textarea name="" id="" style="border-radius: 10px;"></textarea>
+
+        <button type="button" class="btn btn-success">Проверить текст</button>
+    </div>
+{% endblock %}

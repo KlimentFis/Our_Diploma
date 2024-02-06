@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="white-text first-text" style="text-align: center; margin: 50, 0, 50, 0">Личный профиль</h1>
+        <div style="background-color: grey; width: 310px; border: 5px solid black; border-radius: 25px; margin: 0 auto;">
+            <img src="https://storage.googleapis.com/multi-static-content/previews/artage-io-thumb-198da939ef8b67952b65bebae63855c4.png" alt="" style="height:300px;">
+        </div>
+        <div class="alert alert-dark" role="alert" style="margin-top: 50px;">
+          <h4>Фамилия: <input type="text" class="form-control" placeholder="Фамилия" aria-label="FirstName" aria-describedby="basic-addon1"></h4>
+        </div>
+
+        <div class="alert alert-dark" role="alert">
+          <h4>Имя: <input type="text" class="form-control" placeholder="Имя" aria-label="LastName" aria-describedby="basic-addon1"></h4>
+        </div>
+
+        <div class="alert alert-dark" role="alert">
+          <h4>Отчество: <input type="text" class="form-control" placeholder="Отчество" aria-label="Patronymic" aria-describedby="basic-addon1"></h4>
+        </div>
+
+        <input type="submit" value="Сохранить" style="background-color: white; border-radius: 5px; border: 3px solid lightskyblue; font-weight: bold; font-size: 20px; color: grey; display: block; margin: 0 auto 15px;">
+    </div>
+{% endblock %}

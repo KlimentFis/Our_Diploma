@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h1 class="white-text first-text"><strong>Тесты для прокачки языка</strong></h1>
+    <div class="album py-5">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <img src="https://static.tildacdn.com/tild6131-3934-4262-b133-323932363738/566655-english-class.png" alt="">
+                        <div class="card-body">
+                            <h2 class="card-text" style="text-align: center;">
+                                <strong>
+                                    <a href="{% url 'check_word' %}" style="text-decoration: none; color: inherit;">
+                                        Слова в контексте
+                                    </a>
+                                </strong>
+                            </h2>
+                        <div class="d-flex justify-content-between align-items-center">
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <img src="https://i.artfile.me/wallpaper/28-05-2020/1920x1080/cvety-romashki-klyuch-staryj-cvetok-vint-1515836.jpg" alt="">
+                            <div class="card-body">
+                                <h2 class="card-text" style="text-align: center;">
+                                    <strong>
+                                        <a href="{% url 'check_word' %}" style="text-decoration: none; color: inherit;">
+                                            Перевод слова
+                                        </a>
+                                    </strong>
+                                </h2>
+                              <div class="d-flex justify-content-between align-items-center">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <img src="https://keithboudreault.com/photos/recommendationLetters.jpg" alt="">
+                            <div class="card-body">
+                                <h2 class="card-text" style="text-align: center;">
+                                    <strong>
+                                        <a href="{% url 'letter_verification' %}" style="text-decoration: none; color: inherit;">
+                                            Проверка письма
+                                        </a>
+                                    </strong>
+                                </h2>
+                                <div class="d-flex justify-content-between align-items-center"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
