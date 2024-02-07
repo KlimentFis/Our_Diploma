@@ -1,9 +1,8 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_protect
-
+from django.contrib.auth import get_user_model
 
 # Create your views here.
-from src.Diploma.LanguageTest.models import MyUser
 
 
 def index(request):
@@ -33,19 +32,24 @@ def register(request):
         password = request.POST.get('password', '')  # Получаем значение поля "password" из POST запроса
         confirm_password = request.POST.get('confirm_password', '')  # Получаем значение поля "confirm_password" из POST запроса
 
+        User = get_user_model()
+        user = User.objects.filter(username=nik).first()
+
         context = {
             'error': '',
         }
-
-        if not (nik and password and confirm_password):
-            # Если одно из полей пустое, выполните соответствующие действия
-            # Например, выведите сообщение об ошибке или выполните другую логику
-
-            # Вернуть ответ HTTP, например:
-
-            return render(request, 'profile.html', *context)
+        if not (password and confirm_password):
+            context['error'] = 'Пароли не совпадают!'
+        elif not (nik and password and confirm_password):
+            context['error'] = 'Введите данные!'
+        elif user:
+            context['error'] = 'Такой пользователь уже есть!'
         else:
-            ...
+            # Создаем нового пользователя
+            user = User.objects.create_user(username=nik, password=password)
+            # Дополнительная логика, если необходимо
+
+        return render(request, 'main.html', context)
 
 
 
