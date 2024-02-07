@@ -15,20 +15,22 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from LanguageTest.views import index, links, about_us, profile, register, letter_verification, check_word, login, userList, translateWord, login_or_register, tests
+from django.contrib.auth import views as auth_views
+from LanguageTest.views import index, links, about_us, profile, register, letter_verification, check_word, user_login, userList, translateWord, login_or_register, tests, logout
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('', login_or_register, name='index'),
-    path('', index, name='index'),
-    # path('tests/', tests, name='tests'),
+    path('', login_or_register, name='index'),
+    # path('', index, name='index'),
+    path('tests/', tests, name='tests'),
     path('links/', links, name='links'),
     path('about_us/', about_us, name='about_us'),
     path('profile/', profile, name='profile'),
     path('register/', register, name='register'),
     path('letter_verification/', letter_verification, name='letter_verification'),
     path('check_word/', check_word, name='check_word'),
-    path('login/', login, name='login'),
+    path('login/', user_login, name='user_login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('usersList/', userList, name='UserList'),
     path('translate/', translateWord, name='translateWord'),
     path('login_or_register/', login_or_register, name='login_or_register'),
