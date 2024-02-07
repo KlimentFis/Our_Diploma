@@ -4,8 +4,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import get_user_model
 from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
 
 # Create your views here.
+
 
 
 def index(request):
@@ -102,14 +104,21 @@ def check_word(request):
 
 @login_required
 def userList(request):
-    return render(request, 'userList.html')
+    users = User.objects.all()
+    context = {
+        'users': users
+    }
+    return render(request, 'userList.html', context)
 
 @login_required
 def translateWord(request):
     return render(request, 'translateWord.html')
 
 def login_or_register(request):
-    return render(request, 'login_or_register.html')
+    if request.user.is_authenticated:
+        return render(request, 'main.html')
+    else:
+        return render(request, 'login_or_register.html')
 
 def user_logout(request):
     logout(request)

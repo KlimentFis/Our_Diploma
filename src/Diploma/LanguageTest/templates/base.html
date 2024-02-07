@@ -115,7 +115,7 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     {% if request.user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}" onclick="exit()" style="color: red;">Выход</a>
+                        <a class="nav-link" onclick="exit()" style="color: red;">Выход</a>
                     </li>
                     {% endif %}
                     <li class="nav-item">
@@ -150,9 +150,7 @@
         function exit() {
             var value = confirm("Вы точно хотите выйти?", 'Да');
             if(value == true) {
-                console.log("Hello world");
-            } else {
-                console.log("NO")
+                window.location.href = "{% url 'logout' %}";
             }
         }
     </script>
