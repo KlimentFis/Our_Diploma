@@ -145,7 +145,8 @@
         </nav>
         <div class="content" color: white;>
             <main class="form-signin" style="background-color: rgb(33, 37, 41); margin-top: 10vh;">
-                <form>
+                <form method="post">
+                    {% csrf_token %} <!-- Вставляем токен CSRF здесь -->
                     {% if False %}
                     <div class="alert alert-danger" role="alert">
                         <strong>
@@ -167,16 +168,16 @@
                         <h1 class="white-text">Регистрация:</h1>
                     </div>
                     <div class="form-floating">
-                        <input type="Nik" class="form-control" id="floatingInput" placeholder="name@example.com">
+                        <input type="text" class="form-control" id="floatingInput" name="Nik" placeholder="name@example.com">
                         <label for="floatingInput">Логин</label>
                     </div>
                     <div class="form-floating">
-                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                        <label for="floatingPassword">Пароль</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Введите пароль">
+                        <label for="password">Пароль</label>
                     </div>
                     <div class="form-floating">
-                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                        <label for="floatingPassword">Повторный пароль</label>
+                        <input type="password" class="form-control" id="confirmPassword" name="confirm_password" placeholder="Повторите пароль">
+                        <label for="confirmPassword">Повторный пароль</label>
                     </div>
                     <button class="btn btn-primary w-100 btn-login" type="submit" style="margin-top: 50px;">Войти</button>
                 </form>
@@ -186,7 +187,7 @@
     <footer class="footer fixed-bottom">
         <div class="container-fluid py-3">
                 <!-- Убираем row и col, если хотим сделать контент в одну строку по центру -->
-            <span>© 2023 Диплом Трунов К. А. Пелипенко В. Б.</span>
+            <span>© 2024 Диплом Трунов К. А. Пелипенко В. Б.</span>
         </div>
     </footer>
     <script>

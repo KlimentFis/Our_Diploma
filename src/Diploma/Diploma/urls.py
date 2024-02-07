@@ -19,8 +19,9 @@ from LanguageTest.views import index, links, about_us, profile, register, letter
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', login_or_register, name='index'),
-    path('tests/', tests, name='tests'),
+    # path('', login_or_register, name='index'),
+    path('', tests, name='index'),
+    # path('tests/', tests, name='tests'),
     path('links/', links, name='links'),
     path('about_us/', about_us, name='about_us'),
     path('profile/', profile, name='profile'),
