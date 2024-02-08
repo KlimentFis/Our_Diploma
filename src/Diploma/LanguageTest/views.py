@@ -1,15 +1,13 @@
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import logout
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import get_user_model
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.contrib.auth.models import User
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
-
-
-
 def index(request):
     return render(request, 'main.html')
 
@@ -104,7 +102,7 @@ def check_word(request):
 
 @login_required
 def userList(request):
-    users = User.objects.all()
+    users = User.objects.filter(is_staff=False)
     context = {
         'users': users
     }

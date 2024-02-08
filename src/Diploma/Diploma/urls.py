@@ -15,13 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls.static import static
+from django.conf import settings
 from django.contrib.auth import views as auth_views
-from LanguageTest.views import index, links, about_us, profile, register, letter_verification, check_word, user_login, userList, translateWord, login_or_register, tests, logout
+from LanguageTest.views import index, links, about_us, \
+    profile, register, letter_verification, check_word, \
+    user_login, userList, translateWord, login_or_register, tests, logout
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', login_or_register, name='index'),
-    # path('', index, name='index'),
     path('tests/', tests, name='tests'),
     path('links/', links, name='links'),
     path('about_us/', about_us, name='about_us'),
@@ -35,3 +38,6 @@ urlpatterns = [
     path('translate/', translateWord, name='translateWord'),
     path('login_or_register/', login_or_register, name='login_or_register'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.MEDIA_ROOT)

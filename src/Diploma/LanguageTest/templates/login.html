@@ -52,7 +52,8 @@
             }
 
             body {
-                background-image: url('https://avatars.mds.yandex.net/i?id=d807031a1c65e92a59779c3c5b3920fcc5bb6ce8-10836596-images-thumbs&n=13');
+                {% load static %}
+                background-image: url("{% static 'background.png' %}");
                 display: flex;
                 flex-direction: column;
             }

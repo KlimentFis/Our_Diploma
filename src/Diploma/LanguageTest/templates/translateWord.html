@@ -75,7 +75,7 @@
             event.preventDefault();
             var searchTerm = $('#search-term').val();
             // Проверяем, что введены только символы английского алфавита
-            if (/^[a-zA-Z]+$/.test(searchTerm)) {
+            if (/^[a-zA-Z ]+$/.test(searchTerm)) {
                 var apiKey = '42271248-38c6dfc189aa86c7ba0e625b1';
                 var url = 'https://pixabay.com/api/?key=' + apiKey + '&q=' + searchTerm + '&image_type=photo&page=' + currentPage;
 

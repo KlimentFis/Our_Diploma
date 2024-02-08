@@ -9,15 +9,13 @@
 <div class="container">
     <h1 class="white-text first-text" style="text-align: center;">Список пользователей</h1>
     {% for user in users %}
-        {% if not user.is_staff %}
-            <div class="alert alert-success" role="alert">
-                <h4>
-                    <strong>
-                        {{ user.username }}
-                    </strong>
-                </h4>
-            </div>
-        {% endif %}
+        <div class="alert {% if forloop.counter|divisibleby:2 %}alert-success {% else %}alert-danger {% endif %}" role="alert">
+            <h4>
+                <strong>
+                    {{ user.username }}
+                </strong>
+            </h4>
+        </div>
     {% endfor %}
 </div>
 {% endblock %}
