@@ -2,9 +2,12 @@
 
 {% block content %}
     <div class="container">
-        <h1 class="white-text first-text" style="margin-bottom: 40px;">Личный профиль <br>{{request.user.username}}</h1>
+        <h1 class="white-text first-text" style="margin-bottom: 40px;">Личный профиль</h1>
         <div style="background-color: grey; width: 310px; border: 5px solid black; border-radius: 25px; margin: 0 auto;">
             <img src="https://storage.googleapis.com/multi-static-content/previews/artage-io-thumb-198da939ef8b67952b65bebae63855c4.png" alt="" style="height:300px;">
+        </div>
+        <div class="text-center">
+            <h2 style="align: center; color: white;">{{request.user.username}}</h2>
         </div>
         <div class="alert alert-dark" role="alert" style="margin-top: 50px;">
             <h4>Фамилия: <input type="text" class="form-control" placeholder="Фамилия" aria-label="FirstName" aria-describedby="basic-addon1"></h4>
