@@ -1,41 +1,118 @@
 {% extends 'base.html' %}
-<!--{% load static %}-->
-
 {% block content %}
+<style>
+    body {
+        font-family: Arial, sans-serif; /* Используем шрифт Arial или его аналог */
+        background-color: #f8f9fa; /* Цвет фона страницы */
+    }
+
+    .container {
+        margin-top: 50px; /* Отступ сверху */
+        text-align: center; /* Центрирование содержимого */
+    }
+
+    #image-container img {
+        max-width: 100%; /* Максимальная ширина изображения */
+        height: auto; /* Автоматическая высота, сохраняющая пропорции */
+        border: 2px solid #28a745; /* Зеленая рамка */
+        border-radius: 5px; /* Скругление углов */
+    }
+
+    #search-form {
+        margin-top: 20px; /* Отступ сверху для формы поиска */
+    }
+
+    #search-term {
+        padding: 10px; /* Отступы вокруг поля ввода */
+        border-radius: 5px; /* Скругление углов */
+        border: 1px solid #ccc; /* Граница */
+    }
+
+    #search-form button {
+        padding: 10px 20px; /* Отступы вокруг кнопки */
+        border-radius: 5px; /* Скругление углов */
+        border: none; /* Убираем границу */
+        background-color: #007bff; /* Синий цвет фона */
+        color: white; /* Белый цвет текста */
+        cursor: pointer; /* Изменение курсора при наведении */
+    }
+
+    #search-form button:hover {
+        background-color: #0056b3; /* Темно-синий цвет фона при наведении */
+    }
+
+    .alert {
+        margin-top: 20px; /* Отступ сверху для сообщения об ошибке */
+        padding: 10px; /* Отступы вокруг сообщения */
+        border-radius: 5px; /* Скругление углов */
+        color: white; /* Белый цвет текста */
+    }
+
+    .next-button, .prev-button {
+        margin-top: 20px; /* Отступ сверху для кнопок навигации */
+    }
+</style>
 <div class="container">
+    <div class="vpn-notice" id="vpn-notice">
+        <p style="color: white;">Для работы данной функции нужно использовать VPN.</p>
+    </div>
+    <div id="image-container"></div>
     <form id="search-form">
         <input type="text" id="search-term" placeholder="Введите запрос">
-        <button type="submit">Найти</button>
+        <button type="submit" class="btn btn-primary">Найти</button>
     </form>
+    <button id="prev-button" class="btn btn-primary prev-button" style="display: none;">Назад</button>
+    <button id="next-button" class="btn btn-primary next-button" style="display: none;">Далее</button>
+</div>
 
-    <div id="image-container"></div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        var currentPage = 1; // Текущая страница
+        var totalPages = 1; // Общее количество страниц
 
-    <script>
-        document.getElementById("search-form").addEventListener("submit", function(event) {
-            event.preventDefault(); // Предотвратить отправку формы
-            var searchTerm = document.getElementById("search-term").value;
-            searchImages(searchTerm);
+        $('#search-form').submit(function(event) {
+            event.preventDefault();
+            var searchTerm = $('#search-term').val();
+            // Проверяем, что введены только символы английского алфавита
+            if (/^[a-zA-Z]+$/.test(searchTerm)) {
+                var apiKey = '42271248-38c6dfc189aa86c7ba0e625b1';
+                var url = 'https://pixabay.com/api/?key=' + apiKey + '&q=' + searchTerm + '&image_type=photo&page=' + currentPage;
+
+                $.getJSON(url, function(data) {
+                    if (data.hits.length > 0) {
+                        var imageUrl = data.hits[0].webformatURL; // Получаем URL первого изображения из ответа
+                        $('#image-container').html('<img src="' + imageUrl + '">'); // Добавляем изображение на страницу
+                        totalPages = Math.ceil(data.totalHits / data.hits.length); // Вычисляем общее количество страниц
+                        if (currentPage < totalPages) {
+                            $('#next-button').show(); // Показываем кнопку "Далее", если есть следующая страница
+                        } else {
+                            $('#next-button').hide(); // Скрываем кнопку "Далее", если это последняя страница
+                        }
+                        if (currentPage > 1) {
+                            $('#prev-button').show(); // Показываем кнопку "Назад", если есть предыдущая страница
+                        } else {
+                            $('#prev-button').hide(); // Скрываем кнопку "Назад", если это первая страница
+                        }
+                        $('#vpn-notice').hide(); // Скрыть уведомление о VPN после вывода изображения
+                    } else {
+                        $('#image-container').html('<p class="alert">Изображение не найдено</p>');
+                    }
+                });
+            } else {
+                $('#image-container').html('<p class="alert">Пожалуйста, введите только английские символы</p>');
+            }
         });
 
-        function searchImages(term) {
-            var formData = new FormData();
-            formData.append("text", term);
+        $('#next-button').click(function() {
+            currentPage++; // Увеличиваем номер текущей страницы
+            $('#search-form').submit(); // Повторно отправляем форму для загрузки следующей страницы
+        });
 
-            fetch("https://yandex.ru/images/search", {
-                method: "POST",
-                body: formData
-            })
-            .then(response => response.text())
-            .then(data => {
-                displayImages(data);
-            })
-            .catch(error => console.log(error));
-        }
-
-        function displayImages(html) {
-            var container = document.getElementById("image-container");
-            container.innerHTML = html;
-        }
-    </script>
-</div>
+        $('#prev-button').click(function() {
+            currentPage--; // Уменьшаем номер текущей страницы
+            $('#search-form').submit(); // Повторно отправляем форму для загрузки предыдущей страницы
+        });
+    });
+</script>
 {% endblock %}
