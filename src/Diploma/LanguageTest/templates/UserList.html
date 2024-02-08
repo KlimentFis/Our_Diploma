@@ -7,7 +7,7 @@
 </style>
 
 <div class="container">
-    <h1 class="white-text first-text" style="text-align: center;">Список пользователей</h1>
+    <h1 class="white-text first-text" style="text-align: center; margin-bottom: 40px;">Список пользователей</h1>
     {% for user in users %}
         <div class="alert {% if forloop.counter|divisibleby:2 %}alert-success {% else %}alert-danger {% endif %}" role="alert">
             <h4>

@@ -102,7 +102,7 @@ def check_word(request):
 
 @login_required
 def userList(request):
-    users = User.objects.filter(is_staff=False)
+    users = User.objects.filter(is_staff=False).exclude(username=request.user.username)
     context = {
         'users': users
     }
