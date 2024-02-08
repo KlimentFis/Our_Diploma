@@ -1,10 +1,10 @@
+from django.http import HttpResponseNotAllowed
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import get_user_model
-from django.shortcuts import redirect
 from django.contrib.auth.models import User
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -121,3 +121,16 @@ def login_or_register(request):
 def user_logout(request):
     logout(request)
     return redirect('login_or_register')
+
+@csrf_protect
+@login_required
+def delete_accaunt(request):
+    if request.method == 'POST':
+        # Удаляем пользователя из базы данных
+        request.user.delete()
+        # Выход пользователя из системы
+        logout(request)
+        return redirect('login_or_register')
+    else:
+        # Если метод запроса не POST, вернуть ошибку метода не разрешен
+        return HttpResponseNotAllowed(['POST'])

@@ -20,7 +20,8 @@ from django.conf import settings
 from django.contrib.auth import views as auth_views
 from LanguageTest.views import index, links, about_us, \
     profile, register, letter_verification, check_word, \
-    user_login, userList, translateWord, login_or_register, tests, logout
+    user_login, userList, translateWord, login_or_register, \
+    tests, logout, delete_accaunt
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -37,6 +38,7 @@ urlpatterns = [
     path('usersList/', userList, name='UserList'),
     path('translate/', translateWord, name='translateWord'),
     path('login_or_register/', login_or_register, name='login_or_register'),
+    path('delete_accaunt/', delete_accaunt, name='delete_accaunt')
 ]
 
 if settings.DEBUG:
