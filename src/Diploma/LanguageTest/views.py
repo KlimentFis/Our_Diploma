@@ -44,7 +44,7 @@ def register(request):
         }
         if user:
             context['error'] = 'Такой пользователь уже есть!'
-        elif not (password and confirm_password):
+        elif not (password == confirm_password):
             context['error'] = 'Пароли не совпадают!'
         elif not (nik and password and confirm_password):
             context['error'] = 'Введите данные!'
