@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% block content %}
     <div class="container">
         <h1 class="white-text first-text" style="margin-bottom: 40px;">Личный профиль</h1>
@@ -22,20 +21,42 @@
         </div>
 
         <input type="checkbox" {% if False %} checked {% endif %}><strong class="checkbox-label" style="color: white; font-size: 20px;"> Использовать Английский язык для интерфейса</strong>
-        <input type="submit" value="Сохранить" style="background-color: white; border-radius: 5px; border: 3px solid lightskyblue; font-weight: bold; font-size: 20px; color: grey; display: block; margin: 0 auto 15px;">
+        <input type="submit" value="Сохранить" style="background-color: white; border-radius: 5px; border: 3px solid lightskyblue; font-weight: bold; font-size: 20px; color: grey; display: block; margin: 2vh auto 15px;">
 
-        <div class="container text-center" style="margin-bottom: 20px;">
-            <form method="post" action="{% url 'delete_accaunt' %}" onsubmit="return confirmDelete()">
-                {% csrf_token %}
-                <!-- Ваши поля формы и кнопка для удаления аккаунта -->
-                <button type="submit" class="btn btn-danger">Удалить аккаунт !!!</button>
-            </form>
+        <!-- Кнопка для вызова модального окна -->
+        <!-- Кнопка для вызова модального окна -->
+        <div class="container text-center"> <!-- Добавлен класс text-center -->
+            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="margin-bottom: 2vh;">
+                Удалить аккаунт !!!
+            </button>
+        </div>
+
+        <!-- Модальное окно -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Подтверждение удаления аккаунта</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <p>Вы действительно хотите удалить аккаунт?</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <form method="post" action="{% url 'delete_accaunt' %}">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-danger">Удалить</button>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
     </div>
 
     <script>
         function confirmDelete() {
-            var value = confirm("ВЫ ТОЧНО ХОТИТЕ УДАЛИТЬ АККАУНТ? ЭТО ДЕЙСТВИЕ НЕЛЬЗЯ БУДЕТ ОТМЕНИТЬ !!!");
+            var value = confirm("Вы действительно хотите удалить аккаунт?");
             return value; // Возвращаем результат подтверждения в форму
         }
     </script>
