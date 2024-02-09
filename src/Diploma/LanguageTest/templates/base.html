@@ -112,7 +112,7 @@
             </button>
             <!-- Navbar content -->
             <div class="collapse navbar-collapse" id="navbarsExample01">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-row"> <!-- Added flex-row class -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-lg-row flex-column"> <!-- Added flex-lg-row and flex-column classes -->
                     {% if request.user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" onclick="exit()" style="color: red;">Выход</a>
@@ -120,6 +120,9 @@
                     {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'tests' %}">Главная</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'tests' %}">Тесты</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'profile' %}">Профиль</a>
@@ -137,6 +140,7 @@
             </div>
         </div>
     </nav>
+
 
 
     {% block content %} {% endblock %}
