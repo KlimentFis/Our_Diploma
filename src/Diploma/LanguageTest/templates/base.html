@@ -96,6 +96,7 @@
             text-align: center;
             margin-top: 40px;
         }
+
     </style>
   <body>
     <nav class="navbar navbar-dark bg-dark">
@@ -106,12 +107,12 @@
                 <span class="fs-5 d-none d-lg-inline" style="margin-left: 15px;"><strong>Диплом </strong>Трунов К. А. Пелипенко В. Б.</span> <!-- normal font size for lg and xl -->
             </a>
             <!-- Toggler button -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler position-fixed top-0 end-0 mt-2 me-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <!-- Navbar content -->
             <div class="collapse navbar-collapse" id="navbarsExample01">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-row"> <!-- Added flex-row class -->
                     {% if request.user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" onclick="exit()" style="color: red;">Выход</a>
@@ -136,6 +137,7 @@
             </div>
         </div>
     </nav>
+
 
     {% block content %} {% endblock %}
 
