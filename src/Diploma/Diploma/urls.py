@@ -21,9 +21,10 @@ from django.contrib.auth import views as auth_views
 from LanguageTest.views import index, links, about_us, \
     profile, register, letter_verification, check_word, \
     user_login, userList, translateWord, login_or_register, \
-    tests, logout, delete_accaunt
+    tests, logout, delete_accaunt, index
 
 urlpatterns = [
+    path('index/', index, name='index'),
     path('admin/', admin.site.urls),
     path('', login_or_register, name='index'),
     path('tests/', tests, name='tests'),

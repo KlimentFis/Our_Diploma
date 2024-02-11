@@ -8,12 +8,13 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+
 def index(request):
-    return render(request, 'main.html')
+    return render(request, 'index.html')
 
 @login_required
 def tests(request):
-    return render(request, 'main.html')
+    return render(request, 'tests.html')
 
 @login_required
 def links(request):
@@ -56,7 +57,7 @@ def register(request):
             if user is not None:
                 login(request, user)
                 # Редиректим на другую страницу, если необходимо
-                return redirect('tests')
+                return redirect('index')
             else:
                 context['error'] = 'Ошибка аутентификации'
 
@@ -86,7 +87,7 @@ def user_login(request):
             if user is not None:
                 login(request, user)
                 # Редиректим на другую страницу, если необходимо
-                return redirect('tests')
+                return redirect('index')
             else:
                 context['error'] = 'Ошибка аутентификации'
 
@@ -114,7 +115,7 @@ def translateWord(request):
 
 def login_or_register(request):
     if request.user.is_authenticated:
-        return render(request, 'main.html')
+        return render(request, 'index.html')
     else:
         return render(request, 'login_or_register.html')
 
