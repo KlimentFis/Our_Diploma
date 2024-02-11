@@ -1,33 +1,46 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="container">
-        <h1 class="white-text first-text" style="margin-bottom: 40px;">Личный профиль</h1>
+        <h1 class="white-text first-text" style="margin-bottom: 40px;">{% if request.user.use_english %}Personal profile{% else %}Личный профиль{% endif %}</h1>
         <div style="background-color: grey; width: 310px; border: 5px solid black; border-radius: 25px; margin: 0 auto;">
             <img src="https://storage.googleapis.com/multi-static-content/previews/artage-io-thumb-198da939ef8b67952b65bebae63855c4.png" alt="" style="height:300px;">
         </div>
         <div class="text-center">
             <h2 style="align: center; color: white;">{{request.user.username}}</h2>
         </div>
-        <div class="alert alert-dark" role="alert" style="margin-top: 50px;">
-            <h4>Фамилия: <input type="text" class="form-control" placeholder="Фамилия" aria-label="FirstName" aria-describedby="basic-addon1"></h4>
-        </div>
 
-        <div class="alert alert-dark" role="alert">
-            <h4>Имя: <input type="text" class="form-control" placeholder="Имя" aria-label="LastName" aria-describedby="basic-addon1"></h4>
-        </div>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="alert alert-dark" role="alert" style="margin-top: 50px;">
+                <h4>{% if request.user.use_english %}FirstName: {% else %}Фамилия: {% endif %}
+                    <input type="text" class="form-control" placeholder="{% if request.user.use_english %}FirstName: {% else %}Фамилия: {% endif %}" aria-label="FirstName" aria-describedby="basic-addon1" name="LastName">
+                </h4>
+            </div>
 
-        <div class="alert alert-dark" role="alert">
-            <h4>Отчество: <input type="text" class="form-control" placeholder="Отчество" aria-label="Patronymic" aria-describedby="basic-addon1"></h4>
-        </div>
+            <div class="alert alert-dark" role="alert">
+                <h4>{% if request.user.use_english %}LastName: {% else %}Имя: {% endif %}
+                    <input type="text" class="form-control" placeholder="{% if request.user.use_english %}LastName: {% else %}Имя: {% endif %}" aria-label="LastName" aria-describedby="basic-addon1" name="FirstName">
+                </h4>
+            </div>
 
-        <input type="checkbox" {% if False %} checked {% endif %}><strong class="checkbox-label" style="color: white; font-size: 20px;"> Использовать Английский язык для интерфейса</strong>
-        <input type="submit" value="Сохранить" style="background-color: white; border-radius: 5px; border: 3px solid lightskyblue; font-weight: bold; font-size: 20px; color: grey; display: block; margin: 2vh auto 15px;">
+            <div class="alert alert-dark" role="alert">
+                <h4>{% if request.user.use_english %}Patronymic: {% else %}Отчество: {% endif %}
+                    <input type="text" class="form-control" placeholder="{% if request.user.use_english %}Patronymic: {% else %}Отчество: {% endif %}" aria-label="Patronymic" aria-describedby="basic-addon1" name="Patronymic">
+                </h4>
+            </div>
 
-        <!-- Кнопка для вызова модального окна -->
+            <input type="checkbox" {% if request.user.use_english %} checked {% endif %} aria-label="UseEnglish" name="UseEnglish">
+            <strong class="checkbox-label" style="color: white; font-size: 20px;">
+                {% if not request.user.use_english %} Use English for interface{% else %} Использовать Английский язык для интерфейса{% endif %}
+            </strong>
+            <input type="submit" value="{% if request.user.use_english %}Save{% else %}Сохранить{% endif %}" style="background-color: white; border-radius: 5px; border: 3px solid lightskyblue; font-weight: bold; font-size: 20px; color: grey; display: block; margin: 2vh auto 15px;">
+        </form>
+
+
         <!-- Кнопка для вызова модального окна -->
         <div class="container text-center"> <!-- Добавлен класс text-center -->
             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="margin-bottom: 2vh;">
-                Удалить аккаунт !!!
+                {% if request.user.use_english %}Delete account !!!{% else %}Удалить аккаунт !!!{% endif %}
             </button>
         </div>
 
@@ -36,17 +49,17 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Подтверждение удаления аккаунта</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">{% if request.user.use_english %}Confirming account deletion{% else %}Подтверждение удаления аккаунта{% endif %}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <p>Вы действительно хотите удалить аккаунт?</p>
+                <p>{% if request.user.use_english %}Do you really want to delete the account?{% else %}Вы действительно хотите удалить аккаунт?{% endif %}</p>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% if request.user.use_english %}Cancel{% else %}Отмена{% endif %}</button>
                 <form method="post" action="{% url 'delete_accaunt' %}">
                   {% csrf_token %}
-                  <button type="submit" class="btn btn-danger">Удалить</button>
+                  <button type="submit" class="btn btn-danger">{% if request.user.use_english %}Delete{% else %}Удалить{% endif %}</button>
                 </form>
               </div>
             </div>
@@ -56,7 +69,7 @@
 
     <script>
         function confirmDelete() {
-            var value = confirm("Вы действительно хотите удалить аккаунт?");
+            var value = confirm("{% if request.user.use_english %}Do you really want to delete the account?{% else %}Вы действительно хотите удалить аккаунт?{% endif %}");
             return value; // Возвращаем результат подтверждения в форму
         }
     </script>

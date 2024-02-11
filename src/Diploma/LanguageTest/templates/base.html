@@ -114,26 +114,26 @@
         <div class="collapse navbar-collapse" id="navbarsExample01">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-lg-row flex-column"> <!-- Added flex-lg-row and flex-column classes -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'index' %}">Главная</a>
+                    <a class="nav-link" href="{% url 'index' %}">{% if request.user.use_english %}Main{% else %}Главная{% endif %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'tests' %}">Тесты</a>
+                    <a class="nav-link" href="{% url 'tests' %}">{% if request.user.use_english %}Tests{% else %}Тесты{% endif %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'profile' %}">Профиль</a>
+                    <a class="nav-link" href="{% url 'profile' %}">{% if request.user.use_english %}Profile{% else %}Профиль{% endif %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'about_us' %}">Информация о нас</a>
+                    <a class="nav-link" href="{% url 'about_us' %}">{% if request.user.use_english %}Information about Us{% else %}Информация о нас{% endif %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'UserList' %}">Список пользователей</a>
+                    <a class="nav-link" href="{% url 'UserList' %}">{% if request.user.use_english %}User list{% else %}Список пользователей{% endif %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'links' %}">Ссылки на учебные материалы</a>
+                    <a class="nav-link" href="{% url 'links' %}">{% if request.user.use_english %}Links to training materials{% else %}Ссылки на учебные материалы{% endif %}</a>
                 </li>
                 {% if request.user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" onclick="exit()" style="color: red;">Выход</a>
+                    <a class="nav-link" onclick="exit()" style="color: red;">{% if request.user.use_english %}Exit{% else %}Выход{% endif %}</a>
                 </li>
                 {% endif %}
             </ul>
@@ -170,15 +170,15 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exitModalLabel">Подтверждение</h5>
+                    <h5 class="modal-title" id="exitModalLabel">{% if request.user.use_english %}Confirmation{% else %}Подтверждение{% endif %}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Вы действительно хотите выйти?</p>
+                    <p>{% if request.user.use_english %}Do you really want to get out?{% else %}Вы действительно хотите выйти?{% endif %}</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-                    <button type="button" class="btn btn-primary" onclick="logout()">Да</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% if request.user.use_english %}Cancel{% else %}Отмена{% endif %}</button>
+                    <button type="button" class="btn btn-primary" onclick="logout()">{% if request.user.use_english %}Yes{% else %}Да{% endif %}</button>
                 </div>
             </div>
         </div>

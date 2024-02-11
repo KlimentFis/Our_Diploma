@@ -3,7 +3,8 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from .models import MyUser
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
@@ -26,7 +27,30 @@ def about_us(request):
 
 @login_required
 def profile(request):
-    return render(request, 'profile.html')
+    User = get_user_model()
+    user = MyUser.objects.get(pk=request.user.pk)
+
+    if request.method == 'GET':
+        return render(request, 'profile.html')
+    else:
+        LastName = request.POST.get('LastName', '')
+        FirstName = request.POST.get('FirstName', '')
+        Patronymic = request.POST.get('Patronymic', '')
+        UseEnglish = request.POST.get('UseEnglish', False)
+
+        if UseEnglish == 'on':
+            UseEnglish = True
+        else:
+            UseEnglish = False
+
+        user.last_name = LastName
+        user.first_name = FirstName
+        user.patronymic = Patronymic
+        user.use_english = UseEnglish
+
+        user.save()
+
+    return redirect('profile')
 
 @csrf_protect
 def register(request):
@@ -51,7 +75,7 @@ def register(request):
             context['error'] = 'Введите данные!'
         else:
             # Создаем нового пользователя
-            user = User.objects.create_user(username=nik, password=password)
+            user = MyUser.objects.create_user(username=nik, password=password)
             # Аутентифицируем пользователя и выполняем вход
             user = authenticate(request, username=nik, password=password)
             if user is not None:
@@ -103,7 +127,7 @@ def check_word(request):
 
 @login_required
 def userList(request):
-    users = User.objects.filter(is_staff=False).exclude(username=request.user.username)
+    users = MyUser.objects.filter(is_staff=False).exclude(username=request.user.username)
     context = {
         'users': users
     }
