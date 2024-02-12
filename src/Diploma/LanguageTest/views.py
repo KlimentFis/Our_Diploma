@@ -4,9 +4,11 @@ from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import get_user_model
 # from django.contrib.auth.models import User
-from .models import MyUser
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
+from .models import MyUser
+
 
 # Create your views here.
 
@@ -27,11 +29,10 @@ def about_us(request):
 
 @login_required
 def profile(request):
-    User = get_user_model()
-    user = MyUser.objects.get(pk=request.user.pk)
+    user = request.user
 
     if request.method == 'GET':
-        return render(request, 'profile.html')
+        return render(request, 'profile.html', {'user': user})
     else:
         LastName = request.POST.get('LastName', '')
         FirstName = request.POST.get('FirstName', '')
@@ -50,7 +51,7 @@ def profile(request):
 
         user.save()
 
-    return redirect('profile')
+        return redirect('profile')
 
 @csrf_protect
 def register(request):
@@ -62,7 +63,7 @@ def register(request):
         confirm_password = request.POST.get('confirm_password', '')  # Получаем значение поля "confirm_password" из POST запроса
 
         User = get_user_model()
-        user = User.objects.filter(username=nik).first()
+        user = MyUser.objects.filter(username=nik).first()
 
         context = {
             'error': '',
@@ -75,7 +76,7 @@ def register(request):
             context['error'] = 'Введите данные!'
         else:
             # Создаем нового пользователя
-            user = MyUser.objects.create_user(username=nik, password=password)
+            user = MyUser.objects.create_user(username=nik, password=password, is_active=True, date_joined=timezone.now())
             # Аутентифицируем пользователя и выполняем вход
             user = authenticate(request, username=nik, password=password)
             if user is not None:
