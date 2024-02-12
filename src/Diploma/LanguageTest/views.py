@@ -8,6 +8,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from .models import MyUser
+from django.contrib.auth import get_user_model, login
+from django.utils import timezone
+from django.shortcuts import render, redirect
 
 
 # Create your views here.
@@ -58,30 +61,31 @@ def register(request):
     if request.method == 'GET':
         return render(request, 'register.html')
     else:
-        nik = request.POST.get('Nik', '')  # Получаем значение поля "Nik" из POST запроса
-        password = request.POST.get('password', '')  # Получаем значение поля "password" из POST запроса
-        confirm_password = request.POST.get('confirm_password', '')  # Получаем значение поля "confirm_password" из POST запроса
+        nik = request.POST.get('Nik', '')  # Get value of field "Nik" from POST request
+        password = request.POST.get('password', '')  # Get value of field "password" from POST request
+        confirm_password = request.POST.get('confirm_password', '')  # Get value of field "confirm_password" from POST request
 
         User = get_user_model()
-        user = MyUser.objects.filter(username=nik).first()
+        user = User.objects.filter(username=nik).first()
 
         context = {
             'error': '',
         }
         if user:
             context['error'] = 'Такой пользователь уже есть!'
-        elif not (password == confirm_password):
+        elif password != confirm_password:
             context['error'] = 'Пароли не совпадают!'
-        elif (len(password) < 8 or len(confirm_password) < 8):
-            context['error'] = 'Ненадежный пароль!'
+        elif len(password) < 8 or len(confirm_password) < 8:
+            context['error'] = 'Пароль слишком короткий. Минимум 8 символов.'
         elif not (nik and password and confirm_password):
             context['error'] = 'Введите данные!'
         else:
-            # Создаем нового пользователя
-            user = MyUser.objects.create_user(username=nik, password=password, is_active=True, data_joined=timezone.now())
+            # Create a new user with the current date joined
+            user = User.objects.create_user(username=nik, password=password, is_active=True, data_joined=timezone.now())
+            user.date_joined = timezone.now()  # Set the date joined
             user.save()
-            login(request, user)  # Выполняем вход пользователя
-            # Редиректим на другую страницу, если необходимо
+            login(request, user)  # Log in the user
+            # Redirect to another page if necessary
             return redirect('index')
 
         return render(request, 'register.html', context)
