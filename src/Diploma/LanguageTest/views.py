@@ -72,19 +72,17 @@ def register(request):
             context['error'] = 'Такой пользователь уже есть!'
         elif not (password == confirm_password):
             context['error'] = 'Пароли не совпадают!'
+        elif (len(password) < 8 or len(confirm_password) < 8):
+            context['error'] = 'Ненадежный пароль!'
         elif not (nik and password and confirm_password):
             context['error'] = 'Введите данные!'
         else:
             # Создаем нового пользователя
-            user = MyUser.objects.create_user(username=nik, password=password, is_active=True, date_joined=timezone.now())
-            # Аутентифицируем пользователя и выполняем вход
-            user = authenticate(request, username=nik, password=password)
-            if user is not None:
-                login(request, user)
-                # Редиректим на другую страницу, если необходимо
-                return redirect('index')
-            else:
-                context['error'] = 'Ошибка аутентификации'
+            user = MyUser.objects.create_user(username=nik, password=password, is_active=True, data_joined=timezone.now())
+            user.save()
+            login(request, user)  # Выполняем вход пользователя
+            # Редиректим на другую страницу, если необходимо
+            return redirect('index')
 
         return render(request, 'register.html', context)
 
