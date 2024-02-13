@@ -107,6 +107,15 @@
             .form-signin {
                 border-radius: 25px;
             }
+
+            .footer {
+                position: static;
+                bottom: 0;
+                text-align: center;
+                width: 100%;
+                background-color: rgb(33, 37, 41);
+                color: white;
+            }
         </style>
     </head>
         <nav class="navbar navbar-dark" style="background-color: rgb(33, 37, 41);">
@@ -145,7 +154,7 @@
                 </div>
             </div>
         </nav>
-        <div class="content" color: white;>
+        <div class="content">
             <main class="form-signin" style="background-color: rgb(33, 37, 41); margin-top: 20vh;">
                 <form method="post">
                     {% csrf_token %}
@@ -172,7 +181,7 @@
             </main>
         </div>
     </div>
-    <footer class="footer fixed-bottom">
+    <footer class="footer" style="margin-top: auto;">
         <div class="container-fluid py-3">
             <!-- Убираем row и col, если хотим сделать контент в одну строку по центру -->
             <span>© 2024 Диплом Трунов К. А. Пелипенко В. Б.</span>

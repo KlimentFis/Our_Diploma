@@ -9,5 +9,5 @@ class Word(models.Model):  # Исправлено: добавлено 'Model'
 class Suggestion(models.Model):  # Исправлено: добавлено 'Model'
     suggestion = models.TextField(blank=False)
     right_word = models.CharField(max_length=100, blank=False)  # Исправлено: добавлен 'max_length'
-    wrong_words = models.ForeignKey(Word, on_delete=models.CASCADE)  # Исправлено: добавлен 'on_delete'
+    # wrong_words = models.ForeignKey(Word, on_delete=models.CASCADE)  # Исправлено: добавлен 'on_delete'
 
