@@ -109,36 +109,40 @@
             }
         </style>
     </head>
-        <nav class="navbar navbar-dark bg-dark" aria-label="First navbar example">
-            <div class="container-fluid">
+        <nav class="navbar navbar-dark" style="background-color: rgb(33, 37, 41);">
+            <div class="container-fluid position-relative">
+                <!-- Navbar brand with responsive text size -->
                 <a class="navbar-brand" href="#" style="white-space: nowrap;">
-                    <span class="fs-6 d-inline d-lg-none"><strong>Диплом</strong></span> <!-- smaller font size for xs to md -->
-                    <span class="fs-5 d-none d-lg-inline"><strong>Диплом</strong> Трунов К. А. Пелипенко В. Б.</span> <!-- normal font size for lg and xl -->
+                    <span class="fs-6 d-inline d-lg-none" style="margin-left: 15px;"><strong>Диплом</strong></span> <!-- smaller font size for xs to md -->
+                    <span class="fs-5 d-none d-lg-inline" style="margin-left: 15px;"><strong>Диплом </strong>Трунов К. А. Пелипенко В. Б.</span> <!-- normal font size for lg and xl -->
                 </a>
                 <!-- Toggler button -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler position-absolute top-0 end-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <!-- Navbar content -->
                 <div class="collapse navbar-collapse" id="navbarsExample01">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'index' %}" aria-disabled="true">Главная</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'profile' %}">Профиль</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about_us' %}">Информация о нас</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'UserList' %}">Список пользователей</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'links' %}">Ссылки на учебные материалы</a>
-                    </li>
-                </ul>
-            </div>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-lg-row flex-column"> <!-- Added flex-lg-row and flex-column classes -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'index' %}">{% if request.user.use_english %}Main{% else %}Главная{% endif %}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'tests' %}">{% if request.user.use_english %}Tests{% else %}Тесты{% endif %}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'profile' %}">{% if request.user.use_english %}Profile{% else %}Профиль{% endif %}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'about_us' %}">{% if request.user.use_english %}Information about Us{% else %}Информация о нас{% endif %}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'UserList' %}">{% if request.user.use_english %}User list{% else %}Список пользователей{% endif %}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'links' %}">{% if request.user.use_english %}Links to training materials{% else %}Ссылки на учебные материалы{% endif %}</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
         <div class="content" color: white;>

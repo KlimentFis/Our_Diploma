@@ -7,13 +7,14 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from .models import MyUser
 from django.contrib.auth import get_user_model, login
 from django.utils import timezone
 from django.shortcuts import render, redirect
 
 
 # Create your views here.
+from users.models import MyUser
+
 
 def index(request):
     return render(request, 'index.html')
@@ -73,12 +74,12 @@ def register(request):
         }
         if user:
             context['error'] = 'Такой пользователь уже есть!'
+        elif not (nik and password and confirm_password):
+            context['error'] = 'Введите данные!'
         elif password != confirm_password:
             context['error'] = 'Пароли не совпадают!'
         elif len(password) < 8 or len(confirm_password) < 8:
             context['error'] = 'Пароль слишком короткий. Минимум 8 символов.'
-        elif not (nik and password and confirm_password):
-            context['error'] = 'Введите данные!'
         else:
             # Create a new user with the current date joined
             user = User.objects.create_user(username=nik, password=password, is_active=True, data_joined=timezone.now())

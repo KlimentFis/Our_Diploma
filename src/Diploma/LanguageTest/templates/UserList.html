@@ -8,18 +8,28 @@
 
 <div class="container">
     <h1 class="white-text first-text" style="text-align: center; margin-bottom: 40px;">{% if request.user.use_english %}User list{% else %}Список пользователей{% endif %}</h1>
-    {% if users is not null  %}
-        {% for user in users %}
-            <div class="alert {% if forloop.counter|divisibleby:2 %}alert-primary {% else %}alert-secondary {% endif %}" role="alert">
-                <h4>
-                    <strong>
-                        {{ user.username }}
-                    </strong>
-                </h4>
-            </div>
-        {% endfor %}
-    {% else %}
-        Кроме вас пользователей нет !!!
-    {% endif %}
+    {% for user in users %}
+        <div class="alert {% if forloop.counter|divisibleby:2 %}alert-primary {% else %}alert-secondary {% endif %}" role="alert">
+            <h4>
+                <strong>
+                    {{ user.username }}
+                </strong>
+            </h4>
+        </div>
+    {% endfor %}
+
+<!--    {% if users is not null  %}-->
+<!--        {% for user in users %}-->
+<!--            <div class="alert {% if forloop.counter|divisibleby:2 %}alert-primary {% else %}alert-secondary {% endif %}" role="alert">-->
+<!--                <h4>-->
+<!--                    <strong>-->
+<!--                        {{ user.username }}-->
+<!--                    </strong>-->
+<!--                </h4>-->
+<!--            </div>-->
+<!--        {% endfor %}-->
+<!--    {% else %}-->
+<!--        Кроме вас пользователей нет !!!-->
+<!--    {% endif %}-->
 </div>
 {% endblock %}
