@@ -123,7 +123,7 @@
                         <a class="nav-link" href="{% url 'profile' %}">{% if request.user.use_english %}Profile{% else %}Профиль{% endif %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'about_us' %}">{% if request.user.use_english %}Information about Us{% else %}Информация о нас{% endif %}</a>
+                        <a class="nav-link" href="{% url 'about_us' %}">{% if request.user.use_english %}About Us{% else %}Информация о нас{% endif %}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'UserList' %}">{% if request.user.use_english %}User list{% else %}Список пользователей{% endif %}</a>

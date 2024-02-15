@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="container">
-      <h1 style="text-align: center; padding-top:40px" class="white-text"><strong>Учебные материалы</strong></h1>
+      <h1 style="text-align: center; padding-top:40px" class="white-text"><strong>{% if request.user.use_english %}Study materials{% else %}Учебные материалы{% endif %}</strong></h1>
         <div class="album py-5">
             <div class="container">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
