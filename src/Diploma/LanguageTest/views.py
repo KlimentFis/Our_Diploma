@@ -1,3 +1,4 @@
+from random import randint, sample
 from django.http import HttpResponseNotAllowed
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import logout
@@ -7,6 +8,7 @@ from django.contrib.auth import get_user_model, login
 from django.utils import timezone
 from django.shortcuts import render, redirect
 from users.models import MyUser
+from words.models import Word
 
 # Create your views here.
 def index(request):
@@ -120,7 +122,59 @@ def letter_verification(request):
 
 @login_required
 def check_word(request):
-    return render(request, 'selectWord.html')
+    from random import shuffle
+
+    if 'random_word_id' not in request.session:
+        request.session['random_word_id'] = randint(1, Word.objects.count())
+
+    random_word_id = request.session['random_word_id']
+    random_word = Word.objects.get(pk=random_word_id)
+
+    random_words = Word.objects.exclude(pk=random_word_id).order_by('?')[:2]
+
+    # Создаем список из имен всех случайных слов
+    word_names = [word.name for word in random_words]
+
+    # Если правильное слово не входит в этот список, добавляем его
+    if random_word.name not in word_names:
+        random_words = list(random_words)
+        random_words.append(random_word)
+
+    context = {
+        'header': '',
+        'right': random_word,
+        'words': random_words,
+        'error': '',
+        'properly': '',
+        'proposal': f'{random_word.translate}'
+    }
+
+    if request.method == 'POST':
+        selected_word = request.POST.get('exampleRadios')
+        if selected_word == random_word.name:
+            context['properly'] = 'Вы молодец!'
+        else:
+            context['error'] = f'Правильное слово было: {random_word.name}'
+        # Выбираем новое случайное слово и обновляем его в сессии после каждой отправки формы
+        request.session['random_word_id'] = randint(1, Word.objects.count())
+        random_word = Word.objects.get(pk=request.session['random_word_id'])
+        context['right'] = random_word
+        context['proposal'] = random_word.translate
+
+    return render(request, 'selectWord.html', context)
+
+
+@login_required
+def check_suggestion(request):
+    context = {
+        'header': ''
+    }
+
+    if request.method == 'GET':
+        return render(request, 'insertWord.html', context)
+    else:
+        print(request.POST['exampleRadios'])
+        return render(request, 'insertWord.html', context)
 
 @login_required
 def userList(request):
