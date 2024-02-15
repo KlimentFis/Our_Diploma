@@ -2,37 +2,37 @@
 
 {% block content %}
 <div class="first-text white-text">
-    <h1 style="margin-bottom: 40px;">Диплом</h1>
+    <h1 style="margin-bottom: 40px;">{% if request.user.use_english %}Diploma{% else %}Диплом{% endif %}</h1>
 </div>
 <div class="container">
     <div class="alert alert-primary" role="alert">
-        <h2 class="h4" style="margin-bottom: 20px;">Зачем мы сделали данный проект:</h2>
+        <h2 class="h4" style="margin-bottom: 20px;">{% if request.user.use_english %}Why we did this project:{% else %}Зачем мы сделали данный проект:{% endif %}</h2>
     </div>
     <div class="alert alert-secondary" role="alert">
         <ul style="font-size: 18px;">
-            <li>Улучшение уровня владения английским языком</li>
-            <li>Демонстрация на примерах, а не сухая теория</li>
-            <li>Соревновательный момент</li>
-            <li>Новаторские тесты</li>
+            <li>{% if request.user.use_english %}Improvement of English language skills{% else %}Улучшение уровня владения английским языком{% endif %}</li>
+            <li>{% if request.user.use_english %}Demonstration with examples, not dry theory{% else %}Демонстрация на примерах, а не сухая теория{% endif %}</li>
+            <li>{% if request.user.use_english %}Competitive moment{% else %}Соревновательный момент{% endif %}</li>
+            <li>{% if request.user.use_english %}Innovative tests{% else %}Новаторские тесты{% endif %}</li>
         </ul>
     </div>
     <div class="alert alert-primary" role="alert">
-        <h2 class="h4" style="margin-bottom: 20px;">Что нас выделяет среди аналогов:</h2>
+        <h2 class="h4" style="margin-bottom: 20px;">{% if request.user.use_english %}What sets us apart from our peers:{% else %}Что нас выделяет среди аналогов:{% endif %}</h2>
     </div>
     <div class="alert alert-secondary" role="alert">
-        <p class="mb-3" style="font-size: 18px;">Мы не делаем упор на что-то одно, а стараемся прокачивать ваши навыки владения языком с помощью различных средств.</p>
+        <p class="mb-3" style="font-size: 18px;">{% if request.user.use_english %}We don't emphasize one thing over another, but try to pump up your language skills through a variety of mediums.{% else %}Мы не делаем упор на что-то одно, а стараемся прокачивать ваши навыки владения языком с помощью различных средств.{% endif %}</p>
     </div>
     <div class="alert alert-primary" role="alert">
-        <h2 class="h4" style="margin-bottom: 20px;">Структура сайта:</h2>
+        <h2 class="h4" style="margin-bottom: 20px;">{% if request.user.use_english %}Site Structure:{% else %}Структура сайта:{% endif %}</h2>
     </div>
     <div class="alert alert-secondary" style="margin-bottom: 40px;" role="alert" >
         <ul style="font-size: 18px;">
-            <li>Главная - описание нашего проекта</li>
-            <li>Тесты - страница для проверки ваших знаний</li>
-            <li>Профиль - страница с Вашими данными</li>
-            <li>Информация о нас - краткие описания о Нас</li>
-            <li>Список пользователей - список, с никнеймами всех пользователей</li>
-            <li>Ссылки на учебные материалы - ссылки на стороние источники, а так же ассациация к слову</li>
+            <li>{% if request.user.use_english %}Home - description of our project{% else %}Главная - описание нашего проекта{% endif %}</li>
+            <li>{% if request.user.use_english %}Tests - a page to test your knowledge{% else %}Тесты - страница для проверки ваших знаний{% endif %}</li>
+            <li>{% if request.user.use_english %}Profile - page with your data{% else %}Профиль - страница с Вашими данными{% endif %}</li>
+            <li>{% if request.user.use_english %}Information about Us - brief descriptions about Us{% else %}Информация о нас - краткие описания о Нас{% endif %}</li>
+            <li>{% if request.user.use_english %}User list - list with nicknames of all users{% else %}Список пользователей - список, с никнеймами всех пользователей{% endif %}</li>
+            <li>{% if request.user.use_english %}References to learning materials - links to outside sources, as well as word assocation{% else %}Ссылки на учебные материалы - ссылки на стороние источники, а так же ассациация к слову{% endif %}</li>
         </ul>
     </div>
 </div>

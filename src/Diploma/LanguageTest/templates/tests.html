@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="container">
-  <h1 class="white-text first-text"><strong>Тесты для прокачки языка</strong></h1>
+  <h1 class="white-text first-text"><strong>{% if request.user.use_english %}Tests to pump up the language{% else %}Тесты для прокачки языка{% endif %}</strong></h1>
     <div class="album py-5">
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -13,7 +13,7 @@
                             <h2 class="card-text" style="text-align: center;">
                                 <strong>
                                     <a href="{% url 'check_word' %}" style="text-decoration: none; color: inherit;">
-                                        Слова в контексте
+                                        {% if request.user.use_english %}Words in context{% else %}Слова в контексте{% endif %}
                                     </a>
                                 </strong>
                             </h2>
@@ -30,7 +30,7 @@
                             <h2 class="card-text" style="text-align: center;">
                                 <strong>
                                     <a href="{% url 'check_word' %}" style="text-decoration: none; color: inherit;">
-                                        Перевод слова
+                                        {% if request.user.use_english %}Translation of the word{% else %}Перевод слова{% endif %}
                                     </a>
                                 </strong>
                             </h2>
@@ -46,7 +46,7 @@
                                 <h2 class="card-text" style="text-align: center;">
                                     <strong>
                                         <a href="{% url 'letter_verification' %}" style="text-decoration: none; color: inherit;">
-                                            Проверка письма
+                                            {% if request.user.use_english %}Checking the email{% else %}Проверка письма{% endif %}
                                         </a>
                                     </strong>
                                 </h2>
