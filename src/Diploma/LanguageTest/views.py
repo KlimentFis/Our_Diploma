@@ -1,21 +1,14 @@
 from django.http import HttpResponseNotAllowed
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import logout
-from django.contrib.auth import authenticate, login
-from django.contrib.auth import get_user_model
-# from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
-from django.utils import timezone
 from django.contrib.auth import get_user_model, login
 from django.utils import timezone
 from django.shortcuts import render, redirect
-
-
-# Create your views here.
 from users.models import MyUser
 
-
+# Create your views here.
 def index(request):
     return render(request, 'index.html')
 

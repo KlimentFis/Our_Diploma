@@ -28,7 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 LOGOUT_REDIRECT_URL = '/'
-LOGIN_URL = '/login'
+LOGIN_URL = '/login_or_register'
 
 # Application definition
 
