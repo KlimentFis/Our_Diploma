@@ -120,6 +120,7 @@ def user_login(request):
 def letter_verification(request):
     return render(request, 'LetterVerification.html')
 
+@csrf_protect
 @login_required
 def check_word(request):
     if 'random_word_id' not in request.session:
@@ -128,9 +129,14 @@ def check_word(request):
     random_word_id = request.session['random_word_id']
     random_word = Word.objects.get(pk=random_word_id)
 
-    # Выбираем случайные слова, включая начальное слово
+    # Select other random words
     random_words = sample(list(Word.objects.exclude(pk=random_word_id)), 2)
+
+    # Append the random word
     random_words.append(random_word)
+
+    # Shuffle the list of words
+    shuffle(random_words)
 
     context = {
         'header': '',
@@ -148,23 +154,28 @@ def check_word(request):
         else:
             context['error'] = f'Правильное слово было: {random_word.name}'
 
-        # Выбираем новое случайное слово и обновляем его в сессии
+        # Choose a new random word and update it in the session
         request.session['random_word_id'] = randint(1, Word.objects.count())
 
         random_word_id = request.session['random_word_id']
         random_word = Word.objects.get(pk=random_word_id)
 
-        # Выбираем новые случайные слова, включая начальное слово
+        # Select new random words
         random_words = sample(list(Word.objects.exclude(pk=random_word_id)), 2)
+
+        # Append the random word
         random_words.append(random_word)
+
+        # Shuffle the list of words
+        shuffle(random_words)
 
         context['right'] = random_word
         context['proposal'] = random_word.translate
-        context['words'] = random_words  # Обновляем список слов
+        context['words'] = random_words  # Update the list of words
 
     return render(request, 'selectWord.html', context)
 
-
+@csrf_protect
 @login_required
 def check_suggestion(request):
     context = {
