@@ -75,6 +75,8 @@ def register(request):
             context['error'] = 'Пароли не совпадают!'
         elif len(password) < 8 or len(confirm_password) < 8:
             context['error'] = 'Пароль слишком короткий. Минимум 8 символов.'
+        elif len(nik) >=16:
+            context['error'] = 'Логин слишком длинный.'
         else:
             # Create a new user with the current date joined
             user = User.objects.create_user(username=nik, password=password, is_active=True, data_joined=timezone.now())
