@@ -57,9 +57,10 @@ def register(request):
     if request.method == 'GET':
         return render(request, 'register.html')
     else:
-        nik = request.POST.get('Nik', '')  # Get value of field "Nik" from POST request
-        password = request.POST.get('password', '')  # Get value of field "password" from POST request
-        confirm_password = request.POST.get('confirm_password', '')  # Get value of field "confirm_password" from POST request
+        nik = request.POST.get('Nik', '')  # Получение значения поля "Nik" из POST запроса
+        password = request.POST.get('password', '')  # Получение значения поля "password" из POST запроса
+        confirm_password = request.POST.get('confirm_password',
+                                            '')  # Получение значения поля "confirm_password" из POST запроса
 
         User = get_user_model()
         user = User.objects.filter(username=nik).first()
@@ -67,23 +68,27 @@ def register(request):
         context = {
             'error': '',
         }
+
         if user:
-            context['error'] = 'Такой пользователь уже есть!'
+            context['error'] = 'Такой пользователь уже существует!'
         elif not (nik and password and confirm_password):
             context['error'] = 'Введите данные!'
         elif password != confirm_password:
             context['error'] = 'Пароли не совпадают!'
         elif len(password) < 8 or len(confirm_password) < 8:
             context['error'] = 'Пароль слишком короткий. Минимум 8 символов.'
-        elif len(nik) >=16:
+        elif len(nik) >= 16:
             context['error'] = 'Логин слишком длинный.'
+        elif not password.isalnum():
+            context['error'] = 'Можно использовать буквы и цифры.'
+
         else:
-            # Create a new user with the current date joined
+            # Создание нового пользователя с текущей датой присоединения
             user = User.objects.create_user(username=nik, password=password, is_active=True, data_joined=timezone.now())
-            user.date_joined = timezone.now()  # Set the date joined
+            user.date_joined = timezone.now()  # Установка даты присоединения
             user.save()
-            login(request, user)  # Log in the user
-            # Redirect to another page if necessary
+            login(request, user)  # Вход пользователя в систему
+            # Перенаправление на другую страницу при необходимости
             return redirect('index')
 
         return render(request, 'register.html', context)
