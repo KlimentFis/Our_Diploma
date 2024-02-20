@@ -4,18 +4,17 @@
     <div class="container">
         <h1 class="white-text first-text" style="margin-bottom: 40px;"><strong>{% if request.user.use_english %}Pick the right word{% else %}Выберете правильное слово{% endif %}</strong></h1>
         <h2 class="text-white text-center mt-4">{% if request.user.use_english %}Word{% else %}Cлово{% endif %}:<br>{{ proposal }}</h2>
-        {% if properly %}
-        <div class="alert alert-success">
+    </div>
+    {% if properly %}
+        <div class="alert alert-success" style="margin-top: 40px;">
             {{properly}}
         </div>
         {% endif %}
         {% if error %}
-        <div class="alert alert-danger">
+        <div class="alert alert-danger" style="margin-top: 40px;">
             {{ error }}
         </div>
         {% endif %}
-    </div>
-
     <form method="post"> <!-- Добавлен тег формы -->
         {% csrf_token %}
         <div class="album py-5">

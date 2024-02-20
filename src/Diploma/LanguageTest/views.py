@@ -9,8 +9,12 @@ from django.utils import timezone
 from django.shortcuts import render, redirect
 from users.models import MyUser
 from words.models import Word
+from words.models import Suggestion
 
 # Create your views here.
+
+
+
 def index(request):
     return render(request, 'index.html')
 
@@ -59,8 +63,7 @@ def register(request):
     else:
         nik = request.POST.get('Nik', '')  # Получение значения поля "Nik" из POST запроса
         password = request.POST.get('password', '')  # Получение значения поля "password" из POST запроса
-        confirm_password = request.POST.get('confirm_password',
-                                            '')  # Получение значения поля "confirm_password" из POST запроса
+        confirm_password = request.POST.get('confirm_password','')  # Получение значения поля "confirm_password" из POST запроса
 
         User = get_user_model()
         user = User.objects.filter(username=nik).first()
@@ -78,10 +81,9 @@ def register(request):
         elif len(password) < 8 or len(confirm_password) < 8:
             context['error'] = 'Пароль слишком короткий. Минимум 8 символов.'
         elif len(nik) >= 16:
-            context['error'] = 'Логин слишком длинный.'
-        elif not password.isalnum():
-            context['error'] = 'Можно использовать буквы и цифры.'
-
+            context['error'] = 'Логин должен быть не длиннее 15 симв.'
+        elif not (password.isalnum() and confirm_password.isalnum() and nik.isalnum()):
+            context['error'] = 'Можно использовать только буквы и цифры.'
         else:
             # Создание нового пользователя с текущей датой присоединения
             user = User.objects.create_user(username=nik, password=password, is_active=True, data_joined=timezone.now())
@@ -186,14 +188,15 @@ def check_word(request):
 @login_required
 def check_suggestion(request):
     context = {
-        'header': ''
+        'header': '',
+        'right': '',
+        'words': '',
+        'error': '',
+        'properly': '',
+        'proposal': '',
     }
+    return render(request, 'insertWord.html', context)
 
-    if request.method == 'GET':
-        return render(request, 'insertWord.html', context)
-    else:
-        print(request.POST['exampleRadios'])
-        return render(request, 'insertWord.html', context)
 
 @login_required
 def userList(request):

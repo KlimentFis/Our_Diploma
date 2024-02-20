@@ -97,6 +97,23 @@
             margin-top: 40px;
         }
 
+        .exit {
+            color: red !important;
+        }
+
+        .exit:hover {
+            color: black !important;
+            background-color: red !important;
+        }
+
+        .nav-item {
+            border: 3px solid rgb(34, 37, 41); /* Добавляем рамку при наведении */
+        }
+
+        .nav-item:hover {
+            border: 3px solid rgb(57, 63, 71); /* Добавляем рамку при наведении */
+        }
+
     </style>
   <body>
     <nav class="navbar navbar-dark" style="background-color: rgb(33, 37, 41);">
@@ -133,7 +150,7 @@
                     </li>
                     {% if request.user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" onclick="exit()" style="color: red;">{% if request.user.use_english %}Exit{% else %}Выход{% endif %}</a>
+                        <a class="nav-link exit" onclick="exit()">{% if request.user.use_english %}Exit{% else %}Выход{% endif %}</a>
                     </li>
                     {% endif %}
                 </ul>

@@ -5,37 +5,23 @@
         <h1 class="white-text first-text" style="margin-bottom: 40px;"><strong>{% if request.user.use_english %}Pick the right word{% else %}Выберете правильное слово{% endif %}</strong></h1>
         <h2 class="text-white text-center mt-4">{% if request.user.use_english %}Suggestion{% else %}Предложение{% endif %}:<br>{{ proposal }}</h2>
     </div>
-    <div class="alert ">
-
+    <div class="alert">
     </div>
     <div class="album py-5">
         <div class="container">
             <form method="post"> <!-- Добавлено начало формы -->
-                <div class="alert alert-dark" role="alert">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                        <label class="form-check-label" for="exampleRadios1">
-                            ДА
-                        </label>
-                    </div>
-                </div>
-
-                <div class="alert alert-dark" role="alert">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                        <label class="form-check-label" for="exampleRadios2">
-                            НЕТ
-                        </label>
-                    </div>
-                </div>
-
-                <div class="alert alert-dark" role="alert">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-                        <label class="form-check-label" for="exampleRadios3">
-                            ЧАСТИЧНО
-                        </label>
-                    </div>
+                {% csrf_token %}
+                <div class="album py-5">
+                    {% for i in suggestion %}
+                        <div class="alert alert-dark" role="alert">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="{{ i.name }}">
+                                <label class="form-check-label" for="exampleRadios3">
+                                    {{ i.name }}
+                                </label>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
                 <div class="submit-button-container">
                     <div class="d-grid gap-2 d-flex justify-content-center">
