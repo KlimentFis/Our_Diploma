@@ -1,16 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container">
-    <div class="container">
-        <h1 class="white-text first-text" style="margin-bottom: 40px;"><strong>{% if request.user.use_english %}Pick the right word{% else %}Выберете правильное слово{% endif %}</strong></h1>
-        <h2 class="text-white text-center mt-4">{% if request.user.use_english %}Suggestion{% else %}Предложение{% endif %}:<br>{{ proposal }}</h2>
-    </div>
+    <h1 class="white-text first-text text-center mb-4">{% if request.user.use_english %}Pick the right word{% else %}Выберете правильное слово{% endif %}</h1>
+    <h2 class="text-white text-center mb-4">{% if request.user.use_english %}Suggestion{% else %}Предложение{% endif %}:<br>{{ proposal }}</h2>
     <div class="alert">
     </div>
-    <div class="album py-5">
-        <div class="container">
-            <form method="post"> <!-- Добавлено начало формы -->
-                {% csrf_token %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="row justify-content-center">
+            <div class="col-12 col-sm-8 col-md-6">
                 <div class="album py-5">
                     {% for i in suggestion %}
                         <div class="alert alert-dark" role="alert">
@@ -25,11 +23,11 @@
                 </div>
                 <div class="submit-button-container">
                     <div class="d-grid gap-2 d-flex justify-content-center">
-                        <button class="btn btn-primary btn-lg" type="submit">{% if request.user.use_english %}Send{% else %}Отправить{% endif %}</button> <!-- Заменено на кнопку -->
+                        <button class="btn btn-primary btn-lg" type="submit">{% if request.user.use_english %}Send{% else %}Отправить{% endif %}</button>
                     </div>
                 </div>
-            </form> <!-- Добавлено завершение формы -->
+            </div>
         </div>
-    </div>
+    </form>
 </div>
 {% endblock %}
