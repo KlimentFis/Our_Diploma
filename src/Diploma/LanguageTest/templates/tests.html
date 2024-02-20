@@ -8,7 +8,10 @@
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 <div class="col">
                     <div class="card shadow-sm">
-                        <img src="https://static.tildacdn.com/tild6131-3934-4262-b133-323932363738/566655-english-class.png" alt="">
+                        {% load static %}
+                        <a href="{% url 'check_suggestion' %}">
+                            <img src="https://static.tildacdn.com/tild6131-3934-4262-b133-323932363738/566655-english-class.png" alt="">
+                        </a>
                         <div class="card-body">
                             <h2 class="card-text" style="text-align: center;">
                                 <strong>
@@ -17,15 +20,14 @@
                                     </a>
                                 </strong>
                             </h2>
-                        <div class="d-flex justify-content-between align-items-center">
                         </div>
                     </div>
                 </div>
-            </div>
                 <div class="col">
                     <div class="card shadow-sm">
-                        {% load static %}
-                        <img src="{% static 'cvety-romashki-klyuch-staryj-cvetok-vint-1515836.jpg' %}" alt="">
+                        <a href="{% url 'check_word' %}">
+                            <img src="{% static 'cvety-romashki-klyuch-staryj-cvetok-vint-1515836.jpg' %}" alt="">
+                        </a>
                         <div class="card-body">
                             <h2 class="card-text" style="text-align: center;">
                                 <strong>
@@ -34,24 +36,22 @@
                                     </a>
                                 </strong>
                             </h2>
-                          <div class="d-flex justify-content-between align-items-center">
-                        </div>
                         </div>
                     </div>
                 </div>
                 <div class="col">
                     <div class="card shadow-sm">
-                        <img src="{% static 'recommendationLetters.jpg' %}" alt="">
-                            <div class="card-body">
-                                <h2 class="card-text" style="text-align: center;">
-                                    <strong>
-                                        <a href="{% url 'letter_verification' %}" style="text-decoration: none; color: inherit;">
-                                            {% if request.user.use_english %}Checking the email{% else %}Проверка письма{% endif %}
-                                        </a>
-                                    </strong>
-                                </h2>
-                                <div class="d-flex justify-content-between align-items-center"></div>
-                            </div>
+                        <a href="{% url 'letter_verification' %}">
+                            <img src="{% static 'recommendationLetters.jpg' %}" alt="">
+                        </a>
+                        <div class="card-body">
+                            <h2 class="card-text" style="text-align: center;">
+                                <strong>
+                                    <a href="{% url 'letter_verification' %}" style="text-decoration: none; color: inherit;">
+                                        {% if request.user.use_english %}Checking the email{% else %}Проверка письма{% endif %}
+                                    </a>
+                                </strong>
+                            </h2>
                         </div>
                     </div>
                 </div>
