@@ -1,5 +1,5 @@
 from random import randint, sample, shuffle
-from django.http import HttpResponseNotAllowed
+from django.http import HttpResponseNotAllowed, HttpResponseForbidden
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate
@@ -148,7 +148,6 @@ def check_word(request):
     shuffle(random_words)
 
     context = {
-        'header': '',
         'right': random_word,
         'words': random_words,
         'error': '',
@@ -187,14 +186,17 @@ def check_word(request):
 @csrf_protect
 @login_required
 def check_suggestion(request):
+
+
+
     context = {
-        'header': '',
         'right': '',
+        'suggestion': 'Test',
         'words': '',
         'error': '',
         'properly': '',
-        'proposal': '',
     }
+
     return render(request, 'insertWord.html', context)
 
 

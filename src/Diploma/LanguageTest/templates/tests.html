@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="container">
-  <h1 class="white-text first-text"><strong>{% if request.user.use_english %}Tests to pump up the language{% else %}Тесты для прокачки языка{% endif %}</strong></h1>
+    <h1 class="white-text first-text"><strong>{% if request.user.use_english %}Tests to pump up the language{% else %}Тесты для прокачки языка{% endif %}</strong></h1>
     <div class="album py-5">
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -13,7 +13,7 @@
                             <img src="https://static.tildacdn.com/tild6131-3934-4262-b133-323932363738/566655-english-class.png" alt="">
                         </a>
                         <div class="card-body">
-                            <h2 class="card-text" style="text-align: center;">
+                            <h2 class="card-text" style="text-align: center; font-size: 1.25rem;">
                                 <strong>
                                     <a href="{% url 'check_suggestion' %}" style="text-decoration: none; color: inherit;">
                                         {% if request.user.use_english %}Words in context{% else %}Слова в контексте{% endif %}
@@ -29,7 +29,7 @@
                             <img src="{% static 'cvety-romashki-klyuch-staryj-cvetok-vint-1515836.jpg' %}" alt="">
                         </a>
                         <div class="card-body">
-                            <h2 class="card-text" style="text-align: center;">
+                            <h2 class="card-text" style="text-align: center; font-size: 1.25rem;">
                                 <strong>
                                     <a href="{% url 'check_word' %}" style="text-decoration: none; color: inherit;">
                                         {% if request.user.use_english %}Translation of the word{% else %}Перевод слова{% endif %}
@@ -45,7 +45,7 @@
                             <img src="{% static 'recommendationLetters.jpg' %}" alt="">
                         </a>
                         <div class="card-body">
-                            <h2 class="card-text" style="text-align: center;">
+                            <h2 class="card-text" style="text-align: center; font-size: 1.25rem;">
                                 <strong>
                                     <a href="{% url 'letter_verification' %}" style="text-decoration: none; color: inherit;">
                                         {% if request.user.use_english %}Checking the email{% else %}Проверка письма{% endif %}
