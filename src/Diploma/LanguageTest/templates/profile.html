@@ -13,13 +13,13 @@
             {% csrf_token %}
             <div class="alert alert-dark" role="alert" style="margin-top: 50px;">
                 <h4>{% if request.user.use_english %}Last name: {% else %}Фамилия: {% endif %}
-                    <input type="text" class="form-control" placeholder="{% if request.user.use_english %}LastName{% else %}Имя{% endif %}" aria-label="FirstName" aria-describedby="basic-addon1" name="LastName" value="{{ request.user.last_name }}">
+                    <input type="text" class="form-control" placeholder="{% if request.user.use_english %}LastName{% else %}Фамилия{% endif %}" aria-label="LastName" aria-describedby="basic-addon1" name="LastName" value="{{ request.user.last_name }}">
                 </h4>
             </div>
 
             <div class="alert alert-dark" role="alert">
                 <h4>{% if request.user.use_english %}First name: {% else %}Имя: {% endif %}
-                    <input type="text" class="form-control" placeholder="{% if request.user.use_english %}FirstName{% else %}Фамилия{% endif %}" aria-label="LastName" aria-describedby="basic-addon1" name="FirstName" value="{{ request.user.first_name }}">
+                    <input type="text" class="form-control" placeholder="{% if request.user.use_english %}FirstName{% else %}Имя{% endif %}" aria-label="FirstName" aria-describedby="basic-addon1" name="FirstName" value="{{ request.user.first_name }}">
                 </h4>
             </div>
 

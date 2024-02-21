@@ -192,7 +192,7 @@ def check_suggestion(request):
     context = {
         'right': '',
         'suggestion': 'Test',
-        'words': '',
+        'words': Suggestion,
         'error': '',
         'properly': '',
     }

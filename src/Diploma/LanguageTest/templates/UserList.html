@@ -12,24 +12,14 @@
         <div class="alert {% if forloop.counter|divisibleby:2 %}alert-primary {% else %}alert-secondary {% endif %}" role="alert">
             <h4>
                 <strong>
-                    {{ user.username }}
+                    {% if request.user.use_english %}User: {% else %}Пользователь: {% endif %}{{ user.username }}
+                </strong>
+                <br>
+                <strong>
+                    {% if request.user.use_english %}L.F.P: {% else %} <br>Ф.И.О: {% endif %}{{ request.user.last_name }} {{ request.user.first_name.0 }}. {{ request.user.patronymic.0 }}.
                 </strong>
             </h4>
         </div>
     {% endfor %}
-
-<!--    {% if users is not null  %}-->
-<!--        {% for user in users %}-->
-<!--            <div class="alert {% if forloop.counter|divisibleby:2 %}alert-primary {% else %}alert-secondary {% endif %}" role="alert">-->
-<!--                <h4>-->
-<!--                    <strong>-->
-<!--                        {{ user.username }}-->
-<!--                    </strong>-->
-<!--                </h4>-->
-<!--            </div>-->
-<!--        {% endfor %}-->
-<!--    {% else %}-->
-<!--        Кроме вас пользователей нет !!!-->
-<!--    {% endif %}-->
 </div>
 {% endblock %}
