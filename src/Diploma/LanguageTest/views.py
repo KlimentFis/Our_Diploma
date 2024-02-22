@@ -180,14 +180,16 @@ def check_word(request):
             request.user.save()  # Сохранение изменений
             context['error'] = f'Правильное слово было: {random_word.name}'
 
-        # Choose a new random word and update it in the session
-        request.session['random_word_id'] = randint(1, Word.objects.count())
+        # Выбираем новое случайное слово, не совпадающее с предыдущим
+        new_random_word_id = random_word_id
+        while new_random_word_id == random_word_id:
+            new_random_word_id = randint(1, Word.objects.count())
 
-        random_word_id = request.session['random_word_id']
-        random_word = Word.objects.get(pk=random_word_id)
+        request.session['random_word_id'] = new_random_word_id
+        random_word = Word.objects.get(pk=new_random_word_id)
 
         # Select new random words
-        random_words = sample(list(Word.objects.exclude(pk=random_word_id)), 2)
+        random_words = sample(list(Word.objects.exclude(pk=new_random_word_id)), 2)
 
         # Append the random word
         random_words.append(random_word)
@@ -210,11 +212,18 @@ def check_suggestion(request):
     # Создаем копию предложения для замены правильного слова на многоточие
     replaced_suggestion = suggestion.suggestion.replace(suggestion.right_word, '...')
 
-    # Получаем слова для выбора
-    # words = Suggestion.objects.all()[:4]  # Предполагается, что у вас есть модель Word
-    words = suggestion.right_word
+    # Получаем список из случайных трех элементов, включая правильное слово
+    words = [suggestion.right_word] + [suggestion.right_word]
 
-    return render(request, 'insertWord.html', {'suggestion': replaced_suggestion, 'words': words})
+    # Получаем еще два случайных слова
+    other_words = list(Suggestion.objects.exclude(right_word=suggestion.right_word))
+    if len(other_words) >= 2:
+        words.extend(sample(other_words, 2))
+    else:
+        # Если в списке меньше двух слов, добавляем все остальные
+        words.extend(other_words)
+
+    return render(request, 'insertWord.html', {'suggestion': replaced_suggestion, 'words': sample(words, len(words))})
 
 @login_required
 def userList(request):
