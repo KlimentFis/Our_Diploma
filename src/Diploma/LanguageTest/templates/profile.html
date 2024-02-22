@@ -3,7 +3,12 @@
     <div class="container">
         <h1 class="white-text first-text" style="margin-bottom: 40px;">{% if request.user.use_english %}Personal profile{% else %}Личный профиль{% endif %}</h1>
         <div style="background-color: grey; width: 310px; border: 5px solid black; border-radius: 25px; margin: 0 auto;">
-            <img src="https://storage.googleapis.com/multi-static-content/previews/artage-io-thumb-198da939ef8b67952b65bebae63855c4.png" alt="" style="height:300px;">
+            {% load static %}
+            {% if request.user.image %}
+                <img id="user-image" src="{{ request.user.image.url }}" alt="" style="height:300px;">
+            {% else %}
+                <img id="user-image" src="{% static 'чел.png' %}" alt="" style="height:300px;">
+            {% endif %}
         </div>
         <div class="text-center">
             <h2 style="align: center; color: white;">{{ request.user.username }}</h2>
@@ -32,6 +37,11 @@
             <input type="checkbox" {% if request.user.use_english %} checked {% endif %} aria-label="UseEnglish" name="UseEnglish">
             <strong class="checkbox-label" style="color: white; font-size: 20px;">
                 {% if not request.user.use_english %} Use English for interface{% else %} Использовать Английский язык для интерфейса{% endif %}
+            </strong>
+            <br>
+            <input type="checkbox" {% if request.user.anonymous %} checked {% endif %} aria-label="Anonymous" name="Anonymous">
+            <strong class="checkbox-label" style="color: white; font-size: 20px;">
+                {% if request.user.use_english %} Anonymous{% else %} Анонимный пользователь{% endif %}
             </strong>
             <input type="submit" value="{% if request.user.use_english %}Save{% else %}Сохранить{% endif %}" style="background-color: white; border-radius: 5px; border: 3px solid lightskyblue; font-weight: bold; font-size: 20px; color: grey; display: block; margin: 2vh auto 15px;">
         </form>
@@ -66,6 +76,38 @@
           </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById("user-image").addEventListener("click", function() {
+            var input = document.createElement("input");
+            input.setAttribute("type", "file");
+            input.click();
+
+            input.addEventListener("change", function() {
+                var file = input.files[0];
+                if (file) {
+                    var formData = new FormData();
+                    formData.append("image", file);
+
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "{% url 'upload_image' %}", true);
+                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === XMLHttpRequest.DONE) {
+                            if (xhr.status === 200) {
+                                var responseData = JSON.parse(xhr.responseText);
+                                document.getElementById("user-image").src = responseData.image_url;
+                            } else {
+                                console.error("Error:", xhr.status);
+                            }
+                        }
+                    };
+                    xhr.send(formData);
+                }
+            });
+        });
+    </script>
+
 
     <script>
         function confirmDelete() {

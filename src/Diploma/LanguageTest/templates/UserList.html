@@ -1,22 +1,46 @@
 {% extends 'base.html' %}
-{% block content %}
-<style>
-    .f:hover {
-        color: grey;
-    }
-</style>
 
+{% load static %}
+
+{% block content %}
 <div class="container">
-    <h1 class="white-text first-text" style="text-align: center; margin-bottom: 40px;">{% if request.user.use_english %}User list{% else %}Список пользователей{% endif %}</h1>
+    <h1 class="white-text first-text" style="text-align: center; margin-bottom: 40px;">
+        {% if request.user.use_english %}
+            User list
+        {% else %}
+            Список пользователей
+        {% endif %}
+    </h1>
     {% for user in users %}
-        <div class="alert {% if forloop.counter|divisibleby:2 %}alert-primary {% else %}alert-secondary {% endif %}" role="alert">
+        <div class="alert {% cycle 'alert-primary' 'alert-secondary' %}" role="alert">
+            {% if user.image %}
+                <img class="user-image" src="{{ user.image.url }}" alt="" style="height:300px;">
+            {% else %}
+                <img class="user-image" src="{% static 'чел.png' %}" alt="" style="height:300px;">
+            {% endif %}
             <h4>
                 <strong>
-                    {% if request.user.use_english %}User: {% else %}Пользователь: {% endif %}{{ user.username }}
+                    {% if request.user.use_english %}
+                        User: {{ user.username }}
+                    {% else %}
+                        Пользователь: {{ user.username }}
+                    {% endif %}
                 </strong>
                 <br>
                 <strong>
-                    {% if request.user.use_english %}L.F.P: {% else %} <br>Ф.И.О: {% endif %}{{ request.user.last_name }} {{ request.user.first_name.0 }}. {{ request.user.patronymic.0 }}.
+                    {% if not user.anonymous %}
+                        {% if request.user.use_english %}
+                            L.F.P: {% if user.last_name and user.first_name.0 and user.patronymic.0 %}{{ user.last_name }} {{ user.first_name.0 }}. {{ user.patronymic.0 }}.{% else %}Not filled{% endif %}
+                        {% else %}
+                            Ф.И.О: {% if user.last_name and user.first_name.0 and user.patronymic.0 %}{{ user.last_name }} {{ user.first_name.0 }}. {{ user.patronymic.0 }}.{% else %}Не заполнено{% endif %}
+                        {% endif %}
+                    {% else %}
+                        {% if request.user.use_english %}
+                            Anonymous User
+                        {% else %}
+                            Анонимный пользователь
+                        {% endif %}
+                    {% endif %}
                 </strong>
             </h4>
         </div>

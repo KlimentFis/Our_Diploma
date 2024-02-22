@@ -21,10 +21,11 @@ from django.contrib.auth import views as auth_views
 from LanguageTest.views import index, links, about_us, \
     profile, register, letter_verification, check_word, \
     user_login, userList, translateWord, login_or_register, \
-    tests, logout, delete_accaunt, index, check_suggestion
+    tests, logout, delete_accaunt, index, check_suggestion, upload_image
 
 urlpatterns = [
     path('index/', index, name='index'),
+    path('upload/', upload_image, name='upload_image'),
     path('admin/', admin.site.urls),
     path('', login_or_register, name='index'),
     path('tests/', tests, name='tests'),
@@ -45,3 +46,4 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

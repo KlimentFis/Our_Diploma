@@ -1,5 +1,6 @@
-from random import randint, sample, shuffle
-from django.http import HttpResponseNotAllowed, HttpResponseForbidden
+import re
+from random import randint, sample, shuffle, random
+from django.http import HttpResponseNotAllowed, HttpResponseForbidden, JsonResponse
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate
@@ -12,8 +13,6 @@ from words.models import Word
 from words.models import Suggestion
 
 # Create your views here.
-
-
 
 def index(request):
     return render(request, 'index.html')
@@ -41,20 +40,37 @@ def profile(request):
         FirstName = request.POST.get('FirstName', '')
         Patronymic = request.POST.get('Patronymic', '')
         UseEnglish = request.POST.get('UseEnglish', False)
+        Anonymous = request.POST.get('Anonymous', False)
 
         if UseEnglish == 'on':
             UseEnglish = True
         else:
             UseEnglish = False
 
+        if Anonymous == 'on':
+            Anonymous = True
+        else:
+            Anonymous = False
+
         user.last_name = LastName
         user.first_name = FirstName
         user.patronymic = Patronymic
         user.use_english = UseEnglish
+        user.anonymous = Anonymous
 
         user.save()
 
         return redirect('profile')
+
+def field_check(text):
+    # Паттерн для поиска специальных символов
+    pattern = r'[!@#$%^&*()_+{}\[\]:;<>,.?/\\|~`\-=" ]'
+
+    # Проверяем текст на наличие специальных символов
+    if re.search(pattern, text):
+        return False
+    else:
+        return True
 
 @csrf_protect
 def register(request):
@@ -82,7 +98,7 @@ def register(request):
             context['error'] = 'Пароль слишком короткий. Минимум 8 символов.'
         elif len(nik) >= 16:
             context['error'] = 'Логин должен быть не длиннее 15 симв.'
-        elif not (password.isalnum() and confirm_password.isalnum() and nik.isalnum()):
+        elif not (field_check(password) and field_check(confirm_password) and field_check(nik)):
             context['error'] = 'Можно использовать только буквы и цифры.'
         else:
             # Создание нового пользователя с текущей датой присоединения
@@ -94,8 +110,6 @@ def register(request):
             return redirect('index')
 
         return render(request, 'register.html', context)
-
-
 
 @csrf_protect
 def user_login(request):
@@ -186,19 +200,17 @@ def check_word(request):
 @csrf_protect
 @login_required
 def check_suggestion(request):
-
-
+    random_suggestion = random.sample(Suggestion.all(), 3)
 
     context = {
-        'right': '',
-        'suggestion': 'Test',
-        'words': Suggestion,
-        'error': '',
-        'properly': '',
+        'right': random_suggestion.right_word,
+        'suggestion': random_suggestion,
+        # 'words': ,
+        # 'error': '',
+        # 'properly': '',
     }
 
     return render(request, 'insertWord.html', context)
-
 
 @login_required
 def userList(request):
@@ -221,6 +233,16 @@ def login_or_register(request):
 def user_logout(request):
     logout(request)
     return redirect('login_or_register')
+
+def upload_image(request):
+    if request.method == 'POST' and request.FILES:
+        image_file = request.FILES['image']
+        # Сохраняем изображение на сервере, например, в базе данных или файловой системе
+        # Пример для сохранения в модели пользователя
+        request.user.image = image_file
+        request.user.save()
+        return JsonResponse({'image_url': request.user.image.url})
+    return JsonResponse({'error': 'No image provided'}, status=400)
 
 @csrf_protect
 @login_required
