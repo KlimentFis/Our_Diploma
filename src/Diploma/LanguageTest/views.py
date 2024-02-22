@@ -174,7 +174,7 @@ def check_word(request):
         if selected_word == random_word.name:
             request.user.right_answers += 1
             request.user.save()  # Сохранение изменений
-            context['properly'] = 'Вы молодец!'
+            context['properly'] = 'Вы молодец! Правильный ответ!'
         else:
             request.user.wrong_answers += 1
             request.user.save()  # Сохранение изменений
@@ -206,14 +206,17 @@ def check_word(request):
 @csrf_protect
 @login_required
 def check_suggestion(request):
-    # Получаем случайное предложение
-    suggestion = Suggestion.objects.order_by('?').first()
+    if 'random_suggestion_id' not in request.session:
+        request.session['random_suggestion_id'] = randint(1, Suggestion.objects.count())
+
+    random_suggestion_id = request.session['random_suggestion_id']
+    random_suggestion = Suggestion.objects.get(pk=random_suggestion_id)
 
     # Получаем правильное слово из поля right_word
-    right_word = suggestion.right_word
+    right_word = random_suggestion.right_word
 
     # Создаем копию предложения для замены правильного слова на многоточие
-    replaced_suggestion = suggestion.suggestion.replace(right_word, '...')
+    replaced_suggestion = random_suggestion.suggestion.replace(right_word, '...')
 
     # Получаем список из правильного слова и еще двух случайных слов
     words = [right_word]
@@ -223,7 +226,46 @@ def check_suggestion(request):
     for other_suggestion in other_suggestions:
         words.append(other_suggestion.right_word)
 
-    return render(request, 'insertWord.html', {'suggestion': replaced_suggestion, 'words': words})
+    context = {
+        'suggestion': replaced_suggestion,
+        'words': words,
+        'error': '',
+        'properly': '',
+        'proposal': right_word  # Предполагая, что здесь должен быть перевод
+    }
+
+    if request.method == 'POST':
+        selected_word = request.POST.get('exampleRadios')
+        if selected_word == right_word:
+            request.user.right_answers += 1
+            request.user.save()  # Сохранение изменений
+            context['properly'] = 'Вы молодец! Правильный ответ!'
+        else:
+            request.user.wrong_answers += 1
+            request.user.save()  # Сохранение изменений
+            context['error'] = f'Правильное слово было: {right_word}'
+
+        # Выбираем новое случайное слово, не совпадающее с предыдущим
+        new_random_suggestion_id = random_suggestion_id
+        while new_random_suggestion_id == random_suggestion_id:
+            new_random_suggestion_id = randint(1, Suggestion.objects.count())
+
+        request.session['random_suggestion_id'] = new_random_suggestion_id
+
+        # Обновляем информацию о случайном предложении
+        random_suggestion = Suggestion.objects.get(pk=new_random_suggestion_id)
+        right_word = random_suggestion.right_word
+        replaced_suggestion = random_suggestion.suggestion.replace(right_word, '...')
+        words = [right_word]
+        other_suggestions = Suggestion.objects.exclude(right_word=right_word).order_by('?')[:2]
+        for other_suggestion in other_suggestions:
+            words.append(other_suggestion.right_word)
+
+        context['suggestion'] = replaced_suggestion
+        context['words'] = words
+        context['proposal'] = right_word  # Предполагая, что здесь должен быть перевод
+
+    return render(request, 'insertWord.html', context)
 
 @login_required
 def userList(request):

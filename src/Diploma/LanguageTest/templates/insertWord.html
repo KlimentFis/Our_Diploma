@@ -3,8 +3,16 @@
 <div class="container">
     <h1 class="white-text first-text text-center mb-4">{% if request.user.use_english %}Pick the right word{% else %}Выберете правильное слово{% endif %}</h1>
     <h2 class="text-white text-center mb-4">{% if request.user.use_english %}Suggestion{% else %}Предложение{% endif %}:<br>{{ suggestion }}</h2>
-    <div class="alert">
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
     </div>
+    {% endif %}
+    {% if properly %}
+    <div class="alert alert-success" role="alert">
+        {{ properly }}
+    </div>
+    {% endif %}
     <form method="post" id="wordForm" onsubmit="return validateForm()">
     {% csrf_token %}
         <div class="row justify-content-center">
@@ -12,7 +20,7 @@
                 {% for i in words %}
                     <div class="alert alert-dark" role="alert">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios{{ forloop.counter }}" value="{{ i.name }}">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios{{ forloop.counter }}" value="{{ i }}">
                             <label class="form-check-label col-12" for="exampleRadios{{ forloop.counter }}">
                                 {{ i }}
                             </label>
