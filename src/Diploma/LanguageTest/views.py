@@ -172,8 +172,12 @@ def check_word(request):
     if request.method == 'POST':
         selected_word = request.POST.get('exampleRadios')
         if selected_word == random_word.name:
+            request.user.right_answers += 1
+            request.user.save()  # Сохранение изменений
             context['properly'] = 'Вы молодец!'
         else:
+            request.user.wrong_answers += 1
+            request.user.save()  # Сохранение изменений
             context['error'] = f'Правильное слово было: {random_word.name}'
 
         # Choose a new random word and update it in the session
@@ -200,21 +204,22 @@ def check_word(request):
 @csrf_protect
 @login_required
 def check_suggestion(request):
-    random_suggestion = random.sample(Suggestion.all(), 3)
+    # Получаем случайное предложение
+    suggestion = Suggestion.objects.order_by('?').first()
 
-    context = {
-        'right': random_suggestion.right_word,
-        'suggestion': random_suggestion,
-        # 'words': ,
-        # 'error': '',
-        # 'properly': '',
-    }
+    # Создаем копию предложения для замены правильного слова на многоточие
+    replaced_suggestion = suggestion.suggestion.replace(suggestion.right_word, '...')
 
-    return render(request, 'insertWord.html', context)
+    # Получаем слова для выбора
+    # words = Suggestion.objects.all()[:4]  # Предполагается, что у вас есть модель Word
+    words = suggestion.right_word
+
+    return render(request, 'insertWord.html', {'suggestion': replaced_suggestion, 'words': words})
 
 @login_required
 def userList(request):
-    users = MyUser.objects.filter(is_staff=False).exclude(username=request.user.username)
+    # users = MyUser.objects.filter(is_staff=False).exclude(username=request.user.username)
+    users = MyUser.objects.filter(is_staff=False)
     context = {
         'users': users
     }

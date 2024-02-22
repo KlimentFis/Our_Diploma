@@ -8,3 +8,5 @@ class MyUser(AbstractUser):
     use_english = models.BooleanField(default=False, blank=True)
     anonymous = models.BooleanField(default=False, blank=False)
     data_joined = models.DateTimeField(null=True, blank=True)
+    right_answers = models.IntegerField(default=0, blank=True)
+    wrong_answers = models.IntegerField(default=0, blank=True)

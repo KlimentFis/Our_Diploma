@@ -3,31 +3,60 @@
 {% load static %}
 
 {% block content %}
+<style>
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .user-card {
+        width: 300px;
+        margin: 20px;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        background-color: #f0f0f0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-height: 400px;
+        overflow: auto;
+    }
+
+    .user-image {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+    }
+
+    .user-name {
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
+    .user-info {
+        margin: 0;
+    }
+</style>
+
 <div class="container">
-    <h1 class="white-text first-text" style="text-align: center; margin-bottom: 40px;">
-        {% if request.user.use_english %}
-            User list
-        {% else %}
-            Список пользователей
-        {% endif %}
-    </h1>
     {% for user in users %}
-        <div class="alert {% cycle 'alert-primary' 'alert-secondary' %}" role="alert">
-            {% if user.image %}
-                <img class="user-image" src="{{ user.image.url }}" alt="" style="height:300px;">
-            {% else %}
-                <img class="user-image" src="{% static 'чел.png' %}" alt="" style="height:300px;">
-            {% endif %}
-            <h4>
-                <strong>
+        <div class="user-card">
+            <div class="user-image-container">
+                {% if user.image %}
+                    <img class="user-image" src="{{ user.image.url }}" alt="">
+                {% else %}
+                    <img class="user-image" src="{% static 'чел.png' %}" alt="">
+                {% endif %}
+            </div>
+            <div class="user-details">
+                <h2 class="user-name">
                     {% if request.user.use_english %}
-                        User: {{ user.username }}
+                        User:<br>{{ user.username }}
                     {% else %}
-                        Пользователь: {{ user.username }}
+                        Пользователь:<br>{{ user.username }}
                     {% endif %}
-                </strong>
-                <br>
-                <strong>
+                </h2>
+                <p class="user-info">
                     {% if not user.anonymous %}
                         {% if request.user.use_english %}
                             L.F.P: {% if user.last_name and user.first_name.0 and user.patronymic.0 %}{{ user.last_name }} {{ user.first_name.0 }}. {{ user.patronymic.0 }}.{% else %}Not filled{% endif %}
@@ -41,8 +70,17 @@
                             Анонимный пользователь
                         {% endif %}
                     {% endif %}
-                </strong>
-            </h4>
+                </p>
+                <p class="user-info">
+                    {% if request.user.use_english %}
+                        Right answers: {{ user.right_answers }} <br>
+                        Wrong answers: {{ user.wrong_answers }}
+                    {% else %}
+                        Правильные ответы: {{ user.right_answers }} <br>
+                        Не правильные ответы: {{ user.wrong_answers }}
+                    {% endif %}
+                </p>
+            </div>
         </div>
     {% endfor %}
 </div>

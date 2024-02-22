@@ -12,4 +12,4 @@ class Suggestion(models.Model):  # Исправлено: добавлено 'Mod
     right_word = models.CharField(max_length=100, blank=False)  # Исправлено: добавлен 'max_length'
 
     def __str__(self):
-        return f"{self.suggestion} - {self.right_word}"
+        return f"{self.suggestion}"
