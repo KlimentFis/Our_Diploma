@@ -209,21 +209,21 @@ def check_suggestion(request):
     # Получаем случайное предложение
     suggestion = Suggestion.objects.order_by('?').first()
 
+    # Получаем правильное слово из поля right_word
+    right_word = suggestion.right_word
+
     # Создаем копию предложения для замены правильного слова на многоточие
-    replaced_suggestion = suggestion.suggestion.replace(suggestion.right_word, '...')
+    replaced_suggestion = suggestion.suggestion.replace(right_word, '...')
 
-    # Получаем список из случайных трех элементов, включая правильное слово
-    words = [suggestion.right_word] + [suggestion.right_word]
+    # Получаем список из правильного слова и еще двух случайных слов
+    words = [right_word]
 
-    # Получаем еще два случайных слова
-    other_words = list(Suggestion.objects.exclude(right_word=suggestion.right_word))
-    if len(other_words) >= 2:
-        words.extend(sample(other_words, 2))
-    else:
-        # Если в списке меньше двух слов, добавляем все остальные
-        words.extend(other_words)
+    # Получаем случайные предложения для вставки
+    other_suggestions = Suggestion.objects.exclude(right_word=right_word).order_by('?')[:2]
+    for other_suggestion in other_suggestions:
+        words.append(other_suggestion.right_word)
 
-    return render(request, 'insertWord.html', {'suggestion': replaced_suggestion, 'words': sample(words, len(words))})
+    return render(request, 'insertWord.html', {'suggestion': replaced_suggestion, 'words': words})
 
 @login_required
 def userList(request):
