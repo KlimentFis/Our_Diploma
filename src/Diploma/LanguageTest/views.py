@@ -1,7 +1,7 @@
 import re
 from random import randint, sample, shuffle, random
 from django.http import HttpResponseNotAllowed, HttpResponseForbidden, JsonResponse
-from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
@@ -14,25 +14,31 @@ from words.models import Suggestion
 
 # Create your views here.
 
+def check_auth(request, text):
+    if not request.user.is_authenticated:
+        context = {
+            "error": text
+        }
+        return render(request, 'login_or_register.html', context)
+    return None  # Возвращаем None если пользователь авторизован
+
 def index(request):
     return render(request, 'index.html')
 
-@login_required
 def tests(request):
     return render(request, 'tests.html')
 
-@login_required
 def links(request):
     return render(request, 'links.html')
 
-@login_required
 def about_us(request):
     return render(request, 'about_as.html')
 
-@login_required
 def profile(request):
+    error = check_auth(request, "Необходимо авторизоваться!")
+    if error:
+        return error
     user = request.user
-
     if request.method == 'GET':
         return render(request, 'profile.html', {'user': user})
     else:
@@ -139,13 +145,21 @@ def user_login(request):
 
         return render(request, 'login.html', context)
 
-@login_required
+@csrf_exempt
 def letter_verification(request):
-    return render(request, 'LetterVerification.html')
+    error = check_auth(request, "Необходимо авторизоваться!")
+    if request.method == 'GET':
+        return render(request, 'LetterVerification.html')
+    elif request.method == 'POST':
+        # colored_text = '<span style="color: red;">Пошло всё нахуй</span>'
+        context = {'text': request.POST.get('not_checked_text', '')}
+        return render(request, 'LetterVerification.html', context)
 
 @csrf_protect
-@login_required
 def check_word(request):
+    error = check_auth(request, "Необходимо авторизоваться!")
+    if error:
+        return error
     if 'random_word_id' not in request.session:
         request.session['random_word_id'] = randint(1, Word.objects.count())
 
@@ -204,8 +218,10 @@ def check_word(request):
     return render(request, 'selectWord.html', context)
 
 @csrf_protect
-@login_required
 def check_suggestion(request):
+    error = check_auth(request, "Необходимо авторизоваться!")
+    if error:
+        return error
     if 'random_suggestion_id' not in request.session:
         request.session['random_suggestion_id'] = randint(1, Suggestion.objects.count())
 
@@ -267,9 +283,11 @@ def check_suggestion(request):
 
     return render(request, 'insertWord.html', context)
 
-@login_required
+
 def userList(request):
-    # users = MyUser.objects.filter(is_staff=False).exclude(username=request.user.username)
+    error = check_auth(request, "Необходимо авторизоваться!")
+    if error:
+        return error
     users = MyUser.objects.filter(is_staff=False)
     context = {
         'users': users

@@ -124,7 +124,7 @@
                 <div class="collapse navbar-collapse" id="navbarsExample01">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 flex-lg-row flex-column"> <!-- Added flex-lg-row and flex-column classes -->
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'index' %}">{% if request.user.use_english %}Main{% else %}Главная{% endif %}</a>
+                            <a class="nav-link" href="{% url 'start' %}">{% if request.user.use_english %}Main{% else %}Главная{% endif %}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'tests' %}">{% if request.user.use_english %}Tests{% else %}Тесты{% endif %}</a>
@@ -141,6 +141,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'links' %}">{% if request.user.use_english %}Links to training materials{% else %}Ссылки на учебные материалы{% endif %}</a>
                         </li>
+                        {% if request.user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link exit" onclick="exit()">{% if request.user.use_english %}Exit{% else %}Выход{% endif %}</a>
+                        </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

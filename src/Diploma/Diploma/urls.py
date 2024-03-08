@@ -24,7 +24,7 @@ from LanguageTest.views import index, links, about_us, \
     tests, logout, delete_accaunt, index, check_suggestion, upload_image
 
 urlpatterns = [
-    path('index/', index, name='index'),
+    path('index/', index, name='start'),
     path('upload/', upload_image, name='upload_image'),
     path('admin/', admin.site.urls),
     path('', login_or_register, name='index'),

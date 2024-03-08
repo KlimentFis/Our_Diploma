@@ -109,6 +109,13 @@
 <div class="content">
     <div class="content" style="color: white;">
         <main class="form-signin" style="background-color: rgb(33, 37, 41); margin-top: 25vh;">
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    <strong>
+                        {{ error }}
+                    </strong>
+                </div>
+            {% endif %}
             <div>
                 <a href="{% url 'register' %}" class="btn btn-primary w-100 btn-login">Зарегистрироваться</a>
             </div>
