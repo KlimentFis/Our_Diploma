@@ -151,8 +151,8 @@ def letter_verification(request):
     if request.method == 'GET':
         return render(request, 'LetterVerification.html')
     elif request.method == 'POST':
-        # colored_text = '<span style="color: red;">Пошло всё нахуй</span>'
-        context = {'text': request.POST.get('not_checked_text', '')}
+        text = request.POST.get('not_checked_text', '')
+        context = {'text': text}
         return render(request, 'LetterVerification.html', context)
 
 @csrf_protect
