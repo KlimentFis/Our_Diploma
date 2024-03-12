@@ -1,5 +1,38 @@
 # Диплом
 
-![I love Tea](https://telegra.ph/file/3cedc13c354a13955cc34.jpg)
+## Установка
 
-## Скидываем сюда все файлы для возможности загрузить в колледже, на всякий случай.
+Клонирование и переход в папку проекта:
+```shell
+git clone https://github.com/KlimentFis/Our_Diploma && cd Our_Diploma
+```
+
+Установка и активация виртуального окружения (Не обязательно):
+```shell
+python -m venv venv && venv\Scripts\activate.bat
+```
+
+Установка зависимостей:
+```shell
+pip install -r requerements.txt
+```
+
+Создание миграций:
+```shell
+python manage.py makemigrations
+```
+
+Проведение миграций:
+```shell
+python manage.py migrate
+```
+
+Создание Супер-пользователя:
+```shell
+python manage.py createsuperuser
+```
+
+Запуск проекта:
+```shell
+python manage.py runserver
+```
