@@ -1,5 +1,7 @@
 # Диплом
 
+# Web
+
 ## Установка
 
 Клонирование и переход в папку проекта:
@@ -36,3 +38,10 @@ python manage.py createsuperuser
 ```shell
 python manage.py runserver
 ```
+
+# Mobile
+
+```
+Ничего устанавливать, кроме Visual Studio не нужно :)
+```
+
