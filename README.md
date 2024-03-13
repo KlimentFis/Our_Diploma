@@ -42,6 +42,6 @@ python manage.py runserver
 # Mobile
 
 ```
-Ничего устанавливать, крому Visual Studio не нужно :)
+Ничего устанавливать, кроме Visual Studio не нужно :)
 ```
 
