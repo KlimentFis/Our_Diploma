@@ -18,7 +18,7 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.auth import views as auth_views
-from LanguageTest.views import profile, register, login_or_register, logout, delete_accaunt, upload_image, user_login
+from .views import profile, register, login_or_register, delete_accaunt, upload_image, user_login
 
 urlpatterns = [
     path('upload/', upload_image, name='upload_image'),

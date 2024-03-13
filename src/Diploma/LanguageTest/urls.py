@@ -17,13 +17,15 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
-from django.contrib.auth import views as auth_views
-from LanguageTest.views import letter_verification, check_word, check_suggestion
+from LanguageTest.views import letter_verification, check_word, check_suggestion, tests, translateWord, about_us
 
 urlpatterns = [
+    path('', tests, name='tests'),
     path('letter_verification/', letter_verification, name='letter_verification'),
     path('check_word/', check_word, name='check_word'),
     path('check_suggestion/', check_suggestion, name='check_suggestion'),
+    path('translate_word', translateWord, name='translateWord'),
+    path('about_us', about_us, name='about_us')
 ]
 
 if settings.DEBUG:
