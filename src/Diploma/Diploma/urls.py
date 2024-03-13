@@ -14,34 +14,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.auth import views as auth_views
-from LanguageTest.views import index, links, about_us, \
-    profile, register, letter_verification, check_word, \
-    user_login, userList, translateWord, login_or_register, \
-    tests, logout, delete_accaunt, index, check_suggestion, upload_image
+from LanguageTest.views import index, links, about_us, check_word, userList, tests, index, translateWord, login_or_register
 
 urlpatterns = [
-    path('index/', index, name='start'),
-    path('upload/', upload_image, name='upload_image'),
-    path('admin/', admin.site.urls),
     path('', login_or_register, name='index'),
+    path('index/', index, name='start'),
+    path('admin/', admin.site.urls),
     path('tests/', tests, name='tests'),
     path('links/', links, name='links'),
     path('about_us/', about_us, name='about_us'),
-    path('profile/', profile, name='profile'),
-    path('register/', register, name='register'),
-    path('letter_verification/', letter_verification, name='letter_verification'),
-    path('check_word/', check_word, name='check_word'),
-    path('check_suggestion/', check_suggestion, name='check_suggestion'),
-    path('login/', user_login, name='user_login'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('usersList/', userList, name='UserList'),
     path('translate/', translateWord, name='translateWord'),
-    path('login_or_register/', login_or_register, name='login_or_register'),
-    path('delete_accaunt/', delete_accaunt, name='delete_accaunt')
+    path('user/', include('users.urls'))
 ]
 
 if settings.DEBUG:
