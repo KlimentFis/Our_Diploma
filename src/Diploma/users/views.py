@@ -2,15 +2,14 @@ from django.contrib.auth import login, get_user_model, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponseNotAllowed
 from django.shortcuts import render, redirect
-
-# Create your views here.
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_protect
 from users.models import MyUser
+import re
 
 def field_check(text):
     # Паттерн для поиска специальных символов
-    pattern = r'[!@#$%^&*()_+{}\[\]:;<>,.?/\\|~`\-=" ]'
+    pattern = r'[!@#$%^&*()_+{}\[\]:;<>,.?/\\|~`\-="]'
 
     # Проверяем текст на наличие специальных символов
     if re.search(pattern, text):

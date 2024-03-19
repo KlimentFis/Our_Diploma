@@ -89,7 +89,7 @@ WSGI_APPLICATION = 'Diploma.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'MySQL',
+        'NAME': 'OurDiploma',
         'USER': 'root',
         'PASSWORD': 'MySQL',
         'HOST': 'localhost',
