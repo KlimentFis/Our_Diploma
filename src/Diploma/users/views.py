@@ -10,7 +10,6 @@ import re
 def field_check(text):
     # Паттерн для поиска специальных символов
     pattern = r'[!@#$%^&*()_+{}\[\]:;<>,.?/\\|~`\-="]'
-
     # Проверяем текст на наличие специальных символов
     if re.search(pattern, text):
         return False

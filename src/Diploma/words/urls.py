@@ -14,18 +14,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from LanguageTest.views import letter_verification, check_word, check_suggestion, tests, translateWord, about_us
+from .views import translateWord, links
 
-urlpatterns = [
-    path('', tests, name='tests'),
-    path('letter_verification/', letter_verification, name='letter_verification'),
-    path('check_word/', check_word, name='check_word'),
-    path('check_suggestion/', check_suggestion, name='check_suggestion'),
-    path('translate_word', translateWord, name='translateWord')
-]
+urlpatterns = []
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.MEDIA_ROOT)
