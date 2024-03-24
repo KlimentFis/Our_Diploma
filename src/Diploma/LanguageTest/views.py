@@ -8,32 +8,38 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model, login
 from django.utils import timezone
 from django.shortcuts import render, redirect
+from language_tool_python import LanguageTool
 from words.models import Word
 from words.models import Suggestion
 from users.views import check_auth
 
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'tests/index.html')
 
 def tests(request):
-    return render(request, 'tests.html')
+    return render(request, 'tests/tests.html')
 
 def links(request):
-    return render(request, 'links.html')
+    return render(request, 'tests/links.html')
 
 def about_us(request):
-    return render(request, 'about_as.html')
+    return render(request, 'tests/about_as.html')
 
 @csrf_exempt
 def letter_verification(request):
     error = check_auth(request, "Необходимо авторизоваться!")
+    if error:
+        return error
+    tool = LanguageTool('en-US')
     if request.method == 'GET':
-        return render(request, 'LetterVerification.html')
+        return render(request, 'tests/LetterVerification.html')
     elif request.method == 'POST':
         text = request.POST.get('not_checked_text', '')
-        context = {'text': text}
-        return render(request, 'LetterVerification.html', context)
+        errors = tool.check(text)
+        print(errors)
+        context = {'text': text, 'errors': errors}
+        return render(request, 'tests/LetterVerification.html', context)
 
 @csrf_protect
 def check_word(request):
@@ -95,7 +101,7 @@ def check_word(request):
         context['proposal'] = random_word.translate
         context['words'] = random_words  # Update the list of words
 
-    return render(request, 'selectWord.html', context)
+    return render(request, 'tests/selectWord.html', context)
 
 @csrf_protect
 def check_suggestion(request):
@@ -161,8 +167,8 @@ def check_suggestion(request):
         context['words'] = words
         context['proposal'] = right_word  # Предполагая, что здесь должен быть перевод
 
-    return render(request, 'insertWord.html', context)
+    return render(request, 'tests/insertWord.html', context)
 
 @login_required
 def translateWord(request):
-    return render(request, 'translateWord.html')
+    return render(request, 'tests/translateWord.html')

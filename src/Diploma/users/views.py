@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_protect
 from users.models import MyUser
+from language_tool_python import LanguageTool
 import re
 
 def field_check(text):
@@ -21,7 +22,7 @@ def check_auth(request, text):
         context = {
             "error": text
         }
-        return render(request, 'login_or_register.html', context)
+        return render(request, 'users/login_or_register.html', context)
     return None  # Возвращаем None если пользователь авторизован
 
 def userList(request):
@@ -32,7 +33,7 @@ def userList(request):
     context = {
         'users': users
     }
-    return render(request, 'userList.html', context)
+    return render(request, 'users/userList.html', context)
 
 def profile(request):
     error = check_auth(request, "Необходимо авторизоваться!")
@@ -40,7 +41,7 @@ def profile(request):
         return error
     user = request.user
     if request.method == 'GET':
-        return render(request, 'profile.html', {'user': user})
+        return render(request, 'users/profile.html', {'user': user})
     else:
         LastName = request.POST.get('LastName', '')
         FirstName = request.POST.get('FirstName', '')
@@ -72,7 +73,7 @@ def profile(request):
 @csrf_protect
 def register(request):
     if request.method == 'GET':
-        return render(request, 'register.html')
+        return render(request, 'users/register.html')
     else:
         nik = request.POST.get('Nik', '')  # Получение значения поля "Nik" из POST запроса
         password = request.POST.get('password', '')  # Получение значения поля "password" из POST запроса
@@ -106,7 +107,7 @@ def register(request):
             # Перенаправление на другую страницу при необходимости
             return redirect('index')
 
-        return render(request, 'register.html', context)
+        return render(request, 'users/register.html', context)
 
 def user_logout(request):
     logout(request)
@@ -125,7 +126,7 @@ def upload_image(request):
 @csrf_protect
 def user_login(request):
     if request.method == 'GET':
-        return render(request, 'login.html')
+        return render(request, 'users/login.html')
     else:
         nik = request.POST.get('Nik', '')  # Получаем значение поля "Nik" из POST запроса
         password = request.POST.get('password', '')  # Получаем значение поля "password" из POST запроса
@@ -148,7 +149,7 @@ def user_login(request):
             else:
                 context['error'] = 'Ошибка аутентификации'
 
-        return render(request, 'login.html', context)
+        return render(request, 'users/login.html', context)
 
 @csrf_protect
 @login_required
@@ -158,13 +159,13 @@ def delete_accaunt(request):
         request.user.delete()
         # Выход пользователя из системы
         logout(request)
-        return redirect('login_or_register')
+        return redirect('users/login_or_register')
     else:
         # Если метод запроса не POST, вернуть ошибку метода не разрешен
         return HttpResponseNotAllowed(['POST'])
 
 def login_or_register(request):
     if request.user.is_authenticated:
-        return render(request, 'index.html')
+        return render(request, 'tests/index.html')
     else:
-        return render(request, 'login_or_register.html')
+        return render(request, 'users/login_or_register.html')

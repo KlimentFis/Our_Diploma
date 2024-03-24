@@ -29,6 +29,11 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
+Заполнение Базы данных:
+```shell
+python manage.py parse_and_save
+```
+
 Создание Супер-пользователя:
 ```shell
 python manage.py createsuperuser
