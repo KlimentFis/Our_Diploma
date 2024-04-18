@@ -50,11 +50,47 @@
                 <div class="col mx-auto">
                     <div class="card shadow-sm">
                         <a href="{% url 'translateWord' %}">
-                            <img class="img" src="https://liceum66.ru/wp-content/uploads/2020/12/c0ae54bbff8e8368b041f0d385f5868a-2048x1384.jpg" alt="">
+                            <img class="img" src="{% static 'brain.jpg' %}" alt="">
                         </a>
                         <div class="card-body">
                             <h2 class="card-text" style="font-size: 1.25rem;">
                                 <a href="{% url 'translateWord' %}" style="text-decoration: none; color: inherit;">Картинка ассоциированная со словом</a>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mx-auto">
+                    <div class="card shadow-sm">
+                        <a href="{% url 'download_app' %}">
+                            <img class="img" src="{% static 'mob.jpg' %}" alt="">
+                        </a>
+                        <div class="card-body">
+                            <h2 class="card-text" style="font-size: 1.25rem;">
+                                <a href="{% url 'download_app' %}" style="text-decoration: none; color: inherit;">Скачать наше мобильное приложение</a>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mx-auto">
+                    <div class="card shadow-sm">
+                        <a href="{% url 'all_words' %}">
+                            <img class="img" src="{% static 'words.jpg' %}" alt="">
+                        </a>
+                        <div class="card-body">
+                            <h2 class="card-text" style="font-size: 1.25rem;">
+                                <a href="{% url 'all_words' %}" style="text-decoration: none; color: inherit;">Список всех слов</a>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col mx-auto">
+                    <div class="card shadow-sm">
+                        <a href="{% url 'text_to_audio' %}">
+                            <img class="img" src="{% static 'нашуники.jpg' %}" alt="">
+                        </a>
+                        <div class="card-body">
+                            <h2 class="card-text" style="font-size: 1.25rem;">
+                                <a href="{% url 'text_to_audio' %}" style="text-decoration: none; color: inherit;">Преобразование текста в Аудио</a>
                             </h2>
                         </div>
                     </div>

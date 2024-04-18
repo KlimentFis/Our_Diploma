@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h1 style="text-align: center; padding-top: 40px; padding-bottom: 40px" class="white-text">
+      <strong>
+          {% if request.user.use_english %}Words{% else %}Слова{% endif %}
+      </strong>
+  </h1>
+  <table class="table">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">{% if request.user.use_english %}Word{% else %}Слово{% endif %}</th>
+        <th scope="col">{% if request.user.use_english %}Translate{% else %}Перевод{% endif %}</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for i in data %}
+      <tr>
+        <th scope="row">{{ i.id }}</th>
+        <td>{{ i.name }}</td>
+        <td>{{ i.translate }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

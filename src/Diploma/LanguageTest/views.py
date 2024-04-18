@@ -1,6 +1,6 @@
 import re
 from random import randint, sample, shuffle, random
-from django.http import HttpResponseNotAllowed, HttpResponseForbidden, JsonResponse
+from django.http import HttpResponseNotAllowed, HttpResponseForbidden, JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate
@@ -9,6 +9,8 @@ from django.contrib.auth import get_user_model, login
 from django.utils import timezone
 from django.shortcuts import render, redirect
 from language_tool_python import LanguageTool
+from gtts import gTTS
+import os
 from words.models import Word
 from words.models import Suggestion
 from users.views import check_auth
@@ -37,6 +39,8 @@ def letter_verification(request):
     elif request.method == 'POST':
         text = request.POST.get('not_checked_text', '')
         errors = tool.check(text)
+        if not errors:
+            errors = None
         print(errors)
         context = {'text': text, 'errors': errors}
         return render(request, 'tests/LetterVerification.html', context)
@@ -172,3 +176,41 @@ def check_suggestion(request):
 @login_required
 def translateWord(request):
     return render(request, 'tests/translateWord.html')
+
+def download_app(request):
+    return render(request, 'download_app.html')
+
+def download_file(request):
+    # Путь к файлу для скачивания
+    file_path = "{% load static %}{% static 'brain.jpg' %}"
+
+    # Открываем файл для чтения в бинарном режиме
+    with open(file_path, 'rb') as f:
+        # Читаем содержимое файла
+        file_data = f.read()
+
+    # Определяем MIME-тип файла
+    content_type = "text/plain"
+
+    # Создаем HTTP-ответ с содержимым файла в теле ответа
+    response = HttpResponse(file_data, content_type=content_type)
+
+    # Устанавливаем заголовок Content-Disposition, чтобы браузер понял, что это вложение и должно быть скачано
+    response['Content-Disposition'] = 'attachment; filename="file.txt"'
+
+    # Возвращаем HTTP-ответ
+    return response
+
+# def text_to_audio(request):
+#     return render(request, 'tests/text_to_audio.html')
+
+def text_to_audio(request):
+    if request.method == 'POST':
+        text = request.POST.get('text', '')
+        if text:
+            # Преобразование текста в аудио
+            audio_file_path = os.path.join('media', 'output.mp3')
+            tts = gTTS(text=text, lang='en')
+            tts.save(audio_file_path)
+            return render(request, 'tests/text_to_audio.html', {'audio_file_path': audio_file_path})
+    return render(request, 'tests/text_to_audio.html', {'audio_file_path': None})

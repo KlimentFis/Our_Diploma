@@ -17,14 +17,18 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
-from LanguageTest.views import letter_verification, check_word, check_suggestion, tests, translateWord, about_us
+from LanguageTest.views import letter_verification, check_word, check_suggestion, tests, translateWord, about_us, text_to_audio
+from words.views import all_words
 
 urlpatterns = [
     path('', tests, name='tests'),
     path('letter_verification/', letter_verification, name='letter_verification'),
     path('check_word/', check_word, name='check_word'),
     path('check_suggestion/', check_suggestion, name='check_suggestion'),
-    path('translate_word', translateWord, name='translateWord')
+    path('translate_word', translateWord, name='translateWord'),
+    path('all_words/', all_words, name="all_words"),
+    # path('text_to_audio/', text_to_audio, name="text_to_audio")
+    path('text_to_audio/', text_to_audio, name='text_to_audio'),
 ]
 
 if settings.DEBUG:
