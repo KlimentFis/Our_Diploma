@@ -1,6 +1,5 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.utils import timezone
 
 class MyUser(AbstractUser):
     image = models.ImageField(upload_to='users', blank=True, verbose_name='фото')

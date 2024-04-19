@@ -42,7 +42,9 @@ INSTALLED_APPS = [
 
     'LanguageTest',
     'users',
-    'words'
+    'words',
+    'rest_framework',
+    'api',
 ]
 
 MIDDLEWARE = [

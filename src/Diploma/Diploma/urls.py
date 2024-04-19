@@ -30,7 +30,8 @@ urlpatterns = [
     path('user/', include('users.urls')),
     path('links/', links, name='links'),
     path('about_us/', about_us, name='about_us'),
-    path('download_app/', download_app, name="download_app")
+    path('download_app/', download_app, name="download_app"),
+    path('api/', include('api.urls'), name="api")
 ]
 
 if settings.DEBUG:
