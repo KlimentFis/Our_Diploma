@@ -5,7 +5,7 @@ from fake_useragent import UserAgent
 from requests import get
 
 class Command(BaseCommand):
-    help = 'Parse Words and save to database'
+    help = 'Parse Suggestions and save to database'
 
     def handle(self, *args, **kwargs):
         url = "https://habr.com/ru/articles/240439/"
