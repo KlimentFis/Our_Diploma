@@ -5,17 +5,20 @@ from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_protect
 from users.models import MyUser
-from language_tool_python import LanguageTool
 import re
 
 def field_check(text):
     # Паттерн для поиска специальных символов
-    pattern = r'[!@#$%^&*()_+{}\[\]:;<>,.?/\\|~`\-="]'
+    # pattern = r'[!@#$%^&*()_+{}\[\]:;<>,.?/\\|~`\-="]'
     # Проверяем текст на наличие специальных символов
-    if re.search(pattern, text):
-        return False
-    else:
-        return True
+    # if re.search(pattern, text):
+    #     return False
+    # else:
+    #     return True
+    for char in text:
+        if not char.isalnum():
+            return False
+    return True
 
 def check_auth(request, text):
     if not request.user.is_authenticated:
