@@ -12,7 +12,19 @@ def my_user_list(request):
         serializer = MyUserSerializer(users, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
-        serializer = MyUserSerializer(data=request.data)
+        # Получение данных из запроса
+        data = request.data
+        # Поиск пользователя по имени пользователя
+        try:
+            user = MyUser.objects.get(username=data.get('username'))
+        except MyUser.DoesNotExist:
+            user = None
+        if user:
+            # Обновление данных пользователя
+            serializer = MyUserSerializer(user, data=data)
+        else:
+            # Создание нового пользователя
+            serializer = MyUserSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -20,17 +32,17 @@ def my_user_list(request):
 
 @api_view(['POST'])
 def delete_user(request):
-    if 'id' in request.data and 'password' in request.data:  # Проверяем наличие обоих параметров в запросе
+    if 'id' in request.data and 'username' in request.data:  # Проверяем наличие обоих параметров в запросе
         user_id = request.data['id']
-        password = request.data['password']
+        username = request.data['username']
         try:
-            user = MyUser.objects.get(id=user_id, password=password)  # Проверяем соответствие ID и пароля
+            user = MyUser.objects.get(id=user_id, username=username)  # Проверяем соответствие ID и пароля
             user.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
         except MyUser.DoesNotExist:
             return Response({'error': 'Пользователь с указанным ID не найден или пароль неверен'}, status=status.HTTP_404_NOT_FOUND)
     else:
-        return Response({'error': 'Необходимо указать ID пользователя и пароль'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error': 'Необходимо указать ID пользователя и его Username'}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'POST'])
 def word_list(request):
