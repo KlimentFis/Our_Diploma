@@ -29,9 +29,14 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-Заполнение Базы данных:
+Заполнение Базы данных словами с переводом:
 ```shell
 python manage.py parse_and_save
+```
+
+Заполнение Базы данных предложениями и словами:
+```shell
+python manage.py create_suggestions static/seggestions.txt
 ```
 
 Создание Супер-пользователя:
@@ -51,4 +56,3 @@ python manage.py runserver
 ```
 
 #### P.S. В проекте используется Rest API, то-есть мобильное приложение отправляет JSON запрос к сайту, а сайт отправляет обратно JSON ответ. В связи с этим, должны быть запущены оба приложения!!!
-
