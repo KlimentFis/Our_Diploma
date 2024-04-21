@@ -155,7 +155,7 @@ def check_suggestion(request):
         # Обновляем информацию о случайном предложении
         random_suggestion = Suggestion.objects.get(pk=new_random_suggestion_id)
         right_word = random_suggestion.right_word
-        replaced_suggestion = random_suggestion.suggestion.replace(right_word, '...')
+        replaced_suggestion = random_suggestion.suggestion.replace(right_word, '____')
         words = [right_word]
         other_suggestions = Suggestion.objects.exclude(right_word=right_word).order_by('?')[:2]
         for other_suggestion in other_suggestions:
