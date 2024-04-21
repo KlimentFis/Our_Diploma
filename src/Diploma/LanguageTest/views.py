@@ -1,20 +1,13 @@
-import re
-from random import randint, sample, shuffle, random
+from random import randint, sample, shuffle
 from django.http import HttpResponseNotAllowed, HttpResponseForbidden, JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
-from django.contrib.auth import logout
-from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import get_user_model, login
-from django.utils import timezone
 from django.shortcuts import render, redirect
 from language_tool_python import LanguageTool
 from gtts import gTTS
-import os
 from words.models import Word
 from words.models import Suggestion
 from users.views import check_auth
-
 
 def index(request):
     return render(request, 'tests/index.html')
@@ -177,8 +170,30 @@ def check_suggestion(request):
 def translateWord(request):
     return render(request, 'tests/translateWord.html')
 
+import os
+
 def download_app(request):
-    return render(request, 'download_app.html')
+    # Path to the file you want to serve for download
+    file_name = 'brain.jpg'
+
+    # Construct the absolute file path using STATIC_ROOT
+    file_path = os.path.join(settings.STATIC_ROOT, file_name)
+
+    # Check if the file exists
+    if os.path.exists(file_path):
+        # Open the file in binary mode
+        with open(file_path, 'rb') as file:
+            # Read the file content
+            file_content = file.read()
+            # Create an HTTP response with the file content as the body
+            response = HttpResponse(file_content, content_type='image/jpeg')
+            # Set the Content-Disposition header to make the browser download the file
+            response['Content-Disposition'] = 'attachment; filename="img.jpg"'
+            return response
+    else:
+        # Handle the case where the file does not exist
+        return HttpResponse("File not found", status=404)
+
 
 def download_file(request):
     # Путь к файлу для скачивания
