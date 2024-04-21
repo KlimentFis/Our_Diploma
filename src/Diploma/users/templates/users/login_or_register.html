@@ -112,24 +112,21 @@
     }
 </style>
 
-<!--<h1 class="first-text white-text">Выберите метод входа:</h1>-->
-<!--<div class="content">-->
-    <div class="content" style="color: white;">
-        <main class="form-signin" style="background-color: rgb(33, 37, 41)">
-            {% if error %}
-                <div class="alert alert-danger" role="alert">
-                    <strong>
-                        {{ error }}
-                    </strong>
-                </div>
-            {% endif %}
-            <div>
-                <a href="{% url 'user_login' %}" class="btn btn-primary w-100 btn-login">Войти</a>
+<div class="content" style="color: white;">
+    <main class="form-signin" style="background-color: rgb(33, 37, 41)">
+        {% if error %}
+            <div class="alert alert-danger" role="alert">
+                <strong>
+                    {{ error }}
+                </strong>
             </div>
-            <div style="margin-top: 3vh;">
-                <a href="{% url 'register' %}" class="btn btn-primary w-100 btn-login">Зарегистрироваться</a>
-            </div>
-        </main>
-    </div>
-<!--</div>-->
+        {% endif %}
+        <div>
+            <a href="{% url 'user_login' %}" class="btn btn-primary w-100 btn-login">Войти</a>
+        </div>
+        <div style="margin-top: 3vh;">
+            <a href="{% url 'register' %}" class="btn btn-primary w-100 btn-login">Зарегистрироваться</a>
+        </div>
+    </main>
+</div>
 {% endblock %}
