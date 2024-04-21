@@ -73,7 +73,7 @@
             }
 
             .form-signin {
-                max-width: 400px;
+                min-width: 360px;
                 margin: 50px auto;
                 padding: 15px;
                 border-radius: 5px;
@@ -150,8 +150,8 @@
                 </div>
             </div>
         </nav>
-        <div class="content" color: white;>
-            <main class="form-signin" style="background-color: rgb(33, 37, 41); margin-top: 10vh;">
+        <div class="content" style="display: flex; align-items: center; height: 80vh;">
+            <main class="form-signin" style="background-color: rgb(33, 37, 41);">
                 <form method="post">
                     {% csrf_token %} <!-- Вставляем токен CSRF здесь -->
                     {% if error %}
