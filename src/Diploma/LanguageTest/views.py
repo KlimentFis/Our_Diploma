@@ -1,3 +1,4 @@
+import os
 from random import randint, sample, shuffle
 from django.http import HttpResponseNotAllowed, HttpResponseForbidden, JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
@@ -166,33 +167,43 @@ def check_suggestion(request):
 
     return render(request, 'tests/insertWord.html', context)
 
-@login_required
+
 def translateWord(request):
+    error = check_auth(request, "Необходимо авторизоваться!")
+    if error:
+        return error
     return render(request, 'tests/translateWord.html')
 
-import os
+
+
+
+
+
+
+
 
 def download_app(request):
-    # Path to the file you want to serve for download
-    file_name = 'brain.jpg'
-
-    # Construct the absolute file path using STATIC_ROOT
-    file_path = os.path.join(settings.STATIC_ROOT, file_name)
-
-    # Check if the file exists
-    if os.path.exists(file_path):
-        # Open the file in binary mode
-        with open(file_path, 'rb') as file:
-            # Read the file content
-            file_content = file.read()
-            # Create an HTTP response with the file content as the body
-            response = HttpResponse(file_content, content_type='image/jpeg')
-            # Set the Content-Disposition header to make the browser download the file
-            response['Content-Disposition'] = 'attachment; filename="img.jpg"'
-            return response
-    else:
-        # Handle the case where the file does not exist
-        return HttpResponse("File not found", status=404)
+    ...
+#     # Path to the file you want to serve for download
+#     file_name = 'brain.jpg'
+#
+#     # Construct the absolute file path using STATIC_ROOT
+#     file_path = os.path.join(settings.STATIC_ROOT, file_name)
+#
+#     # Check if the file exists
+#     if os.path.exists(file_path):
+#         # Open the file in binary mode
+#         with open(file_path, 'rb') as file:
+#             # Read the file content
+#             file_content = file.read()
+#             # Create an HTTP response with the file content as the body
+#             response = HttpResponse(file_content, content_type='image/jpeg')
+#             # Set the Content-Disposition header to make the browser download the file
+#             response['Content-Disposition'] = 'attachment; filename="img.jpg"'
+#             return response
+#     else:
+#         # Handle the case where the file does not exist
+#         return HttpResponse("File not found", status=404)
 
 
 def download_file(request):
@@ -220,6 +231,9 @@ def download_file(request):
 #     return render(request, 'tests/text_to_audio.html')
 
 def text_to_audio(request):
+    error = check_auth(request, "Необходимо авторизоваться!")
+    if error:
+        return error
     if request.method == 'POST':
         text = request.POST.get('text', '')
         if text:
