@@ -4,10 +4,36 @@
              x:Class="Diplom.Pages.HomePage"
              Title="Главная">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Главная"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Margin="5,15,5,5" Grid.Row="0" Text="Диплом" FontSize="50" HorizontalOptions="Center"/>
+                <Label Margin="5" Grid.Row="1" Text="Зачем мы сделали данный проект:" FontSize="30" Background="#ccf" TextColor="#036"/>
+                <Label Margin="5" Grid.Row="2" Text="• Улучшение уровня владения английским языком. 
+                                                    &#10;• Демонстрация на примерах, а не сухая теория. 
+                                                    &#10;• Соревновательный метод. 
+                                                    &#10;• Новаторские тесты." 
+                                                    FontSize="25" Background="#ccc" TextColor="Black"/>
+                <Label Margin="5" Grid.Row="3" Text="Что выделяет нас среди аналогов:" FontSize="30" Background="#ccf" TextColor="#036"/>
+                <Label Margin="5" Grid.Row="4" Text="Мы не делаем упор на что-то одно, а стараемся прокачивать выши навыки владения языком с помощью различных средств." 
+                                               FontSize="25" Background="#ccc" TextColor="Black"/>
+                <Label Margin="5" Grid.Row="5" Text="Структура приложения:" FontSize="30" Background="#ccf" TextColor="#036"/>
+                <Label Margin="5,5,5,15" Grid.Row="6" Text="•Главная - описание нашего проекта.
+                                                     &#10;• Тесты - страница для проверки Ваших знаний.
+                                                     &#10;• Профиль - страница с Вашими данными.
+                                                     &#10;• Информация о нас - краткое описание разработчиков.
+                                                     &#10;• Список пользователей - список с никнеймами всех пользователей.
+                                                     &#10;• Ссылки на учебные материалы - ссылки на стронние источники." 
+                                                     FontSize="25" Background="#ccc" TextColor="Black"/>
+            </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
