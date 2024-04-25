@@ -15,6 +15,7 @@
                     <local:FlyoutItemPage Title="Информация о нас" IconSource="AboutUsMenu" TargetPage="{x:Type local:AboutUsPage}"/>
                     <local:FlyoutItemPage Title="Список пользователей" IconSource="UsersMenu" TargetPage="{x:Type local:UsersPage}"/>
                     <local:FlyoutItemPage Title="Ссылки на учебные материалы" IconSource="EducationalMaterialsMenu" TargetPage="{x:Type local:EducationalMaterialsPage}"/>
+                    <local:FlyoutItemPage Title="Вход/Регистрация" IconSource="LoginMenu" TargetPage="{x:Type local:LoginPage}"/>
                 </x:Array>
             </ListView.ItemsSource>
 

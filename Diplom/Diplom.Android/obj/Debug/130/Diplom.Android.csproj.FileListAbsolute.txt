@@ -1924,3 +1924,5 @@ C:\Users\Ф\source\repos\Our_Diploma\Diplom\Diplom.Android\obj\Debug\130\stamp\_
 C:\Users\Ф\source\repos\Our_Diploma\Diplom\Diplom.Android\obj\Debug\130\stamp\_GenerateJavaStubs.stamp
 C:\Users\Ф\source\repos\Our_Diploma\Diplom\Diplom.Android\obj\Debug\130\stamp\_GeneratePackageManagerJava.stamp
 C:\Users\Ф\source\repos\Our_Diploma\Diplom\Diplom.Android\obj\Debug\130\stamp\_ResolveLibraryProjectImports.stamp
+C:\Users\Ф\source\repos\Our_Diploma\Diplom\Diplom.Android\obj\Debug\130\res\drawable\mainbackground.webp
+C:\Users\Ф\source\repos\Our_Diploma\Diplom\Diplom.Android\obj\Debug\130\res\drawable\loginmenu.png

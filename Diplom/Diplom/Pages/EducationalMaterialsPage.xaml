@@ -4,10 +4,110 @@
              x:Class="Diplom.Pages.EducationalMaterialsPage"
              Title="Ссылки на учебные материалы">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Материалы"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <Label Margin="5,15,5,5" Grid.Row="0" Text="Учебные материалы" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="50"/>
+
+                
+                <Frame Margin="5" Grid.Row="1" CornerRadius="15">
+                    <Label Text="Универсальные сайты" FontSize="30" TextColor="Black" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                </Frame>
+                
+                <Frame Margin="5" Grid.Row="2" CornerRadius="15"  BackgroundColor="LightGray">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnFrameEnglex"/>
+                    </Frame.GestureRecognizers>
+                    <StackLayout>
+                        <Label Text="Инглекс" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="Здесь вы найдете все, что необходимо новичку — практичные советы, разговорники, объяснения грамматики с тестами, разборы песен и популярных сериалов."/>
+                    </StackLayout>
+                </Frame>
+
+                <Frame Margin="5" Grid.Row="3" CornerRadius="15" BackgroundColor="LightGray">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnFrameStudy"/>
+                    </Frame.GestureRecognizers>
+                    <StackLayout>
+                        <Label Text="Study" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="Скоростные уроки по английскому языку. Можно начать обучение с любого уровня и с любой темы. 
+                               &#10;Так же на сайте есть справочник по грамматике английского языка, структурированные разговорники для любых ситуаций и другая полезная информация."/>
+                    </StackLayout>
+                </Frame>
+
+                <Frame Margin="5" Grid.Row="4" CornerRadius="15" BackgroundColor="LightGray">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnFrameBistroenglish"/>
+                    </Frame.GestureRecognizers>
+                    <StackLayout>
+                        <Label Text="Bistroenglish" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="Отличный сайт для тех, кто хочет изучать современный разговорный английский язык. Здесь вы будете изучать грамматику, слова и фразы на каждый день, разговорники для туристов, а также учить язык по фильмам и песням."/>
+                    </StackLayout>
+                </Frame>
+
+                <Frame Margin="5" Grid.Row="5" CornerRadius="15" BackgroundColor="LightGray">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnFrameDuolingo"/>
+                    </Frame.GestureRecognizers>
+                    <StackLayout>
+                        <Label Text="Duolingo" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="На этом сайте вы можете потренировать английский в сопровождение забавной зеленой совы. На Duolingo вы учите слова в контексте, в коротких простых предложениях."/>
+                    </StackLayout>
+                </Frame>
+
+                
+                <Frame Margin="5" Grid.Row="6" CornerRadius="15">
+                    <Label Text="Учим новые слова" FontSize="30" TextColor="Black" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                </Frame>
+
+                <Frame Margin="5" Grid.Row="7" CornerRadius="15" BackgroundColor="LightGray">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnFrameMemrise"/>
+                    </Frame.GestureRecognizers>
+                    <StackLayout>
+                        <Label Text="Memrise" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="Онлайн-ресурс с интерактивными карточками."/>
+                    </StackLayout>
+                </Frame>
+
+
+                <Frame Margin="5" Grid.Row="8" CornerRadius="15">
+                    <Label Text="Учим азы грамматики" FontSize="30" TextColor="Black" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                </Frame>
+
+                <Frame Margin="5" Grid.Row="9" CornerRadius="15" BackgroundColor="LightGray">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnFrameEngblog"/>
+                    </Frame.GestureRecognizers>
+                    <StackLayout>
+                        <Label Text="Engblog" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="Русскоязычный справочник по грамматике английского языка для начинающих."/>
+                    </StackLayout>
+                </Frame>
+
+                <Frame Margin="5" Grid.Row="10" CornerRadius="15" BackgroundColor="LightGray">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnFrameLET"/>
+                    </Frame.GestureRecognizers>
+                    <StackLayout>
+                        <Label Text="Learn-english-today" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="Краткое англоязычное пособие по грамматике."/>
+                    </StackLayout>
+                </Frame>
+                
+            </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
