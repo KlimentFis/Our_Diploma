@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diplom.Android", "Diplom.Android\Diplom.Android.csproj", "{33E956E9-97F8-4951-B8D3-BF1234BB95BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diplom", "Diplom\Diplom.csproj", "{E6ECC7F9-1194-4D4A-9179-C706E412709F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diplom", "Diplom\Diplom.csproj", "{E6ECC7F9-1194-4D4A-9179-C706E412709F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
