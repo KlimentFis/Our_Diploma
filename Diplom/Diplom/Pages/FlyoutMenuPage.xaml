@@ -9,13 +9,13 @@
         <ListView x:Name="listviewMenu" x:FieldModifier="public" Margin="5,5,0,0">
             <ListView.ItemsSource>
                 <x:Array Type="{x:Type local:FlyoutItemPage}">
-                    <local:FlyoutItemPage Title="Главная" IconSource="HomeMenu" TargetPage="{x:Type local:HomePage}"/>
-                    <local:FlyoutItemPage Title="Тесты" IconSource="TestsMenu" TargetPage="{x:Type local:TestsPage}"/>
-                    <local:FlyoutItemPage Title="Профиль" IconSource="ProfileMenu" TargetPage="{x:Type local:ProfilePage}"/>
-                    <local:FlyoutItemPage Title="Информация о нас" IconSource="AboutUsMenu" TargetPage="{x:Type local:AboutUsPage}"/>
-                    <local:FlyoutItemPage Title="Список пользователей" IconSource="UsersMenu" TargetPage="{x:Type local:UsersPage}"/>
-                    <local:FlyoutItemPage Title="Ссылки на учебные материалы" IconSource="EducationalMaterialsMenu" TargetPage="{x:Type local:EducationalMaterialsPage}"/>
-                    <local:FlyoutItemPage Title="Вход/Регистрация" IconSource="LoginMenu" TargetPage="{x:Type local:LoginPage}"/>
+                    <local:FlyoutItemPage Title="Главная" IconSource="{x:AppThemeBinding Light=HomeMenuLight, Dark=HomeMenuDark}" TargetPage="{x:Type local:HomePage}"/>
+                    <local:FlyoutItemPage Title="Тесты" IconSource="{x:AppThemeBinding Light=TestsMenuLight, Dark=TestsMenuDark}" TargetPage="{x:Type local:TestsPage}"/>
+                    <local:FlyoutItemPage Title="Профиль" IconSource="{x:AppThemeBinding Light=ProfileMenuLight, Dark=ProfileMenuDark}" TargetPage="{x:Type local:ProfilePage}"/>
+                    <local:FlyoutItemPage Title="Информация о нас" IconSource="{x:AppThemeBinding Light=AboutUsMenuLight, Dark=AboutUsMenuDark}" TargetPage="{x:Type local:AboutUsPage}"/>
+                    <local:FlyoutItemPage Title="Список пользователей" IconSource="{x:AppThemeBinding Light=UsersMenuLight, Dark=UsersMenuDark}" TargetPage="{x:Type local:UsersPage}"/>
+                    <local:FlyoutItemPage Title="Ссылки на учебные материалы" IconSource="{x:AppThemeBinding Light=EducationalMaterialsMenuLight, Dark=EducationalMaterialsMenuDark}" TargetPage="{x:Type local:EducationalMaterialsPage}"/>
+                    <local:FlyoutItemPage Title="Вход/Регистрация" IconSource="{x:AppThemeBinding Light=LoginMenuLight, Dark=LoginMenuDark}" TargetPage="{x:Type local:LoginPage}"/>
                 </x:Array>
             </ListView.ItemsSource>
 
