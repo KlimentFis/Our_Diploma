@@ -17,93 +17,93 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
 
-                <Label Margin="5,15,5,5" Grid.Row="0" Text="Учебные материалы" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="50"/>
+                <Label Margin="5,15,5,5" Grid.Row="0" Text="Учебные материалы" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="50" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
 
-                
-                <Frame Margin="5" Grid.Row="1" CornerRadius="15">
-                    <Label Text="Универсальные сайты" FontSize="30" TextColor="Black" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
-                </Frame>
-                
-                <Frame Margin="5" Grid.Row="2" CornerRadius="15"  BackgroundColor="LightGray">
+                <Label Grid.Row="1" Text="Для перехода на сайт, нажмите на его описание"/>
+
+                <Label Grid.Row="1" Margin="0,50,0,0" Text="Универсальные сайты" FontSize="30" TextColor="{AppThemeBinding Dark=White, Light=Black}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+
+                <Frame Margin="5" Grid.Row="2" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnFrameEnglex"/>
                     </Frame.GestureRecognizers>
                     <StackLayout>
-                        <Label Text="Инглекс" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/>
-                        <Label Text="Здесь вы найдете все, что необходимо новичку — практичные советы, разговорники, объяснения грамматики с тестами, разборы песен и популярных сериалов."/>
+                        <Label Text="Инглекс" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="25"/>
+                        <Label Text="Здесь вы найдете все, что необходимо новичку — практичные советы, разговорники, объяснения грамматики с тестами, разборы песен и популярных сериалов."
+                               TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20"/>
                     </StackLayout>
                 </Frame>
 
-                <Frame Margin="5" Grid.Row="3" CornerRadius="15" BackgroundColor="LightGray">
+                <Frame Margin="5" Grid.Row="3" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnFrameStudy"/>
                     </Frame.GestureRecognizers>
                     <StackLayout>
-                        <Label Text="Study" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/>
+                        <Label Text="Study" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="25"/>
                         <Label Text="Скоростные уроки по английскому языку. Можно начать обучение с любого уровня и с любой темы. 
-                               &#10;Так же на сайте есть справочник по грамматике английского языка, структурированные разговорники для любых ситуаций и другая полезная информация."/>
+                               &#10;Так же на сайте есть справочник по грамматике английского языка, структурированные разговорники для любых ситуаций и другая полезная информация."
+                               TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20"/>
                     </StackLayout>
                 </Frame>
 
-                <Frame Margin="5" Grid.Row="4" CornerRadius="15" BackgroundColor="LightGray">
+                <Frame Margin="5" Grid.Row="4" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnFrameBistroenglish"/>
                     </Frame.GestureRecognizers>
                     <StackLayout>
-                        <Label Text="Bistroenglish" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/>
-                        <Label Text="Отличный сайт для тех, кто хочет изучать современный разговорный английский язык. Здесь вы будете изучать грамматику, слова и фразы на каждый день, разговорники для туристов, а также учить язык по фильмам и песням."/>
+                        <Label Text="Bistroenglish" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="25"/>
+                        <Label Text="Отличный сайт для тех, кто хочет изучать современный разговорный английский язык. Здесь вы будете изучать грамматику, слова и фразы на каждый день, разговорники для туристов, а также учить язык по фильмам и песням."
+                               TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20"/>
                     </StackLayout>
                 </Frame>
 
-                <Frame Margin="5" Grid.Row="5" CornerRadius="15" BackgroundColor="LightGray">
+                <Frame Margin="5" Grid.Row="5" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnFrameDuolingo"/>
                     </Frame.GestureRecognizers>
                     <StackLayout>
-                        <Label Text="Duolingo" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/>
-                        <Label Text="На этом сайте вы можете потренировать английский в сопровождение забавной зеленой совы. На Duolingo вы учите слова в контексте, в коротких простых предложениях."/>
+                        <Label Text="Duolingo" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="25"/>
+                        <Label Text="На этом сайте вы можете потренировать английский в сопровождение забавной зеленой совы. На Duolingo вы учите слова в контексте, в коротких простых предложениях."
+                               TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20"/>
                     </StackLayout>
                 </Frame>
 
-                
-                <Frame Margin="5" Grid.Row="6" CornerRadius="15">
-                    <Label Text="Учим новые слова" FontSize="30" TextColor="Black" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
-                </Frame>
 
-                <Frame Margin="5" Grid.Row="7" CornerRadius="15" BackgroundColor="LightGray">
+                <Label Grid.Row="6" Margin="0,50,0,0" Text="Учим новые слова" FontSize="30" TextColor="{AppThemeBinding Dark=White, Light=Black}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+
+                <Frame Margin="5" Grid.Row="7" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnFrameMemrise"/>
                     </Frame.GestureRecognizers>
                     <StackLayout>
-                        <Label Text="Memrise" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/>
-                        <Label Text="Онлайн-ресурс с интерактивными карточками."/>
+                        <Label Text="Memrise" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="25"/>
+                        <Label Text="Онлайн-ресурс с интерактивными карточками." TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20"/>
                     </StackLayout>
                 </Frame>
 
 
-                <Frame Margin="5" Grid.Row="8" CornerRadius="15">
-                    <Label Text="Учим азы грамматики" FontSize="30" TextColor="Black" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
-                </Frame>
+                <Label Grid.Row="8" Margin="0,50,0,0" Text="Учим азы грамматики" FontSize="30" TextColor="{AppThemeBinding Dark=White, Light=Black}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
 
-                <Frame Margin="5" Grid.Row="9" CornerRadius="15" BackgroundColor="LightGray">
+                <Frame Margin="5" Grid.Row="9" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnFrameEngblog"/>
                     </Frame.GestureRecognizers>
                     <StackLayout>
-                        <Label Text="Engblog" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/>
-                        <Label Text="Русскоязычный справочник по грамматике английского языка для начинающих."/>
+                        <Label Text="Engblog" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="25"/>
+                        <Label Text="Русскоязычный справочник по грамматике английского языка для начинающих." TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20"/>
                     </StackLayout>
                 </Frame>
 
-                <Frame Margin="5" Grid.Row="10" CornerRadius="15" BackgroundColor="LightGray">
+                <Frame Margin="5" Grid.Row="10" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnFrameLET"/>
                     </Frame.GestureRecognizers>
                     <StackLayout>
-                        <Label Text="Learn-english-today" FontAttributes="Bold" HorizontalOptions="CenterAndExpand"/>
-                        <Label Text="Краткое англоязычное пособие по грамматике."/>
+                        <Label Text="Learn-english-today" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="25"/>
+                        <Label Text="Краткое англоязычное пособие по грамматике." TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20"/>
                     </StackLayout>
                 </Frame>
                 

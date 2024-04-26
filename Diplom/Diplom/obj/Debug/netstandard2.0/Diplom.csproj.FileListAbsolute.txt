@@ -66,3 +66,4 @@ C:\Users\Ф\source\repos\Our_Diploma\Diplom\Diplom\obj\Debug\netstandard2.0\Dipl
 C:\Users\Ф\source\repos\Our_Diploma\Diplom\Diplom\obj\Debug\netstandard2.0\refint\Diplom.dll
 C:\Users\Ф\source\repos\Our_Diploma\Diplom\Diplom\obj\Debug\netstandard2.0\Diplom.pdb
 C:\Users\Ф\source\repos\Our_Diploma\Diplom\Diplom\obj\Debug\netstandard2.0\Pages\LoginPage.xaml.g.cs
+C:\Users\Ф\source\repos\Our_Diploma\Diplom\Diplom\obj\Debug\netstandard2.0\Pages\SignUpPage.xaml.g.cs

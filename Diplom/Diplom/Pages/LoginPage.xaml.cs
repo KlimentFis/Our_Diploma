@@ -16,5 +16,10 @@ namespace Diplom.Pages
 		{
 			InitializeComponent ();
 		}
-	}
+
+		private async void SignUpPage(object sender, EventArgs e)
+		{
+			await Navigation.PushAsync(new SignUpPage());
+		}
+    }
 }

@@ -86,7 +86,7 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\EducationalMaterialsMenu.png" />
+    <AndroidResource Include="Resources\drawable\EducationalMaterialsMenuLight.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Diplom\Diplom.csproj">
@@ -95,22 +95,43 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\HomeMenu.png" />
+    <AndroidResource Include="Resources\drawable\HomeMenuLight.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\ProfileMenu.png" />
+    <AndroidResource Include="Resources\drawable\ProfileMenuLight.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\TestsMenu.png" />
+    <AndroidResource Include="Resources\drawable\TestsMenuLight.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\UsersMenu.png" />
+    <AndroidResource Include="Resources\drawable\UsersMenuLight.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\AboutUsMenu.png" />
+    <AndroidResource Include="Resources\drawable\AboutUsMenuLight.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\LoginMenu.png" />
+    <AndroidResource Include="Resources\drawable\LoginMenuLight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\EducationalMaterialsMenuDark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\UsersMenuDark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\AboutUsMenuDark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ProfileMenuDark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\TestsMenuDark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\HomeMenyDark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\LoginMenuDark.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
