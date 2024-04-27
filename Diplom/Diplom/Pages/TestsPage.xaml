@@ -4,10 +4,46 @@
              x:Class="Diplom.Pages.TestsPage"
              Title="Тесты">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Тесты"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <ScrollView>
+            <StackLayout>
+                <Label Margin="5,15,5,5" Text="Тесты" FontSize="50" TextColor="{AppThemeBinding Dark=White, Light=Black}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+
+                <Frame Margin="0,50,0,0" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnFrameWords"/>
+                    </Frame.GestureRecognizers>
+                    <StackLayout>
+                        <Image Source="TestsWords"/>
+                        <Frame BackgroundColor="{AppThemeBinding Dark=#133a5e, Light=#D2EAFE}" CornerRadius="15">
+                            <Label Text="Слова в контексте" HorizontalOptions="CenterAndExpand" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20"/>
+                        </Frame>
+                    </StackLayout>
+                </Frame>
+
+                <Frame Margin="0,50,0,0" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnFrameTranslation"/>
+                    </Frame.GestureRecognizers>
+                    <StackLayout>
+                        <Image Source="TestsTranslation"/>
+                        <Frame BackgroundColor="{AppThemeBinding Dark=#133a5e, Light=#D2EAFE}" CornerRadius="15">
+                            <Label Text="Перевод слова" HorizontalOptions="CenterAndExpand" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20"/>
+                        </Frame>
+                    </StackLayout>
+                </Frame>
+
+                <Frame Margin="0,50,0,0" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnFrameText"/>
+                    </Frame.GestureRecognizers>
+                    <StackLayout>
+                        <Image Source="TestsText"/>
+                        <Frame BackgroundColor="{AppThemeBinding Dark=#133a5e, Light=#D2EAFE}" CornerRadius="15">
+                            <Label Text="Проверка письма" HorizontalOptions="CenterAndExpand" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20"/>
+                        </Frame>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

@@ -1933,3 +1933,6 @@ C:\Users\Ф\source\repos\Our_Diploma\Diplom\Diplom.Android\obj\Debug\130\res\dra
 C:\Users\Ф\source\repos\Our_Diploma\Diplom\Diplom.Android\obj\Debug\130\res\drawable\testsmenudark.png
 C:\Users\Ф\source\repos\Our_Diploma\Diplom\Diplom.Android\obj\Debug\130\res\drawable\homemenydark.png
 C:\Users\Ф\source\repos\Our_Diploma\Diplom\Diplom.Android\obj\Debug\130\res\drawable\loginmenudark.png
+C:\Users\Ф\source\repos\Our_Diploma\Diplom\Diplom.Android\obj\Debug\130\res\drawable\teststranslation.png
+C:\Users\Ф\source\repos\Our_Diploma\Diplom\Diplom.Android\obj\Debug\130\res\drawable\teststext.png
+C:\Users\Ф\source\repos\Our_Diploma\Diplom\Diplom.Android\obj\Debug\130\res\drawable\testswords.png

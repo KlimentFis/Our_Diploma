@@ -16,5 +16,21 @@ namespace Diplom.Pages
         {
             InitializeComponent();
         }
+
+        [Obsolete]
+        private async void OnFrameWords(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new TestsWords());
+        }
+        [Obsolete]
+        private async void OnFrameTranslation(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new TestsTranslation());
+        }
+        [Obsolete]
+        private async void OnFrameText(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new TestsText());
+        }
     }
 }

@@ -67,3 +67,6 @@ C:\Users\Ф\source\repos\Our_Diploma\Diplom\Diplom\obj\Debug\netstandard2.0\refi
 C:\Users\Ф\source\repos\Our_Diploma\Diplom\Diplom\obj\Debug\netstandard2.0\Diplom.pdb
 C:\Users\Ф\source\repos\Our_Diploma\Diplom\Diplom\obj\Debug\netstandard2.0\Pages\LoginPage.xaml.g.cs
 C:\Users\Ф\source\repos\Our_Diploma\Diplom\Diplom\obj\Debug\netstandard2.0\Pages\SignUpPage.xaml.g.cs
+C:\Users\Ф\source\repos\Our_Diploma\Diplom\Diplom\obj\Debug\netstandard2.0\Pages\TestsText.xaml.g.cs
+C:\Users\Ф\source\repos\Our_Diploma\Diplom\Diplom\obj\Debug\netstandard2.0\Pages\TestsTranslation.xaml.g.cs
+C:\Users\Ф\source\repos\Our_Diploma\Diplom\Diplom\obj\Debug\netstandard2.0\Pages\TestsWords.xaml.g.cs
