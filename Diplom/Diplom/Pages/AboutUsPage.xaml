@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Diplom.Pages.AboutUsPage"
+             Title="Информация о нас">
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Label Margin="5,15,5,5" Grid.Row="0" Text="Информация о нас" FontSize="50" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+
+                <Frame Margin="5" Grid.Row="1" Background="#ccf" CornerRadius="15">
+                    <Label Text="Трунов К. А." FontSize="30" TextColor="#036" HorizontalOptions="Center"/>
+                </Frame>
+                <Frame Margin="5" Grid.Row="2" Background="#ccc" CornerRadius="15">
+                    <Label Text="- Специальность: Программирование компьютерных систем (ПКС).
+                           &#10;- Группа: 4ПКС-220.
+                           &#10;- О себе: Программирую, пью чай, кайфую."
+                           FontSize="25" TextColor="Black"/>
+                </Frame>
+
+                <Frame Margin="5" Grid.Row="4" Background="#ccf" CornerRadius="15">
+                    <Label Text="Пелипенко В. Б." FontSize="30" TextColor="#036" HorizontalOptions="Center"/>
+                </Frame>
+                <Frame Margin="5" Grid.Row="5" Background="#ccc" CornerRadius="15">
+                    <Label Text="- Специальность: Программирование компьютерных систем (ПКС).
+                           &#10;- Группа: 4ПКС-220.
+                           &#10;- О себе: Учусь."
+                           FontSize="25" TextColor="Black"/>
+                </Frame>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

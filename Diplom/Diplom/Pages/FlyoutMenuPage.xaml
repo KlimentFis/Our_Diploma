@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Diplom.Pages"
+             Title="FlyoutMenu"
+             x:Class="Diplom.Pages.FlyoutMenuPage">
+
+    <StackLayout Background="#2196f3">
+        <ListView x:Name="listviewMenu" x:FieldModifier="public" Margin="5,5,0,0">
+            <ListView.ItemsSource>
+                <x:Array Type="{x:Type local:FlyoutItemPage}">
+                    <local:FlyoutItemPage Title="Главная" IconSource="HomeMenuLight" TargetPage="{x:Type local:HomePage}"/>
+                    <local:FlyoutItemPage Title="Тесты" IconSource="TestsMenuLight" TargetPage="{x:Type local:TestsPage}"/>
+                    <local:FlyoutItemPage Title="Профиль" IconSource="ProfileMenuLight" TargetPage="{x:Type local:ProfilePage}"/>
+                    <local:FlyoutItemPage Title="Информация о нас" IconSource="AboutUsMenuLight" TargetPage="{x:Type local:AboutUsPage}"/>
+                    <local:FlyoutItemPage Title="Список пользователей" IconSource="UsersMenuLight" TargetPage="{x:Type local:UsersPage}"/>
+                    <local:FlyoutItemPage Title="Ссылки на учебные материалы" IconSource="EducationalMaterialsMenuLight" TargetPage="{x:Type local:EducationalMaterialsPage}"/>
+                    <local:FlyoutItemPage Title="" IconSource="" TargetPage="{x:Type local:LoginPage}"/>
+                    <local:FlyoutItemPage Title="Вход/Регистрация" IconSource="LoginMenuLight" TargetPage="{x:Type local:LoginPage}"/>
+                </x:Array>
+            </ListView.ItemsSource>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="33"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{Binding IconSource}"/>
+                            <Label Text="{Binding Title}" Grid.Column="1" VerticalOptions="Center"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+    
+</ContentPage>
