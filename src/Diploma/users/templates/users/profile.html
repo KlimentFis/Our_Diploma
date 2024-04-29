@@ -5,7 +5,7 @@
         <div style="background-color: grey; width: 310px; border: 5px solid black; border-radius: 25px; margin: 0 auto;">
             {% load static %}
             {% if request.user.image %}
-                <img id="user-image" src="{{ request.user.image.url }}" alt="" style="height:300px; weight:300px;">
+                <img id="user-image" src="{{ request.user.image.url }}" alt="" style="height:300px; weight:300px; border-radius: 50vh;">
             {% else %}
                 <img id="user-image" src="{% static 'чел.png' %}" alt="" style="height:300px; weight:300px;">
             {% endif %}

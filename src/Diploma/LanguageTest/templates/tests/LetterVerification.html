@@ -33,9 +33,9 @@
                 </div>
             </div>
             <div>
-                {% if errors is not null %}
-                    {% for i in errors %}
-                        <div class="alert alert-danger" role="alert">{{ i.ruleId }} - {{ i.message }}</div>
+                {% if errors is NONE %}
+                    {% for error in errors %}
+                        <div class="alert alert-danger" role="alert">{{ error.ruleId }} - {{ error.message }}</div>
                     {% endfor %}
                 {% else %}
                     <div class="alert alert-secondary">ОШИБОК НЕТ, ВЫ - МОЛОДЕЦ!!!</div>
