@@ -5,9 +5,14 @@
              Title="Список пользователей">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Пользователи"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label Text="Items:" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" />
+            <ListView x:Name="listView">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding username}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

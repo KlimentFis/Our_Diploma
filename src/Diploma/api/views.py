@@ -1,6 +1,5 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from rest_framework import status
 from .serializers import MyUserSerializer, WordSerializer, SuggestionSerializer
 from words.models import Word, Suggestion
 from users.models import MyUser
@@ -12,37 +11,11 @@ def my_user_list(request):
         serializer = MyUserSerializer(users, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
-        # Получение данных из запроса
-        data = request.data
-        # Поиск пользователя по имени пользователя
-        try:
-            user = MyUser.objects.get(username=data.get('username'))
-        except MyUser.DoesNotExist:
-            user = None
-        if user:
-            # Обновление данных пользователя
-            serializer = MyUserSerializer(user, data=data)
-        else:
-            # Создание нового пользователя
-            serializer = MyUserSerializer(data=data)
+        serializer = MyUserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-@api_view(['POST'])
-def delete_user(request):
-    if 'id' in request.data and 'username' in request.data:  # Проверяем наличие обоих параметров в запросе
-        user_id = request.data['id']
-        username = request.data['username']
-        try:
-            user = MyUser.objects.get(id=user_id, username=username)  # Проверяем соответствие ID и пароля
-            user.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        except MyUser.DoesNotExist:
-            return Response({'error': 'Пользователь с указанным ID не найден или пароль неверен'}, status=status.HTTP_404_NOT_FOUND)
-    else:
-        return Response({'error': 'Необходимо указать ID пользователя и его Username'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
 
 @api_view(['GET', 'POST'])
 def word_list(request):
@@ -54,8 +27,8 @@ def word_list(request):
         serializer = WordSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
 
 @api_view(['GET', 'POST'])
 def suggestion_list(request):
@@ -67,5 +40,5 @@ def suggestion_list(request):
         serializer = SuggestionSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)

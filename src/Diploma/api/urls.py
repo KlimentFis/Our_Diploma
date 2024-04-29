@@ -1,5 +1,4 @@
 """Diploma URL Configuration
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
 Examples:
@@ -15,11 +14,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from api.views import my_user_list, word_list, suggestion_list, delete_user
+from api.views import my_user_list, word_list, suggestion_list
 
 urlpatterns = [
     path('my_users', my_user_list, name='my_user_list'),
     path('words', word_list, name='word_list'),
     path('suggestions', suggestion_list, name='suggestion_list'),
-    path('delete_user', delete_user, name='delete_user')
 ]
