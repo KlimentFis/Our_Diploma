@@ -16,26 +16,28 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <Label Margin="5,15,5,5" Grid.Row="0" Text="Информация о нас" FontSize="50" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
-
-                <Frame Margin="5" Grid.Row="1" Background="#ccf" CornerRadius="15">
-                    <Label Text="Трунов К. А." FontSize="30" TextColor="#036" HorizontalOptions="Center"/>
-                </Frame>
-                <Frame Margin="5" Grid.Row="2" Background="#ccc" CornerRadius="15">
-                    <Label Text="- Специальность: Программирование компьютерных систем (ПКС).
+                <Frame Margin="10" Grid.Row="2" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
+                    <StackLayout>
+                        <Frame BackgroundColor="{AppThemeBinding Dark=#133a5e, Light=#D2EAFE}" CornerRadius="15">
+                            <Label Text="Трунов К. А." FontSize="30" HorizontalOptions="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                        </Frame>
+                        <Label Text="- Специальность: Программирование компьютерных систем (ПКС).
                            &#10;- Группа: 4ПКС-220.
                            &#10;- О себе: Программирую, пью чай, кайфую."
-                           FontSize="25" TextColor="Black"/>
+                           FontSize="20" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                    </StackLayout>
                 </Frame>
 
-                <Frame Margin="5" Grid.Row="4" Background="#ccf" CornerRadius="15">
-                    <Label Text="Пелипенко В. Б." FontSize="30" TextColor="#036" HorizontalOptions="Center"/>
-                </Frame>
-                <Frame Margin="5" Grid.Row="5" Background="#ccc" CornerRadius="15">
-                    <Label Text="- Специальность: Программирование компьютерных систем (ПКС).
+                <Frame Margin="10" Grid.Row="5" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
+                    <StackLayout>
+                        <Frame BackgroundColor="{AppThemeBinding Dark=#133a5e, Light=#D2EAFE}" CornerRadius="15">
+                            <Label Text="Пелипенко В. Б." FontSize="30" HorizontalOptions="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                        </Frame>
+                        <Label Text="- Специальность: Программирование компьютерных систем (ПКС).
                            &#10;- Группа: 4ПКС-220.
                            &#10;- О себе: Учусь."
-                           FontSize="25" TextColor="Black"/>
+                           FontSize="20" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                    </StackLayout>
                 </Frame>
             </Grid>
         </ScrollView>

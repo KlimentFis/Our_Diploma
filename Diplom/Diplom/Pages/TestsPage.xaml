@@ -6,9 +6,8 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-                <Label Margin="5,15,5,5" Text="Тесты" FontSize="50" TextColor="{AppThemeBinding Dark=White, Light=Black}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
 
-                <Frame Margin="0,50,0,0" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
+                <Frame Margin="10,50,10,10" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnFrameWords"/>
                     </Frame.GestureRecognizers>
@@ -20,7 +19,7 @@
                     </StackLayout>
                 </Frame>
 
-                <Frame Margin="0,50,0,0" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
+                <Frame Margin="10,50,10,10" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnFrameTranslation"/>
                     </Frame.GestureRecognizers>
@@ -32,7 +31,7 @@
                     </StackLayout>
                 </Frame>
 
-                <Frame Margin="0,50,0,0" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
+                <Frame Margin="10,50,10,10" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnFrameText"/>
                     </Frame.GestureRecognizers>

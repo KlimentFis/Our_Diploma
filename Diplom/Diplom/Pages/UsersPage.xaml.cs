@@ -16,31 +16,26 @@ namespace Diplom.Pages
     public partial class UsersPage : ContentPage
     {
         // URL вашего DRF API
-        string apiUrl = "https://api.exchangeratesapi.io/v1/latest";
+        readonly string apiUrl = "http://localhost:8888/api/my_users";
 
         public UsersPage()
         {
             InitializeComponent();
-
             GetDataFromAPI();
         }
-
         private async void GetDataFromAPI()
-        {
-            // Создание HttpClient для отправки запросов
+        {            // Создание HttpClient для отправки запросов
             using (HttpClient client = new HttpClient())
             {
                 try
                 {
                     // Отправка GET-запроса и получение ответа
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
-
                     // Проверка успешности запроса
                     if (response.IsSuccessStatusCode)
                     {
                         // Чтение ответа в формате JSON
                         string jsonResponse = await response.Content.ReadAsStringAsync();
-
                         // Вывод полученных данных
                         _ = DisplayAlert("JSON Response", jsonResponse, "OK");
                     }
@@ -55,13 +50,12 @@ namespace Diplom.Pages
                 }
             }
         }
-
         public class User
         {
-            public string username { get; set; }
-            public string first_name { get; set; }
-            public string last_name { get; set; }
-            public string email { get; set; }
+            public string Username { get; set; }
+            public string First_name { get; set; }
+            public string Last_name { get; set; }
+            public string Email { get; set; }
         }
     }
 }
