@@ -29,7 +29,7 @@ def letter_verification(request):
         return error
     tool = LanguageTool('en-US')
     if request.method == 'GET':
-        return render(request, 'tests/LetterVerification.html')
+        return render(request, 'tests/letter_verification.html')
     elif request.method == 'POST':
         text = request.POST.get('not_checked_text', '')
         errors = tool.check(text)
@@ -40,7 +40,7 @@ def letter_verification(request):
 
         print(errors)
 
-        return render(request, 'tests/LetterVerification.html', context)
+        return render(request, 'tests/letter_verification.html', context)
 
 @csrf_protect
 def check_word(request):
@@ -102,7 +102,7 @@ def check_word(request):
         context['proposal'] = random_word.translate
         context['words'] = random_words  # Update the list of words
 
-    return render(request, 'tests/selectWord.html', context)
+    return render(request, 'tests/select_word.html', context)
 
 @csrf_protect
 def check_suggestion(request):
@@ -175,7 +175,7 @@ def translateWord(request):
     error = check_auth(request, "Необходимо авторизоваться!")
     if error:
         return error
-    return render(request, 'tests/translateWord.html')
+    return render(request, 'tests/translate_word.html')
 
 
 

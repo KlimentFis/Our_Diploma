@@ -5,7 +5,7 @@ from words.models import Word
 
 @login_required
 def translateWord(request):
-    return render(request, 'translateWord.html')
+    return render(request, 'translate_word.html')
 
 def links(request):
     return render(request, 'links.html')
