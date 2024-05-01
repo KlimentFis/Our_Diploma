@@ -14,11 +14,6 @@ git clone https://github.com/KlimentFis/Our_Diploma && cd Our_Diploma
 python -m venv venv && venv\Scripts\activate.bat
 ```
 
-Создание виртуального окружения:
-```shell
-python -m venv venv
-```
-
 Установка зависимостей:
 ```shell
 pip install -r requerements.txt
