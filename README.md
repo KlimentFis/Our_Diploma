@@ -4,9 +4,14 @@
 
 ## Установка
 
-Клонирование и переход в папку проекта:
+Клонирование проекта:
 ```shell
-git clone https://github.com/KlimentFis/Our_Diploma && cd Our_Diploma/Сайт_для_изучения_иностранных_языков
+git clone https://github.com/KlimentFis/Our_Diploma 
+```
+
+Переход в папку проекта
+```shell
+cd Our_Diploma/Сайт_для_изучения_иностранных_языков
 ```
 
 Установка и активация виртуального окружения (Не обязательно):
