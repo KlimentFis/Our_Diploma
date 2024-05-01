@@ -1,4 +1,4 @@
-"""Diploma URL Configuration
+"""main URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
@@ -17,17 +17,18 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
-from django.contrib.auth import views as auth_views
-from .views import profile, register, login_or_register, delete_accaunt, upload_image, user_login
+from tests.views import letter_verification, check_word, check_suggestion, tests, translateWord, about_us, text_to_audio
+from words.views import all_words
 
 urlpatterns = [
-    path('upload/', upload_image, name='upload_image'),
-    path('profile/', profile, name='profile'),
-    path('register/', register, name='register'),
-    path('login/', user_login, name='user_login'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('login_or_register/', login_or_register, name='login_or_register'),
-    path('delete_accaunt/', delete_accaunt, name='delete_accaunt')
+    path('', tests, name='tests'),
+    path('letter_verification/', letter_verification, name='letter_verification'),
+    path('check_word/', check_word, name='check_word'),
+    path('check_suggestion/', check_suggestion, name='check_suggestion'),
+    path('translate_word', translateWord, name='translateWord'),
+    path('all_words/', all_words, name="all_words"),
+    # path('text_to_audio/', text_to_audio, name="text_to_audio")
+    path('text_to_audio/', text_to_audio, name='text_to_audio'),
 ]
 
 if settings.DEBUG:

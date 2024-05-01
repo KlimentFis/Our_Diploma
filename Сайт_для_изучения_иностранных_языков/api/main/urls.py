@@ -1,4 +1,4 @@
-"""Diploma URL Configuration
+"""main URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
@@ -14,21 +14,25 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import include
 from django.conf.urls.static import static
 from django.conf import settings
-from LanguageTest.views import letter_verification, check_word, check_suggestion, tests, translateWord, about_us, text_to_audio
-from words.views import all_words
+from django.contrib.auth import views as auth_views
+from tests.views import index, about_us, tests, links, about_us, download_app
+from users.views import userList, login_or_register
+from django.urls import path
 
 urlpatterns = [
-    path('', tests, name='tests'),
-    path('letter_verification/', letter_verification, name='letter_verification'),
-    path('check_word/', check_word, name='check_word'),
-    path('check_suggestion/', check_suggestion, name='check_suggestion'),
-    path('translate_word', translateWord, name='translateWord'),
-    path('all_words/', all_words, name="all_words"),
-    # path('text_to_audio/', text_to_audio, name="text_to_audio")
-    path('text_to_audio/', text_to_audio, name='text_to_audio'),
+    path('', login_or_register, name='index'),
+    path('index/', index, name='start'),
+    path('admin/', admin.site.urls),
+    path('tests/', include('tests.urls'), name='tests'),
+    path('usersList/', userList, name='UserList'),
+    path('user/', include('users.urls')),
+    path('links/', links, name='links'),
+    path('about_us/', about_us, name='about_us'),
+    path('download_app/', download_app, name="download_app"),
+    path('api/', include('api.urls'), name="api"),
 ]
 
 if settings.DEBUG:
