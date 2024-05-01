@@ -14,14 +14,14 @@ git clone https://github.com/KlimentFis/Our_Diploma && cd Our_Diploma/src
 python -m venv venv && venv\Scripts\activate.bat
 ```
 
-Переход в папку проекта
-```shell
-cd Diploma
-```
-
 Установка зависимостей:
 ```shell
 pip install -r requerements.txt
+```
+
+Переход в папку проекта
+```shell
+cd Diploma
 ```
 
 Создание миграций:
