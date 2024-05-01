@@ -6,7 +6,7 @@
 
 Клонирование и переход в папку проекта:
 ```shell
-git clone https://github.com/KlimentFis/Our_Diploma && cd Our_Diploma/src
+git clone https://github.com/KlimentFis/Our_Diploma && cd Our_Diploma/Сайт_для_изучения_иностранных_языков
 ```
 
 Установка и активация виртуального окружения (Не обязательно):
