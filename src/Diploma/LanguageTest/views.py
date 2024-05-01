@@ -33,10 +33,13 @@ def letter_verification(request):
     elif request.method == 'POST':
         text = request.POST.get('not_checked_text', '')
         errors = tool.check(text)
-        if not errors:
-            errors = None
+        if errors:
+            context = {'text': text, 'errors': errors}
+        else:
+            context = {'text': text, 'errors': None}
+
         print(errors)
-        context = {'text': text, 'errors': errors}
+
         return render(request, 'tests/LetterVerification.html', context)
 
 @csrf_protect
@@ -116,7 +119,7 @@ def check_suggestion(request):
     right_word = random_suggestion.right_word
 
     # Создаем копию предложения для замены правильного слова на многоточие
-    replaced_suggestion = random_suggestion.suggestion.replace(right_word, '...')
+    replaced_suggestion = random_suggestion.suggestion.replace(right_word, '___')
 
     # Получаем список из правильного слова и еще двух случайных слов
     words = [right_word]

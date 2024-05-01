@@ -19,6 +19,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
+import secrets
+JWT_SECRET_KEY = secrets.token_urlsafe(32)
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-5g(3gz1rva!p3j%944$o(z(tstp+)glg(a5pzdhib8g3$n@n^y'
 
@@ -44,6 +47,9 @@ INSTALLED_APPS = [
     'users',
     'words',
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_jwt',
+    'corsheaders',
     'api',
 ]
 
@@ -55,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'Diploma.urls'
@@ -80,13 +87,6 @@ WSGI_APPLICATION = 'Diploma.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 DATABASES = {
     'default': {
@@ -119,12 +119,18 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-    ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+    'JWT_AUTH': {
+        'JWT_SECRET_KEY': JWT_SECRET_KEY,
+        'JWT_ALLOW_REFRESH': True,  # Разрешение обновления токена
+        # Другие параметры JWT, если нужно
+    }
 }
 
 

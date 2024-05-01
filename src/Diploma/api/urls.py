@@ -13,13 +13,13 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include
-from api.views import my_user_list, word_list, suggestion_list, delete_user
+from django.urls import path
+from .views import user_list, word_list, suggestion_list, delete_user, CustomObtainJWTView
 
 urlpatterns = [
-    path('my_users', my_user_list, name='my_user_list'),
-    path('words', word_list, name='word_list'),
-    path('suggestions', suggestion_list, name='suggestion_list'),
-    path('delete_user', delete_user, name='delete_user')
+    path('users/', user_list, name='user_list'),
+    path('words/', word_list, name='word_list'),
+    path('suggestions/', suggestion_list, name='suggestion_list'),
+    path('delete_user/', delete_user, name='delete_user'),
+    path('token/', CustomObtainJWTView.as_view(), name='api-token'),
 ]

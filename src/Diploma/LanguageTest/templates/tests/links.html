@@ -18,7 +18,7 @@
                         </a>
                         <div class="card-body">
                             <h2 class="card-text" style="font-size: 1.25rem;">
-                                <a href="http://duolingo.com/" style="text-decoration: none; color: inherit;">Duolingo - Сайт и мобильное приложение для изучения иностранных языков</a>
+                                <a href="http://duolingo.com/" style="text-decoration: none; color: inherit;">Duolingo - {% if request.user.use_english %}Website and mobile application for learning foreign languages{% else %}Сайт и мобильное приложение для изучения иностранных языков{% endif %}</a>
                             </h2>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                         </a>
                         <div class="card-body">
                             <h2 class="card-text" style="font-size: 1.25rem;">
-                                <a href="{% url 'translateWord' %}" style="text-decoration: none; color: inherit;">Картинка ассоциированная со словом</a>
+                                <a href="{% url 'translateWord' %}" style="text-decoration: none; color: inherit;">{% if request.user.use_english %}The picture associated with the word{% else %}Картинка ассоциированная со словом{% endif %}</a>
                             </h2>
                         </div>
                     </div>
@@ -66,7 +66,7 @@
                         </a>
                         <div class="card-body">
                             <h2 class="card-text" style="font-size: 1.25rem;">
-                                <a href="{% url 'download_app' %}" style="text-decoration: none; color: inherit;">Скачать наше мобильное приложение</a>
+                                <a href="{% url 'download_app' %}" style="text-decoration: none; color: inherit;">{% if request.user.use_english %}Download our mobile app{% else %}Скачать наше мобильное приложение{% endif %}</a>
                             </h2>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                         </a>
                         <div class="card-body">
                             <h2 class="card-text" style="font-size: 1.25rem;">
-                                <a href="{% url 'all_words' %}" style="text-decoration: none; color: inherit;">Список всех слов</a>
+                                <a href="{% url 'all_words' %}" style="text-decoration: none; color: inherit;">{% if request.user.use_english %}Dictionary{% else %}Словарь{% endif %}</a>
                             </h2>
                         </div>
                     </div>
@@ -90,7 +90,7 @@
                         </a>
                         <div class="card-body">
                             <h2 class="card-text" style="font-size: 1.25rem;">
-                                <a href="{% url 'text_to_audio' %}" style="text-decoration: none; color: inherit;">Преобразование текста в Аудио</a>
+                                <a href="{% url 'text_to_audio' %}" style="text-decoration: none; color: inherit;">{% if request.user.use_english %}Converting Text to Audio{% else %}Преобразование текста в Аудио{% endif %}</a>
                             </h2>
                         </div>
                     </div>
