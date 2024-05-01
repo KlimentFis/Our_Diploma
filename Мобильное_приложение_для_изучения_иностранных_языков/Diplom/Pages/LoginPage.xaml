@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Diplom.Pages.LoginPage"
+             Title="Авторизация">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <Label Margin="5,15,5,5" Text="Авторизация" FontSize="50" TextColor="{AppThemeBinding Dark=White, Light=Black}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                <Frame Margin="0,50,0,0" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
+                    <StackLayout>
+                        <Entry Placeholder="Логин" PlaceholderColor="LightGray"/>
+                        <Entry Placeholder="Пароль" PlaceholderColor="LightGray" IsPassword="True"/>
+                        <Button Text="Войти" CornerRadius="15"/>
+                        <Button Text="Зарегистрироваться" Clicked="SignUpPage" CornerRadius="15"/>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

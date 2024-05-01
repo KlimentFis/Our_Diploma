@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Diplom.Pages.AboutUsPage"
+             Title="Информация о нас">
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Frame Margin="10" Grid.Row="2" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
+                    <StackLayout>
+                        <Frame BackgroundColor="{AppThemeBinding Dark=#133a5e, Light=#D2EAFE}" CornerRadius="15">
+                            <Label Text="Трунов К. А." FontSize="30" HorizontalOptions="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                        </Frame>
+                        <Label Text="- Специальность: Программирование компьютерных систем (ПКС).
+                           &#10;- Группа: 4ПКС-220.
+                           &#10;- О себе: Программирую, пью чай, кайфую."
+                           FontSize="20" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                    </StackLayout>
+                </Frame>
+
+                <Frame Margin="10" Grid.Row="5" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
+                    <StackLayout>
+                        <Frame BackgroundColor="{AppThemeBinding Dark=#133a5e, Light=#D2EAFE}" CornerRadius="15">
+                            <Label Text="Пелипенко В. Б." FontSize="30" HorizontalOptions="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                        </Frame>
+                        <Label Text="- Специальность: Программирование компьютерных систем (ПКС).
+                           &#10;- Группа: 4ПКС-220.
+                           &#10;- О себе: Учусь."
+                           FontSize="20" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                    </StackLayout>
+                </Frame>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
