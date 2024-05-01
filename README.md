@@ -24,11 +24,6 @@ python -m venv venv && venv\Scripts\activate.bat
 pip install -r requerements.txt
 ```
 
-Переход в папку проекта
-```shell
-cd Diploma
-```
-
 Создание миграций:
 ```shell
 python manage.py makemigrations
