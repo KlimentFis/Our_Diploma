@@ -298,9 +298,9 @@ def text_to_audio(request):
                 # Возвращаем URL для доступа к аудиофайлу
                 audio_url = settings.MEDIA_URL + 'output.mp3'
             except Exception as e:
-                return HttpResponseServerError("Произошла ошибка при создании аудио: {}".format(str(e)))
+                return render(request, 'tests/text_to_audio.html', {'audio_url': None})
         else:
-            return HttpResponseServerError("Текст не был отправлен")
+            return render(request, 'tests/text_to_audio.html', {'audio_url': None})
     else:
         audio_url = None
 
