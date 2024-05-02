@@ -1,14 +1,17 @@
-import os
 from random import randint, sample, shuffle
-from django.http import HttpResponseNotAllowed, HttpResponseForbidden, JsonResponse, HttpResponse
+
+from django.conf import settings
+from django.core.files.temp import NamedTemporaryFile
+from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
 from language_tool_python import LanguageTool
-from gtts import gTTS
 from words.models import Word
 from words.models import Suggestion
 from users.views import check_auth
+from django.shortcuts import render
+from django.http import HttpResponseServerError
+from gtts import gTTS
+from tempfile import NamedTemporaryFile
 
 def index(request):
     return render(request, 'tests/index.html')
@@ -178,13 +181,6 @@ def translateWord(request):
     return render(request, 'tests/translate_word.html')
 
 
-
-
-
-
-
-
-
 def download_app(request):
     ...
 #     # Path to the file you want to serve for download
@@ -230,19 +226,82 @@ def download_file(request):
     # Возвращаем HTTP-ответ
     return response
 
+# ОТПРАВКА АУДИО ФАЙЛА
+#
 # def text_to_audio(request):
+#     error = check_auth(request, "Необходимо авторизоваться!")
+#     if error:
+#         return error
+#
+#     if request.method == 'POST':
+#         text = request.POST.get('text', '')
+#         if text:
+#             try:
+#                 # Преобразование текста в аудио
+#                 tts = gTTS(text=text, lang='en')
+#                 # Создаем путь к временному аудиофайлу
+#                 audio_file_path = os.path.join(settings.MEDIA_ROOT, 'output.mp3')
+#                 # Сохраняем аудиофайл
+#                 tts.save(audio_file_path)
+#                 # Открываем файл и читаем его содержимое
+#                 with open(audio_file_path, 'rb') as f:
+#                     audio_data = f.read()
+#                 # Удаляем временный аудиофайл
+#                 os.remove(audio_file_path)
+#                 # Возвращаем аудиофайл как ответ
+#                 response = HttpResponse(audio_data, content_type='audio/mpeg')
+#                 response['Content-Disposition'] = 'attachment; filename="output.mp3"'
+#                 return response
+#             except Exception as e:
+#                 return HttpResponseServerError("Произошла ошибка при создании аудио: {}".format(str(e)))
+#         else:
+#             return HttpResponseServerError("Текст не был отправлен")
+#
 #     return render(request, 'tests/text_to_audio.html')
+
+# def text_to_audio(request):
+#     error = check_auth(request, "Необходимо авторизоваться!")
+#     if error:
+#         return error
+#     audio_file_path = None
+#     if request.method == 'POST':
+#         text = request.POST.get('text', '')
+#         if text:
+#             try:
+#                 # Создаем путь к аудиофайлу
+#                 audio_file_path = os.path.join(settings.MEDIA_ROOT, 'output.mp3')
+#                 # Преобразование текста в аудио
+#                 tts = gTTS(text=text, lang='en')
+#                 tts.save(audio_file_path)
+#             except Exception as e:
+#                 return render(request, 'tests/text_to_audio.html', {'audio_file_path': audio_file_path})
+#         else:
+#             return render(request, 'tests/text_to_audio.html', {'audio_file_path': audio_file_path})
+#     return render(request, 'tests/text_to_audio.html', {'audio_file_path': audio_file_path})
 
 def text_to_audio(request):
     error = check_auth(request, "Необходимо авторизоваться!")
     if error:
         return error
+
     if request.method == 'POST':
         text = request.POST.get('text', '')
         if text:
-            # Преобразование текста в аудио
-            audio_file_path = os.path.join('media', 'output.mp3')
-            tts = gTTS(text=text, lang='en')
-            tts.save(audio_file_path)
-            return render(request, 'tests/text_to_audio.html', {'audio_file_path': audio_file_path})
-    return render(request, 'tests/text_to_audio.html', {'audio_file_path': None})
+            try:
+                # Преобразование текста в аудио
+                tts = gTTS(text=text, lang='en')
+
+                # Сохраняем аудиофайл в каталог медиа проекта
+                audio_file_path = settings.MEDIA_ROOT + '/output.mp3'
+                tts.save(audio_file_path)
+
+                # Возвращаем URL для доступа к аудиофайлу
+                audio_url = settings.MEDIA_URL + 'output.mp3'
+            except Exception as e:
+                return HttpResponseServerError("Произошла ошибка при создании аудио: {}".format(str(e)))
+        else:
+            return HttpResponseServerError("Текст не был отправлен")
+    else:
+        audio_url = None
+
+    return render(request, 'tests/text_to_audio.html', {'audio_url': audio_url})

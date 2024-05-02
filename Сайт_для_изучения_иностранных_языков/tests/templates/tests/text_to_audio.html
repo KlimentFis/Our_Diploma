@@ -25,9 +25,9 @@
         </div>
     </form>
 
-    {% if audio_file_path %}
+    {% if audio_url %}
     <audio controls>
-        <source src="{{ audio_file_path }}" type="audio/mpeg">
+        <source src="{{ audio_url }}" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
     {% endif %}
