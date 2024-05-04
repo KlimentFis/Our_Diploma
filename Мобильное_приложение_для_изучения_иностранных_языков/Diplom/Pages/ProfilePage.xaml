@@ -4,10 +4,40 @@
              x:Class="Diplom.Pages.ProfilePage"
              Title="Профиль">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Профиль"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <ScrollView>
+            <StackLayout>
+                <Frame Margin="10" CornerRadius="15" HorizontalOptions="CenterAndExpand" BackgroundColor="{AppThemeBinding Dark=#133a5e, Light=#D2EAFE}">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnFramePhoto"/>
+                    </Frame.GestureRecognizers>
+                    <Image x:Name="Photo" Source="ProfileMenuLight.png"/>
+                </Frame>
+                <Label Margin="10,0,10,10" Text="Тут будет выводиться имя пользователя" HorizontalOptions="CenterAndExpand"/>
+                <Frame Margin="10,0,10,10" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#133a5e, Light=#D2EAFE}">
+                    <StackLayout>
+                        <Label Text="Фамилия:" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20"/>
+                        <Entry Placeholder="Фамилия" PlaceholderColor="LightGray"/>
+                    </StackLayout>
+                </Frame>
+                <Frame Margin="10,0,10,10" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#133a5e, Light=#D2EAFE}">
+                    <StackLayout>
+                        <Label Text="Имя:" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20"/>
+                        <Entry Placeholder="Имя" PlaceholderColor="LightGray"/>
+                    </StackLayout>
+                </Frame>
+                <Frame Margin="10,0,10,10" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#133a5e, Light=#D2EAFE}">
+                    <StackLayout>
+                        <Label Text="Отчество:" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20"/>
+                        <Entry Placeholder="Отчество" PlaceholderColor="LightGray"/>
+                    </StackLayout>
+                </Frame>
+                <StackLayout Orientation="Horizontal">
+                    <CheckBox/>
+                    <Label Text="Анонимный пользователь" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20"/>
+                </StackLayout>
+                <Button Margin="10" Text="Сохранить" CornerRadius="15" HorizontalOptions="CenterAndExpand"/>
+                <Button Margin="10,0,10,10" Text="Удалить аккаунт" BackgroundColor="Red" CornerRadius="15" HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
