@@ -22,6 +22,7 @@ from tests.views import index, about_us, tests, links, about_us, download_app
 from users.views import userList, login_or_register
 from django.urls import path
 
+
 urlpatterns = [
     path('', login_or_register, name='index'),
     path('index/', index, name='start'),
