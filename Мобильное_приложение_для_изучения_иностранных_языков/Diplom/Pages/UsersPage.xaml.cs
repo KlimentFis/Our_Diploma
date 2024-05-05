@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 using System.Net.Http;
 using Newtonsoft.Json;
-
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace Diplom.Pages
 {
@@ -16,15 +10,17 @@ namespace Diplom.Pages
     public partial class UsersPage : ContentPage
     {
         // URL вашего DRF API
-        readonly string apiUrl = "http://localhost:8888/api/my_users";
+        readonly string apiUrl = "http://localhost:8000/api/users/";
 
         public UsersPage()
         {
             InitializeComponent();
             GetDataFromAPI();
         }
+
         private async void GetDataFromAPI()
-        {            // Создание HttpClient для отправки запросов
+        {
+            // Создание HttpClient для отправки запросов
             using (HttpClient client = new HttpClient())
             {
                 try
@@ -50,7 +46,8 @@ namespace Diplom.Pages
                 }
             }
         }
-        public class User
+
+        public class MyUser
         {
             public string Username { get; set; }
             public string First_name { get; set; }

@@ -9,9 +9,9 @@
                 <Label Margin="5,15,5,5" Text="Авторизация" FontSize="50" TextColor="{AppThemeBinding Dark=White, Light=Black}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
                 <Frame Margin="0,50,0,0" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
                     <StackLayout>
-                        <Entry Placeholder="Логин" PlaceholderColor="LightGray"/>
-                        <Entry Placeholder="Пароль" PlaceholderColor="LightGray" IsPassword="True"/>
-                        <Button Text="Войти" CornerRadius="15"/>
+                        <Entry x:Name="LoginEntry" Placeholder="Логин" PlaceholderColor="LightGray"/>
+                        <Entry x:Name="PasswordEntry" Placeholder="Пароль" PlaceholderColor="LightGray" IsPassword="True"/>
+                        <Button Text="Войти" CornerRadius="15" Clicked="Login" />
                         <Button Text="Зарегистрироваться" Clicked="SignUpPage" CornerRadius="15"/>
                     </StackLayout>
                 </Frame>
