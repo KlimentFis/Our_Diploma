@@ -5,12 +5,19 @@ from users.models import MyUser
 
 
 class MyUserSerializer(serializers.ModelSerializer):
-    image = serializers.ImageField(allow_null=True)
+    image = serializers.ImageField(allow_null=True, required=False)
 
+    # class Meta:
+    #     model = MyUser
+    #     fields = '__all__'
+    #     extra_kwargs = {'password': {'write_only': True}}
     class Meta:
         model = MyUser
         fields = '__all__'
-        extra_kwargs = {'password': {'write_only': True}}
+        extra_kwargs = {
+            'password': {'write_only': True},
+            'is_active': {'default': True}  # Установка is_active по умолчанию как True
+        }
 
     def create(self, validated_data):
         validated_data['password'] = make_password(validated_data['password'])
