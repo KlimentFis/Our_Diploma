@@ -45,12 +45,14 @@ def suggestion_list(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def delete_user(request):
-    if 'password' in request.data and 'username' in request.data:
-        password = request.data['password']
-        username = request.data['username']
+    username = request.user.username
+    password = request.user.password
+
+    if username and password:
         try:
             user = MyUser.objects.get(username=username, password=password)
             user.delete()
