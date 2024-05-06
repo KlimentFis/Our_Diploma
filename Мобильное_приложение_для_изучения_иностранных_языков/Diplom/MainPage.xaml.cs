@@ -22,10 +22,25 @@ namespace Diplom
             var item = e.SelectedItem as FlyoutItemPage;
             if (item != null)
             {
-                Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetPage));
+                // Если пользователь не авторизован и выбирает "профиль", открываем страницу авторизации
+                if (!IsUserLoggedIn() && item.TargetPage == typeof(ProfilePage))
+                {
+                    Detail = new NavigationPage((Page)Activator.CreateInstance(typeof(LoginPage)));
+                }
+                else
+                {
+                    // Иначе открываем страницу, выбранную из меню
+                    Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetPage));
+                }
+
                 flyoutMenu.listviewMenu.SelectedItem = null;
                 IsPresented = false;
             }
+        }
+        private bool IsUserLoggedIn()
+        {
+            //здесь логика проверки
+            return false;
         }
     }
 }

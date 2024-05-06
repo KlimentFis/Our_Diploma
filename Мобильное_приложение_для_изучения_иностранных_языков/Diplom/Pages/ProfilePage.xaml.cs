@@ -61,5 +61,18 @@ namespace Diplom.Pages
 
             return file.GetStream();
         }
+        private async void DeleteBtn_Clicked(object sender, EventArgs e)
+        {
+            bool answer = await DisplayAlert("Внимание!", "Вы уверены, что хотите удалить аккаунт?", "Да", "Нет");
+
+            if (answer)
+            {
+                // Удаление аккаунта
+            }
+        }
+        private void SaveBtn_Clicked(Object sender, EventArgs e)
+        {
+            _ = DisplayAlert("Сохранение", $"Данные успешно сохранены", "OK");
+        }
     }
 }
