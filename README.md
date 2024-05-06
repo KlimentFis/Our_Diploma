@@ -11,7 +11,7 @@
 git clone https://github.com/KlimentFis/Our_Diploma 
 ```
 
-Переход в папку проекта
+Переход в папку проекта:
 ```shell
 cd Our_Diploma/Сайт_для_изучения_иностранных_языков
 ```
@@ -51,7 +51,7 @@ python manage.py create_suggestions static/seggestions.txt
 python manage.py createsuperuser
 ```
 
-## Запуск проекта:
+## Запуск проекта
 Для локальной разработки:
 ```shell
 python manage.py runserver
@@ -113,6 +113,22 @@ python manage.py runserver 0.0.0.0:8888
   "right_word": "mouse"
 }
 ```
+- ### POST /api/create_user/ - Для создания пользователя
+#### Входные данные:
+```json
+{
+  "username": "",
+  "password": ""
+}
+```
+#### Результат выполнения:
+```json
+{
+  "refresh": "",
+  "access": ""
+}
+```
+
 - ### POST /api/delete_user/ - Для удаления пользователя [!!!]
 #### Входные данные:
 ```json
