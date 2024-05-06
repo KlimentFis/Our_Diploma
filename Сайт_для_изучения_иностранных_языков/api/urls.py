@@ -21,10 +21,8 @@ urlpatterns = [
     path('users/', user_list, name='user_list'),
     path('words/', word_list, name='word_list'),
     path('suggestions/', suggestion_list, name='suggestion_list'),
-    path('signup/', user_signup, name='user_signup'),
     path('delete_user/', delete_user, name='delete_user'),
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('create_user/', create_user ,name='user_signup'),
-    # path('get_csrf_token/', get_csrf_token, name='get_csrf_token')
+    path('create_user/', create_user ,name='create_user')
 ]
