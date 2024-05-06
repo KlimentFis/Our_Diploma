@@ -10,7 +10,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
-def user_signup(request):
+def create_user(request):
     if request.method == 'POST':
         serializer = MyUserSerializer(data=request.data)
         if serializer.is_valid():
