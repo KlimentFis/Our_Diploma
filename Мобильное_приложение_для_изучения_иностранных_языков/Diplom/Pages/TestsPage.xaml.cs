@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -20,17 +15,51 @@ namespace Diplom.Pages
         [Obsolete]
         private async void OnFrameWords(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new TestsWords());
+
+            if (!IsUserLoggedIn())
+            {
+                await Navigation.PushAsync(new LoginPage());
+                return;
+            }
+
+            {
+                await Navigation.PushAsync(new TestsWords());
+            }
         }
+
         [Obsolete]
         private async void OnFrameTranslation(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new TestsTranslation());
+            if (!IsUserLoggedIn())
+            {
+                await Navigation.PushAsync(new LoginPage());
+                return;
+            }
+            else
+            {
+                await Navigation.PushAsync(new TestsTranslation());
+            }
         }
+
         [Obsolete]
         private async void OnFrameText(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new TestsText());
+
+            if (!IsUserLoggedIn())
+            {
+                await Navigation.PushAsync(new LoginPage());
+                return;
+            }
+            else
+            {
+                await Navigation.PushAsync(new TestsText());
+            }
+        }
+
+        private bool IsUserLoggedIn()
+        {
+            //здесь логика проверки
+            return false;
         }
     }
 }

@@ -11,6 +11,7 @@
                     <StackLayout>
                         <Entry Placeholder="Логин" PlaceholderColor="LightGray"/>
                         <Entry Placeholder="Пароль" PlaceholderColor="LightGray" IsPassword="True"/>
+                        <Entry Placeholder="Повторите пароль" PlaceholderColor="LightGray" IsPassword="True"/>
                         <Button Text="Зарегистрироваться" CornerRadius="15"/>
                     </StackLayout>
                 </Frame>
