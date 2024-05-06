@@ -1,4 +1,6 @@
-# Диплом
+# Диплом 
+## Тема: Комплекс программных средств для изученя инностранных языков
+
 
 # Web
 
@@ -49,9 +51,14 @@ python manage.py create_suggestions static/seggestions.txt
 python manage.py createsuperuser
 ```
 
-Запуск проекта:
+## Запуск проекта:
+Для локальной разработки:
 ```shell
 python manage.py runserver
+```
+Для продакшена:
+```shell
+python manage.py runserver 0.0.0.0:8888
 ```
 
 # Mobile
@@ -60,4 +67,78 @@ python manage.py runserver
 Ничего устанавливать, кроме Visual Studio не нужно :)
 ```
 
-#### P.S. В проекте используется Rest API, то-есть мобильное приложение отправляет JSON запрос к сайту, а сайт отправляет обратно JSON ответ. В связи с этим, должны быть запущены оба приложения!!!
+# Руководство по Rest API
+- ### GET /api/users/ - Для получения всех пользователей
+#### Результат выполнения:
+```json
+{
+  "id": 1,
+  "image": "/media/users/eefe9ac4dc14bcd8af5e28bfaace5931.jpg",
+  "last_login": "2024-04-21T19:22:33.700804+03:00",
+  "is_superuser": false,
+  "username": "",
+  "first_name": "",
+  "last_name": "",
+  "email": "",
+  "is_staff": false,
+  "is_active": true,
+  "date_joined": "2024-04-21T19:22:33.690868+03:00",
+  "patronymic": "",
+  "use_english": false,
+  "anonymous": false,
+  "data_joined": "2024-04-21T19:22:33.364042+03:00",
+  "right_answers": 2,
+  "wrong_answers": 1,
+  "groups": [],
+  "user_permissions": []
+}
+```
+- ### GET /api/words/ - Для получения всех слов
+
+#### Результат выполнения:
+```json
+{
+  "id": 1,
+  "name": "absolute",
+  "translate": "абсолютный"
+}
+```
+- ### GET /api/suggestions/ - Для получения всех предложений
+
+#### Результат выполнения:
+```json
+{
+  "id": 1,
+  "suggestion": "The cat chased the mouse around the house.",
+  "right_word": "mouse"
+}
+```
+- ### POST /api/delete_user/ - Для удаления пользователя [!!!]
+#### Входные данные:
+```json
+{
+  "username": "",
+  "password": ""
+}
+```
+#### Результат выполнения:
+```json
+{
+  "detail": "Пользователь успешно удален!!!"
+}
+```
+- ### POST /api/token/ - Для получения access и refresh токена
+#### Входные данные:
+```json
+{
+  "username": "",
+  "password": ""
+}
+```
+#### Результат выполнения:
+```json
+{
+  "refresh": "",
+  "access": ""
+}
+```
