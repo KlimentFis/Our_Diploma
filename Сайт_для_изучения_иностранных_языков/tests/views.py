@@ -1,17 +1,12 @@
 from random import randint, sample, shuffle
-
-from django.conf import settings
-from django.core.files.temp import NamedTemporaryFile
-from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from language_tool_python import LanguageTool
 from words.models import Word
 from words.models import Suggestion
 from users.views import check_auth
 from django.shortcuts import render
-from django.http import HttpResponseServerError
 from gtts import gTTS
-from tempfile import NamedTemporaryFile
+import re
 
 def index(request):
     return render(request, 'tests/index.html')
@@ -181,103 +176,32 @@ def translateWord(request):
     return render(request, 'tests/translate_word.html')
 
 
+import os
+from django.http import HttpResponse
+from django.conf import settings
+
 def download_app(request):
-    ...
-#     # Path to the file you want to serve for download
-#     file_name = 'brain.jpg'
-#
-#     # Construct the absolute file path using STATIC_ROOT
-#     file_path = os.path.join(settings.STATIC_ROOT, file_name)
-#
-#     # Check if the file exists
-#     if os.path.exists(file_path):
-#         # Open the file in binary mode
-#         with open(file_path, 'rb') as file:
-#             # Read the file content
-#             file_content = file.read()
-#             # Create an HTTP response with the file content as the body
-#             response = HttpResponse(file_content, content_type='image/jpeg')
-#             # Set the Content-Disposition header to make the browser download the file
-#             response['Content-Disposition'] = 'attachment; filename="img.jpg"'
-#             return response
-#     else:
-#         # Handle the case where the file does not exist
-#         return HttpResponse("File not found", status=404)
+    # Путь к файлу приложения
+    app_file_path = os.path.join(settings.STATIC_ROOT, 'Duolingo-Logo-2019-present.jpg')
 
+    # Проверяем существование файла
+    if os.path.exists(app_file_path):
+        with open(app_file_path, 'rb') as file:
+            # Читаем содержимое файла
+            file_content = file.read()
 
-def download_file(request):
-    # Путь к файлу для скачивания
-    file_path = "{% load static %}{% static 'brain.jpg' %}"
+        # Определяем тип содержимого для заголовка Content-Type
+        content_type = 'image/jpeg'
 
-    # Открываем файл для чтения в бинарном режиме
-    with open(file_path, 'rb') as f:
-        # Читаем содержимое файла
-        file_data = f.read()
+        # Устанавливаем заголовки для скачивания файла
+        response = HttpResponse(file_content, content_type=content_type)
+        response['Content-Disposition'] = 'attachment; filename="Duolingo-Logo-2019-present.jpg"'
 
-    # Определяем MIME-тип файла
-    content_type = "text/plain"
+        return response
+    else:
+        # Если файл не существует, возвращаем сообщение об ошибке
+        return HttpResponse("Файл не найден", status=404)
 
-    # Создаем HTTP-ответ с содержимым файла в теле ответа
-    response = HttpResponse(file_data, content_type=content_type)
-
-    # Устанавливаем заголовок Content-Disposition, чтобы браузер понял, что это вложение и должно быть скачано
-    response['Content-Disposition'] = 'attachment; filename="file.txt"'
-
-    # Возвращаем HTTP-ответ
-    return response
-
-# ОТПРАВКА АУДИО ФАЙЛА
-#
-# def text_to_audio(request):
-#     error = check_auth(request, "Необходимо авторизоваться!")
-#     if error:
-#         return error
-#
-#     if request.method == 'POST':
-#         text = request.POST.get('text', '')
-#         if text:
-#             try:
-#                 # Преобразование текста в аудио
-#                 tts = gTTS(text=text, lang='en')
-#                 # Создаем путь к временному аудиофайлу
-#                 audio_file_path = os.path.join(settings.MEDIA_ROOT, 'output.mp3')
-#                 # Сохраняем аудиофайл
-#                 tts.save(audio_file_path)
-#                 # Открываем файл и читаем его содержимое
-#                 with open(audio_file_path, 'rb') as f:
-#                     audio_data = f.read()
-#                 # Удаляем временный аудиофайл
-#                 os.remove(audio_file_path)
-#                 # Возвращаем аудиофайл как ответ
-#                 response = HttpResponse(audio_data, content_type='audio/mpeg')
-#                 response['Content-Disposition'] = 'attachment; filename="output.mp3"'
-#                 return response
-#             except Exception as e:
-#                 return HttpResponseServerError("Произошла ошибка при создании аудио: {}".format(str(e)))
-#         else:
-#             return HttpResponseServerError("Текст не был отправлен")
-#
-#     return render(request, 'tests/text_to_audio.html')
-
-# def text_to_audio(request):
-#     error = check_auth(request, "Необходимо авторизоваться!")
-#     if error:
-#         return error
-#     audio_file_path = None
-#     if request.method == 'POST':
-#         text = request.POST.get('text', '')
-#         if text:
-#             try:
-#                 # Создаем путь к аудиофайлу
-#                 audio_file_path = os.path.join(settings.MEDIA_ROOT, 'output.mp3')
-#                 # Преобразование текста в аудио
-#                 tts = gTTS(text=text, lang='en')
-#                 tts.save(audio_file_path)
-#             except Exception as e:
-#                 return render(request, 'tests/text_to_audio.html', {'audio_file_path': audio_file_path})
-#         else:
-#             return render(request, 'tests/text_to_audio.html', {'audio_file_path': audio_file_path})
-#     return render(request, 'tests/text_to_audio.html', {'audio_file_path': audio_file_path})
 
 def text_to_audio(request):
     error = check_auth(request, "Необходимо авторизоваться!")
@@ -287,21 +211,23 @@ def text_to_audio(request):
     if request.method == 'POST':
         text = request.POST.get('text', '')
         if text:
-            try:
-                # Преобразование текста в аудио
-                tts = gTTS(text=text, lang='en')
-
-                # Сохраняем аудиофайл в каталог медиа проекта
-                audio_file_path = settings.MEDIA_ROOT + '/output.mp3'
-                tts.save(audio_file_path)
-
-                # Возвращаем URL для доступа к аудиофайлу
-                audio_url = settings.MEDIA_URL + 'output.mp3'
-            except Exception as e:
-                return render(request, 'tests/text_to_audio.html', {'audio_url': None})
+            # Проверяем, содержит ли текст только символы английского языка и пробелы
+            if re.match("^[a-zA-Z ]+$", text):
+                # Если текст на английском языке, преобразуем его в аудио
+                try:
+                    tts = gTTS(text=text, lang='en')
+                    audio_file_path = settings.MEDIA_ROOT + '/output.mp3'
+                    tts.save(audio_file_path)
+                    audio_url = settings.MEDIA_URL + 'output.mp3'
+                    return render(request, 'tests/text_to_audio.html', {'audio_url': audio_url, 'error': None})
+                except Exception as e:
+                    return render(request, 'tests/text_to_audio.html', {'audio_url': None, 'error': str(e)})
+            else:
+                # Если текст содержит символы, отличные от английских букв и пробелов, выводим ошибку
+                error = "Текст должен содержать только английские буквы и пробелы"
         else:
-            return render(request, 'tests/text_to_audio.html', {'audio_url': None})
+            error = "Введите текст для преобразования в аудио"
     else:
         audio_url = None
 
-    return render(request, 'tests/text_to_audio.html', {'audio_url': audio_url})
+    return render(request, 'tests/text_to_audio.html', {'audio_url': audio_url, 'error': error})
