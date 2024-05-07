@@ -3,10 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Diplom.Pages.TestsText">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Проверка письма"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <ScrollView>
+            <StackLayout>
+                <Label Text="Введите текст для проверки" FontAttributes="Bold" Margin="10,15,10,10" FontSize="40" TextColor="{AppThemeBinding Dark=White, Light=Black}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                <Frame Margin="10,50,10,10" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
+                    <Editor AutoSize="TextChanges" Placeholder="Введите ваш текст здесь..."/>
+                </Frame>
+                <Button Margin="10,50,10,10" Text="Отправить" CornerRadius="15" BackgroundColor="#153b5d" TextColor="White"/>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
