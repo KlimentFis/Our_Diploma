@@ -23,7 +23,7 @@ python -m venv venv && venv\Scripts\activate.bat
 
 Установка зависимостей:
 ```shell
-pip install -r requerements.txt
+pip install -r requirements.txt --use-deprecated legacy-resolver
 ```
 
 Создание миграций:
