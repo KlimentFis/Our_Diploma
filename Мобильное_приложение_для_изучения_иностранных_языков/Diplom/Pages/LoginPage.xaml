@@ -11,7 +11,7 @@
                     <StackLayout>
                         <Entry x:Name="LoginEntry" Placeholder="Логин" PlaceholderColor="LightGray"/>
                         <Entry x:Name="PasswordEntry" Placeholder="Пароль" PlaceholderColor="LightGray" IsPassword="True"/>
-                        <Button Text="Войти" CornerRadius="15" Clicked="Login" />
+                        <Button Text="Войти" CornerRadius="15" Clicked="LoginButton_Clicked" />
                         <Button Text="Зарегистрироваться" Clicked="SignUpPage" CornerRadius="15"/>
                     </StackLayout>
                 </Frame>

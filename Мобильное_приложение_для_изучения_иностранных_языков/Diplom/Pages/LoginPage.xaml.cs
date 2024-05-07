@@ -4,17 +4,22 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace Diplom.Pages
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
+        public static string AccessToken { get; set; }
+        public static string RefreshToken { get; set; }
+
         public LoginPage()
         {
             InitializeComponent();
         }
 
-        private async void Login(object sender, EventArgs e)
+        private async void LoginButton_Clicked(object sender, EventArgs e)
         {
             try
             {
@@ -31,9 +36,20 @@ namespace Diplom.Pages
                     if (response.IsSuccessStatusCode)
                     {
                         string responseContent = await response.Content.ReadAsStringAsync();
-                        // Обработка JSON-ответа
-                        // Например, десериализация JSON в объект или вывод пользователю
-                        Console.WriteLine(responseContent);
+
+                        // Распарсить responseContent в объект
+                        var responseObject = JsonConvert.DeserializeObject<dynamic>(responseContent);
+
+                        // Получить значения токенов из объекта
+                        string refreshToken = responseObject.refresh;
+                        string accessToken = responseObject.access;
+
+                        // Сохранить токены в вашем приложении
+                        Diplom.Pages.LoginPage.RefreshToken = refreshToken;
+                        Diplom.Pages.LoginPage.AccessToken = accessToken;
+
+                        // Перейти на другую страницу или выполнить другие действия после успешного входа
+                        await DisplayAlert("Успех", "Вы успешно вошли", "OK");
                     }
                     else
                     {
