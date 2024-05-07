@@ -15,12 +15,12 @@ git clone https://github.com/KlimentFis/Our_Diploma
 cd Our_Diploma/Сайт_для_изучения_иностранных_языков
 ```
 
-Установка и активация виртуального окружения (Не обязательно):
+Установка и активация виртуального окружения ( Не обязательно ):
 ```shell
 python -m venv venv && venv\Scripts\activate.bat
 ```
 
-Установка зависимостей ( <span style="color:red">ВЫСВЕЧИВАЕТСЯ ЛОЖНАЯ ОШИБКА</span> ):
+Установка зависимостей ( ВЫСВЕЧИВАЕТСЯ ЛОЖНАЯ ОШИБКА ):
 ```shell
 pip install -r requirements.txt --use-deprecated legacy-resolver
 ```
@@ -45,7 +45,7 @@ python manage.py parse_and_save
 python manage.py create_suggestions static/seggestions.txt
 ```
 
-Создание Супер-пользователя:
+Создание Супер-пользователя ( Не обязательно ):
 ```shell
 python manage.py createsuperuser
 ```
