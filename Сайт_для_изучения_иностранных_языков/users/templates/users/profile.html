@@ -77,6 +77,21 @@
         </div>
     </div>
 
+    <!-- Модальное окно для уведомления о прямоугольном изображении -->
+    <div class="modal fade" id="rectangularImageModal" tabindex="-1" aria-labelledby="rectangularImageModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="rectangularImageModalLabel">{% if request.user.use_english %}Rectangular image{% else %}Прямоугольное изображение{% endif %}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            {% if request.user.use_english %}The image to be uploaded must be square.{% else %}Загружаемое изображение должно быть квадратным.{% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script>
         document.getElementById("user-image").addEventListener("click", function() {
             var input = document.createElement("input");
@@ -89,24 +104,36 @@
                     var formData = new FormData();
                     formData.append("image", file);
 
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "{% url 'upload_image' %}", true);
-                    xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState === XMLHttpRequest.DONE) {
-                            if (xhr.status === 200) {
-                                var responseData = JSON.parse(xhr.responseText);
-                                document.getElementById("user-image").src = responseData.image_url;
-                            } else {
-                                console.error("Error:", xhr.status);
-                            }
+                    var image = new Image();
+                    image.src = URL.createObjectURL(file);
+
+                    image.onload = function() {
+                        if (image.width !== image.height) {
+                            // Показываем модальное окно о прямоугольном изображении
+                            var modal = new bootstrap.Modal(document.getElementById('rectangularImageModal'));
+                            modal.show();
+                        } else {
+                            var xhr = new XMLHttpRequest();
+                            xhr.open("POST", "{% url 'upload_image' %}", true);
+                            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+                            xhr.onreadystatechange = function () {
+                                if (xhr.readyState === XMLHttpRequest.DONE) {
+                                    if (xhr.status === 200) {
+                                        var responseData = JSON.parse(xhr.responseText);
+                                        document.getElementById("user-image").src = responseData.image_url;
+                                    } else {
+                                        console.error("Error:", xhr.status);
+                                    }
+                                }
+                            };
+                            xhr.send(formData);
                         }
                     };
-                    xhr.send(formData);
                 }
             });
         });
-    </script>
+        </script>
+
 
 
     <script>
