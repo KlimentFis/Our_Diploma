@@ -62,15 +62,22 @@ python manage.py runserver 0.0.0.0:8888
 
 # Mobile
 Установите нужные NuGet библиотеки:
-```
-Id                                  Versions                                 ProjectName                                                                                                                                                                                  --                                  --------                                 -----------                                                                                                                                                                                  
-NETStandard.Library                 {2.0.3}                                  Diplom                                                                                                                                                                                       Xamarin.Essentials                  {1.7.0}                                  Diplom                                                                                                                                                                                       
-System.Net.Http                     {4.3.4}                                  Diplom                                                                                                                                                                                       Newtonsoft.Json                     {13.0.3}                                 Diplom                                                                                                                                                                                       
-Microsoft.CSharp                    {4.7.0}                                  Diplom                                                                                                                                                                                       Xamarin.Forms                       {5.0.0.2196}                             Diplom                                                                                                                                                                                       
-Xam.Plugin.Media                    {6.0.2}                                  Diplom                                                                                                                                                                                       Microsoft.CSharp                    {4.7.0}                                  Diplom.Android                                                                                                                                                                               
-Newtonsoft.Json                     {13.0.3}                                 Diplom.Android                                                                                                                                                                               System.Net.Http                     {4.3.4}                                  Diplom.Android                                                                                                                                                                               
-Xamarin.Forms                       {5.0.0.2196}                             Diplom.Android                                                                                                                                                                               Xamarin.Essentials                  {1.7.0}                                  Diplom.Android
-```
+
+| Id                  | Versions      | ProjectName  |
+|---------------------|---------------|--------------|
+| NETStandard.Library | {2.0.3}       | Diplom       |
+| Xamarin.Essentials  | {1.7.0}       | Diplom       |
+| System.Net.Http     | {4.3.4}       | Diplom       |
+| Newtonsoft.Json     | {13.0.3}      | Diplom       |
+| Microsoft.CSharp    | {4.7.0}       | Diplom       |
+| Xamarin.Forms       | {5.0.0.2196}  | Diplom       |
+| Xam.Plugin.Media    | {6.0.2}       | Diplom       |
+| Microsoft.CSharp    | {4.7.0}       | Diplom.Android |
+| Newtonsoft.Json     | {13.0.3}      | Diplom.Android |
+| System.Net.Http     | {4.3.4}       | Diplom.Android |
+| Xamarin.Forms       | {5.0.0.2196}  | Diplom.Android |
+| Xamarin.Essentials  | {1.7.0}       | Diplom.Android |
+
 
 
 # Руководство по Rest API
