@@ -15,12 +15,12 @@ git clone https://github.com/KlimentFis/Our_Diploma
 cd Our_Diploma/Сайт_для_изучения_иностранных_языков
 ```
 
-Установка и активация виртуального окружения ( Не обязательно ):
+Установка и активация виртуального окружения (Не обязательно):
 ```shell
 python -m venv venv && venv\Scripts\activate.bat
 ```
 
-Установка зависимостей ( ВЫСВЕЧИВАЕТСЯ ЛОЖНАЯ ОШИБКА ):
+Установка зависимостей ( <span style="color:red">ВЫСВЕЧИВАЕТСЯ ЛОЖНАЯ ОШИБКА</span> ):
 ```shell
 pip install -r requirements.txt --use-deprecated legacy-resolver
 ```
@@ -45,7 +45,7 @@ python manage.py parse_and_save
 python manage.py create_suggestions static/seggestions.txt
 ```
 
-Создание Супер-пользователя ( Не обязательно ):
+Создание Супер-пользователя:
 ```shell
 python manage.py createsuperuser
 ```
@@ -61,10 +61,17 @@ python manage.py runserver 0.0.0.0:8888
 ```
 
 # Mobile
+Установите нужные NuGet библиотеки:
+```
+Id                                  Versions                                 ProjectName                                                                                                                                                                                  --                                  --------                                 -----------                                                                                                                                                                                  
+NETStandard.Library                 {2.0.3}                                  Diplom                                                                                                                                                                                       Xamarin.Essentials                  {1.7.0}                                  Diplom                                                                                                                                                                                       
+System.Net.Http                     {4.3.4}                                  Diplom                                                                                                                                                                                       Newtonsoft.Json                     {13.0.3}                                 Diplom                                                                                                                                                                                       
+Microsoft.CSharp                    {4.7.0}                                  Diplom                                                                                                                                                                                       Xamarin.Forms                       {5.0.0.2196}                             Diplom                                                                                                                                                                                       
+Xam.Plugin.Media                    {6.0.2}                                  Diplom                                                                                                                                                                                       Microsoft.CSharp                    {4.7.0}                                  Diplom.Android                                                                                                                                                                               
+Newtonsoft.Json                     {13.0.3}                                 Diplom.Android                                                                                                                                                                               System.Net.Http                     {4.3.4}                                  Diplom.Android                                                                                                                                                                               
+Xamarin.Forms                       {5.0.0.2196}                             Diplom.Android                                                                                                                                                                               Xamarin.Essentials                  {1.7.0}                                  Diplom.Android
+```
 
-```
-Ничего устанавливать, кроме Visual Studio не нужно :)
-```
 
 # Руководство по Rest API
 
