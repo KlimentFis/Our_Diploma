@@ -64,7 +64,7 @@ python manage.py runserver 0.0.0.0:8888
 Установите нужные NuGet библиотеки:
 
 | Id                  | Versions      | ProjectName  |
-|---------------------|---------------|--------------|
+|:---------------------:|:---------------:|:--------------:|
 | NETStandard.Library | {2.0.3}       | Diplom       |
 | Xamarin.Essentials  | {1.7.0}       | Diplom       |
 | System.Net.Http     | {4.3.4}       | Diplom       |
