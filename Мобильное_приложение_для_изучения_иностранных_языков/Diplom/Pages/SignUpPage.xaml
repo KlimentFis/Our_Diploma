@@ -6,8 +6,7 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-                <Label Margin="5,15,5,5" Text="Регистрация" FontSize="50" TextColor="{AppThemeBinding Dark=White, Light=Black}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
-                <Frame Margin="10,50,10,10" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
+                <Frame Margin="10,0,10,20" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}" VerticalOptions="CenterAndExpand">
                     <StackLayout>
                         <Entry Placeholder="Логин" PlaceholderColor="LightGray" x:Name="LoginTxt"/>
                         <Entry Placeholder="Пароль" PlaceholderColor="LightGray" IsPassword="True" x:Name="PassTxt"/>

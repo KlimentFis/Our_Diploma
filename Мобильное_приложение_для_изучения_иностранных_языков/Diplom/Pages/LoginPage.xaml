@@ -6,13 +6,24 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-                <Label Margin="5,15,5,5" Text="Авторизация" FontSize="50" TextColor="{AppThemeBinding Dark=White, Light=Black}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
-                <Frame Margin="10,50,10,10" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
+                <Frame Margin="10,0,10,20" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}" VerticalOptions="CenterAndExpand">
                     <StackLayout>
                         <Entry x:Name="LoginEntry" Placeholder="Логин" PlaceholderColor="LightGray"/>
                         <Entry x:Name="PasswordEntry" Placeholder="Пароль" PlaceholderColor="LightGray" IsPassword="True"/>
-                        <Button Text="Войти" CornerRadius="15" Clicked="LoginButton_Clicked"/>
-                        <Button Text="Зарегистрироваться" BackgroundColor="#153b5d" TextColor="White" Clicked="SignUpPage" CornerRadius="15"/>
+                        <Button Text="Войти" CornerRadius="15" BackgroundColor="#153b5d" TextColor="White" Clicked="LoginButton_Clicked"/>
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                            <Label TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="17">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Нет аккаунта? "/>
+                                        <Span Text="Зарегистрируйтесь" TextDecorations="Underline"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="SignUpPage"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </StackLayout>
                     </StackLayout>
                 </Frame>
             </StackLayout>
