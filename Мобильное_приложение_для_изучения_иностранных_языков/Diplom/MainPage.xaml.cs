@@ -40,7 +40,7 @@ namespace Diplom
         private bool IsUserLoggedIn()
         {
             //здесь логика проверки
-            return false;
+            return true;
         }
     }
 }

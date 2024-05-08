@@ -232,3 +232,11 @@ DATABASES = {
   "access": ""
 }
 ```
+
+# Тестирование Rest API
+Запуск приложения для тестирования API:
+```
+python manage.py runserver 0.0.0.0:8888
+```
+
+Все ссылки в приложении должны иметь ввид https://localhost:8888

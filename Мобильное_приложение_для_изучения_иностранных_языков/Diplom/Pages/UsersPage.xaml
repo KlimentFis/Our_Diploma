@@ -4,14 +4,28 @@
              x:Class="Diplom.Pages.UsersPage"
              Title="Список пользователей">
     <ContentPage.Content>
-        <StackLayout>
-            <ListView x:Name="listView">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextCell Text="{Binding Username}" />
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
+        <ListView x:Name="listView">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Padding="10">
+                            <Label Text="Username: " FontAttributes="Bold" />
+                            <Label Text="{Binding Username}" />
+
+                            <Label Text="First Name: " FontAttributes="Bold" />
+                            <Label Text="{Binding First_name}" />
+
+                            <Label Text="Last Name: " FontAttributes="Bold" />
+                            <Label Text="{Binding Last_name}" />
+
+                            <Label Text="Email: " FontAttributes="Bold" />
+                            <Label Text="{Binding Email}" />
+
+                            <!-- Добавьте другие свойства пользователя, которые хотите отобразить -->
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </ContentPage.Content>
 </ContentPage>

@@ -12,7 +12,7 @@
                         <Entry x:Name="PasswordEntry" Placeholder="Пароль" PlaceholderColor="LightGray" IsPassword="True"/>
                         <Button Text="Войти" CornerRadius="15" BackgroundColor="#153b5d" TextColor="White" Clicked="LoginButton_Clicked"/>
                         <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-                            <Label TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="17">
+                            <Label TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="17" Margin="0, 15, 0, 0">
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span Text="Нет аккаунта? "/>

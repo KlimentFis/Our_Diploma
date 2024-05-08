@@ -11,9 +11,6 @@ namespace Diplom.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
-        public static string AccessToken { get; set; }
-        public static string RefreshToken { get; set; }
-
         public LoginPage()
         {
             InitializeComponent();
@@ -44,12 +41,14 @@ namespace Diplom.Pages
                         string refreshToken = responseObject.refresh;
                         string accessToken = responseObject.access;
 
-                        // Сохранить токены в вашем приложении
-                        Diplom.Pages.LoginPage.RefreshToken = refreshToken;
-                        Diplom.Pages.LoginPage.AccessToken = accessToken;
+                        // Сохранить токены в хранилище приложения
+                        Application.Current.Properties["RefreshToken"] = refreshToken;
+                        Application.Current.Properties["AccessToken"] = accessToken;
+                        await Application.Current.SavePropertiesAsync();
 
-                        // Перейти на другую страницу или выполнить другие действия после успешного входа
+                        // Перейти на другую страницу после успешной аутентификации
                         await DisplayAlert("Успех", "Вы успешно вошли", "OK");
+                        await Navigation.PushAsync(new UsersPage());
                     }
                     else
                     {
