@@ -2,7 +2,7 @@
 ## Тема: Комплекс программных средств для изученя инностранных языков
 
 
-# Web
+# Сайт
 
 ## Установка
 
@@ -61,7 +61,7 @@ python manage.py runserver
 python manage.py runserver 0.0.0.0:8888
 ```
 ## Заключение
-При вводе сайта в эксплуатацию, поставьте флаг DEBUG=True на False в фале [settings.py](Сайт_для_изучения_иностранных_языков/main/settings.py)
+При вводе сайта в эксплуатацию, поставьте флаг DEBUG=True в положение False, в фале [settings.py](Сайт_для_изучения_иностранных_языков/main/settings.py)
 
 ```
 import secrets
@@ -120,7 +120,7 @@ DATABASES = {
 }
 ```
 
-# Mobile
+# Мобильное приложение
 Установите нужные NuGet библиотеки:
 
 | Id                  | Versions      | ProjectName  |
