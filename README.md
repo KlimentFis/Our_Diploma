@@ -1,6 +1,7 @@
 # Диплом 
 ## Тема: Комплекс программных средств для изученя инностранных языков
 
+
 # Web
 
 ## Установка
@@ -20,7 +21,7 @@ cd Our_Diploma/Сайт_для_изучения_иностранных_язык�
 python -m venv venv && venv\Scripts\activate.bat
 ```
 
-Установка зависимостей ( <span style="color:red">ВЫСВЕЧИВАЕТСЯ ЛОЖНАЯ ОШИБКА</span> ):
+Установка зависимостей:
 ```shell
 pip install -r requirements.txt --use-deprecated legacy-resolver
 ```
@@ -59,6 +60,65 @@ python manage.py runserver
 ```shell
 python manage.py runserver 0.0.0.0:8888
 ```
+## Заключение
+При вводе сайта в эксплуатацию, поставьте флаг DEBUG=True на False в фале [settings.py](Сайт_для_изучения_иностранных_языков/main/settings.py)
+
+```
+import secrets
+JWT_SECRET_KEY = secrets.token_urlsafe(32)
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'django-insecure-5g(3gz1rva!p3j%944$o(z(tstp+)glg(a5pzdhib8g3$n@n^y'
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+ALLOWED_HOSTS = ['*']
+
+LOGOUT_REDIRECT_URL = '/index'
+LOGIN_URL = '/'
+```
+
+При локальной разработке можно использовать sqlite3 вместо MySQL
+```
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'OurDiploma',
+        'USER': 'root',
+        'PASSWORD': 'MySQL',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+```
+Замените на
+```
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'OurDiploma',
+#         'USER': 'root',
+#         'PASSWORD': 'MySQL',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+```
 
 # Mobile
 Установите нужные NuGet библиотеки:
@@ -81,7 +141,6 @@ python manage.py runserver 0.0.0.0:8888
 
 
 # Руководство по Rest API
-
 - ### GET /api/users/ - Для получения всех пользователей
 #### Результат выполнения:
 ```json
@@ -107,8 +166,8 @@ python manage.py runserver 0.0.0.0:8888
   "user_permissions": []
 }
 ```
-
 - ### GET /api/words/ - Для получения всех слов
+
 #### Результат выполнения:
 ```json
 {
@@ -117,8 +176,8 @@ python manage.py runserver 0.0.0.0:8888
   "translate": "абсолютный"
 }
 ```
-
 - ### GET /api/suggestions/ - Для получения всех предложений
+
 #### Результат выполнения:
 ```json
 {
@@ -127,7 +186,6 @@ python manage.py runserver 0.0.0.0:8888
   "right_word": "mouse"
 }
 ```
-
 - ### POST /api/create_user/ - Для создания пользователя
 #### Входные данные:
 ```json
@@ -136,7 +194,6 @@ python manage.py runserver 0.0.0.0:8888
   "password": ""
 }
 ```
-
 #### Результат выполнения:
 ```json
 {
@@ -153,14 +210,12 @@ python manage.py runserver 0.0.0.0:8888
   "password": ""
 }
 ```
-
 #### Результат выполнения:
 ```json
 {
   "detail": "Пользователь успешно удален!!!"
 }
 ```
-
 - ### POST /api/token/ - Для получения access и refresh токена
 #### Входные данные:
 ```json
@@ -169,7 +224,6 @@ python manage.py runserver 0.0.0.0:8888
   "password": ""
 }
 ```
-
 #### Результат выполнения:
 ```json
 {
