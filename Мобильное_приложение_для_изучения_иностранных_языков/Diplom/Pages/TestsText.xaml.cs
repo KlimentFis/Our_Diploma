@@ -18,17 +18,17 @@ namespace Diplom.Pages
         {
             string textToCheck = EditorTxt.Text;
             List<string> errors = await CheckGrammarAsync(textToCheck);
+
             if (errors.Count > 0)
             {
-                // Вывод ошибок
-                _=DisplayAlert("Грамматические ошибки", string.Join("\n", errors), "OK");
+                ErrorsListView.ItemsSource = errors;
             }
             else
             {
-                // В случае отсутствия ошибок
-                await DisplayAlert("Проверка завершена", "Грамматических ошибок не обнаружено", "OK");
+                ErrorsListView.ItemsSource = new List<string> { "Ошибок не найдено" };
             }
         }
+
 
         private async Task<List<string>> CheckGrammarAsync(string text)
         {

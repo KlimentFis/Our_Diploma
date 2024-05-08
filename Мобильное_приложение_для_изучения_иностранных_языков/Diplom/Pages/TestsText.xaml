@@ -10,6 +10,17 @@
                     <Editor AutoSize="TextChanges" Placeholder="Введите ваш текст здесь..." x:Name="EditorTxt"/>
                 </Frame>
                 <Button Margin="10,50,10,10" Text="Отправить" CornerRadius="15" BackgroundColor="#153b5d" TextColor="White" Clicked="OnSendButtonClicked"/>
+                <ListView x:Name="ErrorsListView">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Margin="10,0,0,0">
+                                    <Label Text="{Binding}" TextColor="Red" FontSize="17"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
