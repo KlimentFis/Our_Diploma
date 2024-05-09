@@ -141,7 +141,7 @@ DATABASES = {
 
 ## Получение данных по Rest API
 
-Получение access токена:
+- ### Получение access токена:
 ```
 
 string url = "http://192.168.1.16:8888/api/token/";
@@ -181,7 +181,7 @@ using (HttpClient client = new HttpClient())
   }
 }
 ```
-Получение данных от Rest API с помощью access токена:
+- ### Получение данных от Rest API с помощью access токена:
 ```
 // Получение access токена из хранилища
 string accessToken = Application.Current.Properties["AccessToken"].ToString();
