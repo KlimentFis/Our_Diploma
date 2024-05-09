@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Net.Http;
+using System.Text;
 using Newtonsoft.Json;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace Diplom.Pages
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SignUpPage : ContentPage
     {
-        public static string AccessToken { get; set; }
-        public static string RefreshToken { get; set; }
         private const string url = "http://192.168.1.16:8888/api/create_user/";
 
         public SignUpPage()
@@ -43,7 +44,7 @@ namespace Diplom.Pages
             };
 
             var jsonRequest = JsonConvert.SerializeObject(requestData);
-            var content = new StringContent(jsonRequest, System.Text.Encoding.UTF8, "application/json");
+            var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response;
 
@@ -69,8 +70,8 @@ namespace Diplom.Pages
                 string accessToken = responseObject.access;
 
                 // Сохранить токены в вашем приложении
-                Diplom.Pages.SignUpPage.RefreshToken = refreshToken;
-                Diplom.Pages.SignUpPage.AccessToken = accessToken;
+                Application.Current.Properties["RefreshToken"] = refreshToken;
+                Application.Current.Properties["AccessToken"] = accessToken;
 
                 // Отобразить успешное сообщение
                 await DisplayAlert("Успех", "Пользователь успешно зарегистрирован", "OK");

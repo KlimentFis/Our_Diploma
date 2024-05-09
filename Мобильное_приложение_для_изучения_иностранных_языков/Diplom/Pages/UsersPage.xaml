@@ -4,24 +4,21 @@
              x:Class="Diplom.Pages.UsersPage"
              Title="Список пользователей">
     <ContentPage.Content>
-        <ListView x:Name="listView">
+        <ListView x:Name="listView" RowHeight="300">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Padding="10">
-                            <Label Text="Username: " FontAttributes="Bold" />
-                            <Label Text="{Binding Username}" />
-
-                            <Label Text="First Name: " FontAttributes="Bold" />
-                            <Label Text="{Binding First_name}" />
-
-                            <Label Text="Last Name: " FontAttributes="Bold" />
-                            <Label Text="{Binding Last_name}" />
-
-                            <Label Text="Email: " FontAttributes="Bold" />
-                            <Label Text="{Binding Email}" />
-
-                            <!-- Добавьте другие свойства пользователя, которые хотите отобразить -->
+                        <StackLayout Padding="10" BackgroundColor="#f0f0f0" Margin="10" Spacing="10" 
+                                     HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                            <Image Source="{Binding Image}" WidthRequest="150" HeightRequest="150" Aspect="AspectFill" 
+                                   HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                            <Label Text="{Binding Username}" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                            <Label Text="{Binding FirstName}" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                            <Label Text="{Binding LastName}" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                            <Label Text="{Binding Patronymic}" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                            <Label Text="{Binding Email}" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                            <Label Text="{Binding RightAnswers, StringFormat='Right answers: {0}'}" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                            <Label Text="{Binding WrongAnswers, StringFormat='Wrong answers: {0}'}" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

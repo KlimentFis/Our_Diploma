@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Runtime.InteropServices;
 using Newtonsoft.Json;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using System.Resources;
-
 
 namespace Diplom.Pages
 {
@@ -26,12 +21,9 @@ namespace Diplom.Pages
 
         private async void GetDataFromAPI()
         {
-            Console.WriteLine(Application.Current.Properties["RefreshToken"]);
-            Console.WriteLine(Application.Current.Properties["AccessToken"]);
             try
             {
                 // Получение access токена из хранилища
-                //string accessToken = await SecureStorage.GetAsync("AccessToken");
                 string accessToken = Application.Current.Properties["AccessToken"].ToString();
 
                 // Создание объекта HttpClient для отправки запросов
@@ -52,18 +44,24 @@ namespace Diplom.Pages
                         string jsonResponse = await response.Content.ReadAsStringAsync();
                         // Десериализация JSON в список пользователей
                         List<MyUser> users = JsonConvert.DeserializeObject<List<MyUser>>(jsonResponse);
+                        // Добавление адреса к изображениям
+                        foreach (var user in users)
+                        {
+                            user.Image = "http://127.0.0.1:8888" + user.Image;
+                            Console.WriteLine(user.Image);
+                        }
                         // Отображение списка пользователей на странице
                         listView.ItemsSource = users;
                     }
                     else
                     {
-                        _ = DisplayAlert("Ошибка", $"Ошибка: {response.StatusCode}", "OK");
+                        await DisplayAlert("Ошибка", $"Ошибка: {response.StatusCode}", "OK");
                     }
                 }
             }
             catch (Exception e)
             {
-                _ = DisplayAlert("Ошибка", $"Ошибка: {e.Message}", "OK");
+                await DisplayAlert("Ошибка", $"Ошибка: {e.Message}", "OK");
             }
         }
 
