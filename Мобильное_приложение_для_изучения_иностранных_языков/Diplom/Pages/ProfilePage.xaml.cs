@@ -9,6 +9,9 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Plugin.Media.Abstractions;
 using Plugin.Media;
+using Newtonsoft.Json;
+using static Diplom.Pages.UsersPage;
+using System.Net.Http;
 
 
 namespace Diplom.Pages
@@ -16,6 +19,7 @@ namespace Diplom.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ProfilePage : ContentPage
     {
+        readonly string apiUrl = "http://192.168.1.16:8888/api/users/";
         public ProfilePage()
         {
             InitializeComponent();
@@ -74,5 +78,49 @@ namespace Diplom.Pages
         {
             _ = DisplayAlert("Сохранение", $"Данные успешно сохранены", "OK");
         }
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+
+            MyUser user = await GetUserDataFromAPI();
+            if (user != null)
+            {
+                UserNameLabel.Text = user.Username;
+            }
+        }
+
+        private async Task<MyUser> GetUserDataFromAPI()
+        {
+            try
+            {
+                string accessToken = Application.Current.Properties["AccessToken"].ToString();
+
+                using (HttpClient client = new HttpClient())
+                {
+                    var request = new HttpRequestMessage(HttpMethod.Get, apiUrl + "profile/"); // URL для получения профиля текущего пользователя
+                    request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+
+                    HttpResponseMessage response = await client.SendAsync(request);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string jsonResponse = await response.Content.ReadAsStringAsync();
+                        MyUser user = JsonConvert.DeserializeObject<MyUser>(jsonResponse);
+                        return user;
+                    }
+                    else
+                    {
+                        await DisplayAlert("Ошибка", $"Ошибка: {response.StatusCode}", "OK");
+                        return null;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                await DisplayAlert("Ошибка", $"Ошибка: {e.Message}", "OK");
+                return null;
+            }
+        }
+
     }
 }

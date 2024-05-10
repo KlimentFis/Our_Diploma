@@ -12,7 +12,7 @@
                     </Frame.GestureRecognizers>
                     <Image x:Name="Photo" Source="ProfileMenuLight.png"/>
                 </Frame>
-                <Label Margin="10,0,10,10" Text="Тут будет выводиться имя пользователя" HorizontalOptions="CenterAndExpand"/>
+                <Label Margin="10,0,10,10" Text="Тут будет выводиться имя пользователя" HorizontalOptions="CenterAndExpand" x:Name="UserNameLabel"/>
                 <Frame Margin="10,0,10,10" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#133a5e, Light=#D2EAFE}">
                     <StackLayout>
                         <Label Text="Фамилия:" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20"/>
