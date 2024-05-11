@@ -222,6 +222,12 @@ using (HttpClient client = new HttpClient())
 
 # Руководство по Rest API
 - ### GET /api/users/ - Для получения всех пользователей
+
+Нужно передать в заголовке:
+```
+Authorization: Brearer access_токен
+```
+
 Результат выполнения:
 ```json
 {
@@ -247,7 +253,10 @@ using (HttpClient client = new HttpClient())
 }
 ```
 - ### GET /api/words/ - Для получения всех слов
-
+Нужно передать в заголовке:
+```
+Authorization: Brearer access_токен
+```
 Результат выполнения:
 ```json
 {
@@ -257,6 +266,11 @@ using (HttpClient client = new HttpClient())
 }
 ```
 - ### GET /api/suggestions/ - Для получения всех предложений
+
+Нужно передать в заголовке:
+```
+Authorization: Brearer access_токен
+```
 
 Результат выполнения:
 ```json
@@ -283,6 +297,10 @@ using (HttpClient client = new HttpClient())
 ```
 
 - ### POST /api/delete_user/ - Для удаления пользователя [!!!]
+Нужно передать в заголовке:
+```
+Authorization: Brearer access_токен
+```
 Входные данные:
 ```json
 {
