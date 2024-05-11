@@ -30,15 +30,11 @@ namespace Diplom.Pages
         [Obsolete]
         private async void OnFrameTranslation(object sender, EventArgs e)
         {
-            if (!IsUserLoggedIn())
-            {
+            
+            
                 await Navigation.PushAsync(new LoginPage());
                 return;
-            }
-            else
-            {
-                await Navigation.PushAsync(new TestsTranslation());
-            }
+
         }
 
         [Obsolete]

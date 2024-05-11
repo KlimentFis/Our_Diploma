@@ -4,22 +4,42 @@
              x:Class="Diplom.Pages.UsersPage"
              Title="Список пользователей">
     <ContentPage.Content>
-        <ListView x:Name="listView" RowHeight="300">
+        <ListView x:Name="listView" RowHeight="450">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Padding="10" BackgroundColor="#f0f0f0" Margin="10" Spacing="10" 
-                                     HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-                            <Image Source="{Binding Image}" WidthRequest="150" HeightRequest="150" Aspect="AspectFill" 
-                                   HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
-                            <Label Text="{Binding Username}" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
-                            <Label Text="{Binding FirstName}" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
-                            <Label Text="{Binding LastName}" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
-                            <Label Text="{Binding Patronymic}" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
-                            <Label Text="{Binding Email}" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
-                            <Label Text="{Binding RightAnswers, StringFormat='Right answers: {0}'}" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
-                            <Label Text="{Binding WrongAnswers, StringFormat='Wrong answers: {0}'}" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
-                        </StackLayout>
+                        <Frame HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
+                            <StackLayout>
+                                <Image WidthRequest="150" HeightRequest="150" Aspect="AspectFill" 
+                                   HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+                                    <Image.Source>
+                                        <UriImageSource Uri="{Binding Image}" CacheValidity="30"/>
+                                    </Image.Source>
+                                </Image>
+                                <Label Text="Пользователь:" FontAttributes="Bold" HorizontalTextAlignment="Center" FontSize="20" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                <Label Text="{Binding Username}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Имя: " TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                    <Label Text="{Binding FirstName}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Фамилия: " TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                    <Label Text="{Binding LastName}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Отчество: " TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                    <Label Text="{Binding Patronymic}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Правильные ответы: " TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                    <Label Text="{Binding RightAnswers, StringFormat='{0}'}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Неправильные ответы: " TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                    <Label Text="{Binding WrongAnswers, StringFormat='{0}'}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

@@ -6,24 +6,24 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-                <Label Text="Выберете правильное слово" FontAttributes="Bold" Margin="10,15,10,10" FontSize="40" TextColor="{AppThemeBinding Dark=White, Light=Black}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
-                <Label Margin="10" Text="Слово" FontSize="25" TextColor="{AppThemeBinding Dark=White, Light=Black}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                <Label  Text="Выберете правильный перевод" FontAttributes="Bold" Margin="10,15,10,10" FontSize="40" TextColor="{AppThemeBinding Dark=White, Light=Black}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                <Label x:Name="wordLabel" FontAttributes="Bold" Margin="10" FontSize="25" TextColor="{AppThemeBinding Dark=White, Light=Black}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
                 <Frame x:Name="Frame1" Margin="10,0,10,5" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
                     <StackLayout Orientation="Horizontal">
-                        <RadioButton HorizontalOptions="Center" x:Name="RadioBtn1"/>
-                        <Label Text="Перевод" FontSize="25" TextColor="{AppThemeBinding Dark=White, Light=Black}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                        <RadioButton HorizontalOptions="Center" x:Name="RadioBtn1" />
+                        <Label x:Name="translationLabel1" FontSize="25" TextColor="{AppThemeBinding Dark=White, Light=Black}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
                     </StackLayout>
                 </Frame>
                 <Frame x:Name="Frame2" Margin="10,0,10,5" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
                     <StackLayout Orientation="Horizontal">
-                        <RadioButton x:Name="RadioBtn2"/>
-                        <Label Text="Перевод" FontSize="25" TextColor="{AppThemeBinding Dark=White, Light=Black}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                        <RadioButton x:Name="RadioBtn2" />
+                        <Label x:Name="translationLabel2" FontSize="25" TextColor="{AppThemeBinding Dark=White, Light=Black}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
                     </StackLayout>
                 </Frame>
                 <Frame x:Name="Frame3" Margin="10,0,10,5" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
                     <StackLayout Orientation="Horizontal">
                         <RadioButton x:Name="RadioBtn3"/>
-                        <Label Text="Перевод" FontSize="25" TextColor="{AppThemeBinding Dark=White, Light=Black}" VerticalOptions="Center" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                        <Label x:Name="translationLabel3" FontSize="25" TextColor="{AppThemeBinding Dark=White, Light=Black}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
                     </StackLayout>
                 </Frame>
                 <Button Margin="10,50,10,10" Text="Отправить" CornerRadius="15" BackgroundColor="#153b5d" TextColor="White"/>
