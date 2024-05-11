@@ -19,21 +19,40 @@ namespace Diplom.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ProfilePage : ContentPage
     {
-        readonly string apiUrl = "http://192.168.1.16:8888/api/users/";
-        public ProfilePage()
+        [Obsolete]
+        public ProfilePage(MyUser user)
         {
             InitializeComponent();
+            BindingContext = user;
+
+            // Загрузка изображения пользователя
+            if (!string.IsNullOrEmpty(user.Image))
+            {
+                UserPhoto.Source = ImageSource.FromUri(new Uri(user.Image));
+            }
+            else
+            {
+                // Если изображение пользователя отсутствует, отображаем стандартное изображение или пустоту
+                UserPhoto.Source = "ProfileMenuLight.png"; // Замените "placeholder_image.png" на свой путь к стандартному изображению
+            }
+
+            // Привязываем обработчик события к событию нажатия на элемент
+            UserPhoto.GestureRecognizers.Add(new TapGestureRecognizer
+            {
+                Command = new Command(() => OnFramePhoto(null, EventArgs.Empty))
+
+
+            });
         }
 
         [Obsolete]
-        private async void OnFramePhoto(object sender, EventArgs e)
+        private async void OnFramePhoto(object sender,EventArgs e)
         {
             var photoStream = await PickPhotoAsync();
             if (photoStream != null)
             {
-
                 // Отобразите выбранное изображение в элементе Image
-                Photo.Source = ImageSource.FromStream(() => photoStream);
+                UserPhoto.Source = ImageSource.FromStream(() => photoStream);
             }
         }
 
@@ -43,7 +62,7 @@ namespace Diplom.Pages
 
             if (!CrossMedia.Current.IsPickPhotoSupported)
             {
-                _ = DisplayAlert("Ошибка", $"Выбор фотографий не поддерживается на устройстве", "OK");
+                await DisplayAlert("Ошибка", $"Выбор фотографий не поддерживается на устройстве", "OK");
                 return null;
             }
 
@@ -78,49 +97,5 @@ namespace Diplom.Pages
         {
             _ = DisplayAlert("Сохранение", $"Данные успешно сохранены", "OK");
         }
-        protected override async void OnAppearing()
-        {
-            base.OnAppearing();
-
-            MyUser user = await GetUserDataFromAPI();
-            if (user != null)
-            {
-                UserNameLabel.Text = user.Username;
-            }
-        }
-
-        private async Task<MyUser> GetUserDataFromAPI()
-        {
-            try
-            {
-                string accessToken = Application.Current.Properties["AccessToken"].ToString();
-
-                using (HttpClient client = new HttpClient())
-                {
-                    var request = new HttpRequestMessage(HttpMethod.Get, apiUrl + "profile/"); // URL для получения профиля текущего пользователя
-                    request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
-
-                    HttpResponseMessage response = await client.SendAsync(request);
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string jsonResponse = await response.Content.ReadAsStringAsync();
-                        MyUser user = JsonConvert.DeserializeObject<MyUser>(jsonResponse);
-                        return user;
-                    }
-                    else
-                    {
-                        await DisplayAlert("Ошибка", $"Ошибка: {response.StatusCode}", "OK");
-                        return null;
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                await DisplayAlert("Ошибка", $"Ошибка: {e.Message}", "OK");
-                return null;
-            }
-        }
-
     }
 }
