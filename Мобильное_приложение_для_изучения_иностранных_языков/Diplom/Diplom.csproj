@@ -1,5 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+<PropertyGroup>
+  <LangVersion Condition="'$(MSBuildProjectExtension)'=='.csproj'">preview</LangVersion>
+</PropertyGroup>
+
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>

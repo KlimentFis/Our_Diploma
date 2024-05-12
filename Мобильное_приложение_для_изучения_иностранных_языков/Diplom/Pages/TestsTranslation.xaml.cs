@@ -68,25 +68,49 @@ namespace Diplom.Pages
 
         private void DisplayRandomWord()
         {
-            // Выбор случайного слова из списка
             Random rand = new Random();
             currentWord = wordsList[rand.Next(0, wordsList.Count)];
-            // Отображение английского слова
             wordLabel.Text = currentWord.Name;
-            // Случайное перемешивание списка переводов
-            List<string> translations = new List<string> { currentWord.Translate };
-            translations.AddRange(wordsList.Where(word => word != currentWord).Select(word => word.Translate));
+
+            // Собираем все переводы в один список
+            List<string> translations = wordsList.Select(word => word.Translate).ToList();
+            // Перемешиваем переводы
             translations = translations.OrderBy(a => rand.Next()).ToList();
+
+            // Индекс правильного перевода
+            int correctTranslationIndex = translations.IndexOf(currentWord.Translate);
+
             // Отображение переводов на RadioButton'ах
             RadioBtn1.Content = translations[0];
             RadioBtn2.Content = translations[1];
             RadioBtn3.Content = translations[2];
-            RadioBtn1.CheckedChanged += RadioButton_CheckedChanged;
-            RadioBtn2.CheckedChanged += RadioButton_CheckedChanged;
-            RadioBtn3.CheckedChanged += RadioButton_CheckedChanged;
-            // Пометка правильного перевода
-            correctRadioButton = RadioBtn1;
+
+            // Установка правильного ответа на случайный RadioButton
+            switch (rand.Next(1, 4))
+            {
+                case 1:
+                    RadioBtn1.Content = currentWord.Translate;
+                    correctTranslationIndex = 0;
+                    break;
+                case 2:
+                    RadioBtn2.Content = currentWord.Translate;
+                    correctTranslationIndex = 1;
+                    break;
+                case 3:
+                    RadioBtn3.Content = currentWord.Translate;
+                    correctTranslationIndex = 2;
+                    break;
+            }
+
+            // Устанавливаем индекс правильного перевода
+            correctRadioButton = correctTranslationIndex switch
+            {
+                0 => RadioBtn1,
+                1 => RadioBtn2,
+                _ => RadioBtn3
+            };
         }
+
 
         private async void SendBtn_Clicked(object sender, EventArgs e)
         {
@@ -97,28 +121,13 @@ namespace Diplom.Pages
             }
             else
             {
-                await DisplayAlert("Результат", "Неправильно, попробуйте еще раз.", "OK");
+                await DisplayAlert("Результат", "Неправильно!", "OK");
             }
             // Повторное отображение следующего случайного слова
             DisplayRandomWord();
         }
 
-        private void RadioButton_CheckedChanged(object sender, CheckedChangedEventArgs e)
-        {
-            if (e.Value)
-            {
-                // Снимаем флажки с других RadioButton
-                if (sender != RadioBtn1)
-                    RadioBtn1.IsChecked = false;
-                if (sender != RadioBtn2)
-                    RadioBtn2.IsChecked = false;
-                if (sender != RadioBtn3)
-                    RadioBtn3.IsChecked = false;
 
-                // Устанавливаем правильный RadioButton
-                correctRadioButton = (RadioButton)sender;
-            }
-        }
 
         public class Words
         {
