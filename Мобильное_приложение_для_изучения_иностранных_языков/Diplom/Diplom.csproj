@@ -1,5 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
+<!-- C# 8.0. Добавлено в ручную -->
 <PropertyGroup>
   <LangVersion Condition="'$(MSBuildProjectExtension)'=='.csproj'">preview</LangVersion>
 </PropertyGroup>

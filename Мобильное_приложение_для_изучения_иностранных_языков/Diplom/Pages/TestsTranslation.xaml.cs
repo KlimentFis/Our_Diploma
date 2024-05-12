@@ -24,6 +24,11 @@ namespace Diplom.Pages
             InitializeComponent();
             GetDataFromAPI();
             SendBtn.Clicked += SendBtn_Clicked;
+
+            // Добавляем обработчики событий CheckedChanged для каждого RadioButton
+            RadioBtn1.CheckedChanged += RadioButton_CheckedChanged;
+            RadioBtn2.CheckedChanged += RadioButton_CheckedChanged;
+            RadioBtn3.CheckedChanged += RadioButton_CheckedChanged;
         }
 
         private async void GetDataFromAPI()
@@ -127,7 +132,22 @@ namespace Diplom.Pages
             DisplayRandomWord();
         }
 
+        private void RadioButton_CheckedChanged(object sender, CheckedChangedEventArgs e)
+        {
+            // Получаем RadioButton, который вызвал событие
+            var radioButton = (RadioButton)sender;
 
+            // Если флажок установлен (RadioButton выбран), сбрасываем флажок для остальных RadioButton
+            if (radioButton.IsChecked)
+            {
+                if (radioButton != RadioBtn1)
+                    RadioBtn1.IsChecked = false;
+                if (radioButton != RadioBtn2)
+                    RadioBtn2.IsChecked = false;
+                if (radioButton != RadioBtn3)
+                    RadioBtn3.IsChecked = false;
+            }
+        }
 
         public class Words
         {
