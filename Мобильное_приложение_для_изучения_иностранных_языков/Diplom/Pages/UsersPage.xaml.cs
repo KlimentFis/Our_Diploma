@@ -10,7 +10,6 @@ namespace Diplom.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class UsersPage : ContentPage
     {
-        // URL вашего DRF API
         readonly string apiUrl = "http://test.bipchik.keenetic.pro/api/users/";
 
         public UsersPage()
