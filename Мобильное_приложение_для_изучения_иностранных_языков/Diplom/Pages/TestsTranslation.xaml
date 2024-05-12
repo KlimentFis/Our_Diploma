@@ -7,6 +7,9 @@
         <ScrollView>
             <StackLayout>
                 <Label  Text="Выберите правильный перевод" FontAttributes="Bold" Margin="10,15,10,10" FontSize="40" TextColor="{AppThemeBinding Dark=White, Light=Black}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                <Frame x:Name="ResultFrame" Margin="10,0,10,0" CornerRadius="15" IsVisible="false">
+                    <Label x:Name="ResultLabel" FontSize="20" HorizontalOptions="Center" Margin="0,10" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                </Frame>
                 <Label x:Name="wordLabel" Text="{Binding Name}" FontAttributes="Bold" Margin="10" FontSize="25" TextColor="{AppThemeBinding Dark=White, Light=Black}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
                 <Frame x:Name="Frame1" Margin="10,0,10,5" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
                     <RadioButton x:Name="RadioBtn1" Content="{Binding Translate}"/>

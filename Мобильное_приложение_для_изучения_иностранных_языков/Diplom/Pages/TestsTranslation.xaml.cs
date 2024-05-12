@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using static Diplom.Pages.UsersPage;
 
 namespace Diplom.Pages
 {
@@ -117,20 +118,24 @@ namespace Diplom.Pages
         }
 
 
-        private async void SendBtn_Clicked(object sender, EventArgs e)
+        private void SendBtn_Clicked(object sender, EventArgs e)
         {
-            // Проверка выбранного ответа
             if (correctRadioButton.IsChecked)
             {
-                await DisplayAlert("Результат", "Правильно!", "OK");
+                ResultLabel.Text = "Правильно!";
+                ResultFrame.BackgroundColor = Color.Green;
+                ResultFrame.IsVisible = true; // Скрываем ResultFrame при правильном ответе
             }
             else
             {
-                await DisplayAlert("Результат", "Неправильно!", "OK");
+                string correctTranslation = correctRadioButton.Content.ToString();
+                ResultLabel.Text = $"Неправильно! Правильное слово: {correctTranslation}";
+                ResultFrame.BackgroundColor = Color.Red;
+                ResultFrame.IsVisible = true; // Показываем ResultFrame при неправильном ответе
             }
-            // Повторное отображение следующего случайного слова
             DisplayRandomWord();
         }
+
 
         private void RadioButton_CheckedChanged(object sender, CheckedChangedEventArgs e)
         {
@@ -148,6 +153,7 @@ namespace Diplom.Pages
                     RadioBtn3.IsChecked = false;
             }
         }
+
 
         public class Words
         {
