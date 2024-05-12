@@ -19,10 +19,13 @@ namespace Diplom.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ProfilePage : ContentPage
     {
+        public ProfilePage()
+        {
+            InitializeComponent();
+        }
         [Obsolete]
         public ProfilePage(MyUser user)
         {
-            InitializeComponent();
             BindingContext = user;
 
             // Загрузка изображения пользователя

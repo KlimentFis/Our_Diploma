@@ -19,8 +19,7 @@ namespace Diplom
 
         private void OnSelectedItem(object sender, SelectedItemChangedEventArgs e)
         {
-            var item = e.SelectedItem as FlyoutItemPage;
-            if (item != null)
+            if (e.SelectedItem is FlyoutItemPage item)
             {
                 // Если пользователь не авторизован и выбирает "профиль", открываем страницу авторизации
                 if (!IsUserLoggedIn() && item.TargetPage == typeof(ProfilePage))
