@@ -123,14 +123,14 @@ namespace Diplom.Pages
             if (correctRadioButton.IsChecked)
             {
                 ResultLabel.Text = "Правильно!";
-                ResultFrame.BackgroundColor = Color.Green;
+                ResultFrame.BackgroundColor = Color.FromHex("#72c255");
                 ResultFrame.IsVisible = true; // Скрываем ResultFrame при правильном ответе
             }
             else
             {
                 string correctTranslation = correctRadioButton.Content.ToString();
                 ResultLabel.Text = $"Неправильно! Правильное слово: {correctTranslation}";
-                ResultFrame.BackgroundColor = Color.Red;
+                ResultFrame.BackgroundColor = Color.FromHex("#ff6161");
                 ResultFrame.IsVisible = true; // Показываем ResultFrame при неправильном ответе
             }
             DisplayRandomWord();
