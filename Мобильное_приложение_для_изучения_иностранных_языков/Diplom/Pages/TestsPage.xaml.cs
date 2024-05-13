@@ -52,7 +52,6 @@ namespace Diplom.Pages
                 await Navigation.PushAsync(new TestsText());
             }
         }
-
         private bool IsUserLoggedIn()
         {
             // Проверка наличия токена в хранилище
@@ -67,6 +66,5 @@ namespace Diplom.Pages
                 return false;
             }
         }
-
     }
 }

@@ -21,25 +21,38 @@ namespace Diplom
         {
             if (e.SelectedItem is FlyoutItemPage item)
             {
-                // Если пользователь не авторизован и выбирает "профиль", открываем страницу авторизации
-                if (!IsUserLoggedIn() && item.TargetPage == typeof(ProfilePage))
+                // Проверяем, выбран ли пункт меню "Профиль" и авторизован ли пользователь
+                if (item.TargetPage == typeof(ProfilePage) || item.TargetPage == typeof(UsersPage))
                 {
-                    Detail = new NavigationPage((Page)Activator.CreateInstance(typeof(LoginPage)));
-                }
-                else
-                {
-                    // Иначе открываем страницу, выбранную из меню
-                    Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetPage));
+                    if (!IsUserLoggedIn())
+                    {
+                        // Если пользователь не авторизован, открываем страницу авторизации
+                        Detail = new NavigationPage((Page)Activator.CreateInstance(typeof(LoginPage)));
+                        flyoutMenu.listviewMenu.SelectedItem = null;
+                        IsPresented = false;
+                        return;
+                    }
                 }
 
+                // Открываем страницу, выбранную из меню
+                Detail = new NavigationPage((Page)Activator.CreateInstance(item.TargetPage));
                 flyoutMenu.listviewMenu.SelectedItem = null;
                 IsPresented = false;
             }
         }
         private bool IsUserLoggedIn()
         {
-            //здесь логика проверки
-            return true;
+            // Проверка наличия токена в хранилище
+            if (Application.Current.Properties.ContainsKey("AccessToken"))
+            {
+                // Токен присутствует, пользователь вошел в систему
+                return true;
+            }
+            else
+            {
+                // Токен отсутствует, пользователь не вошел в систему
+                return false;
+            }
         }
     }
 }
