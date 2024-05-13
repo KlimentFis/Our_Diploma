@@ -10,8 +10,6 @@ using Xamarin.Forms.Xaml;
 using Plugin.Media.Abstractions;
 using Plugin.Media;
 using Newtonsoft.Json;
-using static Diplom.Pages.UsersPage;
-using System.Net.Http;
 
 
 namespace Diplom.Pages
@@ -23,37 +21,14 @@ namespace Diplom.Pages
         {
             InitializeComponent();
         }
-        [Obsolete]
-        public ProfilePage(MyUser user)
-        {
-            BindingContext = user;
-
-            // Загрузка изображения пользователя
-            if (!string.IsNullOrEmpty(user.Image))
-            {
-                UserPhoto.Source = ImageSource.FromUri(new Uri(user.Image));
-            }
-            else
-            {
-                // Если изображение пользователя отсутствует, отображаем стандартное изображение или пустоту
-                UserPhoto.Source = "ProfileMenuLight.png"; // Замените "placeholder_image.png" на свой путь к стандартному изображению
-            }
-
-            // Привязываем обработчик события к событию нажатия на элемент
-            UserPhoto.GestureRecognizers.Add(new TapGestureRecognizer
-            {
-                Command = new Command(() => OnFramePhoto(null, EventArgs.Empty))
-
-
-            });
-        }
 
         [Obsolete]
-        private async void OnFramePhoto(object sender,EventArgs e)
+        private async void OnFramePhoto(object sender, EventArgs e)
         {
             var photoStream = await PickPhotoAsync();
             if (photoStream != null)
             {
+
                 // Отобразите выбранное изображение в элементе Image
                 UserPhoto.Source = ImageSource.FromStream(() => photoStream);
             }
@@ -65,7 +40,7 @@ namespace Diplom.Pages
 
             if (!CrossMedia.Current.IsPickPhotoSupported)
             {
-                await DisplayAlert("Ошибка", $"Выбор фотографий не поддерживается на устройстве", "OK");
+                _ = DisplayAlert("Ошибка", $"Выбор фотографий не поддерживается на устройстве", "OK");
                 return null;
             }
 
@@ -99,6 +74,45 @@ namespace Diplom.Pages
         private void SaveBtn_Clicked(Object sender, EventArgs e)
         {
             _ = DisplayAlert("Сохранение", $"Данные успешно сохранены", "OK");
+        }
+        public class MyUser
+        {
+            [JsonProperty("id")]
+            public int Id { get; set; }
+            [JsonProperty("image")]
+            public string Image { get; set; }
+            [JsonProperty("last_login")]
+            public DateTime LastLogin { get; set; }
+            [JsonProperty("is_superuser")]
+            public bool IsSuperuser { get; set; }
+            [JsonProperty("username")]
+            public string Username { get; set; }
+            [JsonProperty("first_name")]
+            public string FirstName { get; set; }
+            [JsonProperty("last_name")]
+            public string LastName { get; set; }
+            [JsonProperty("email")]
+            public string Email { get; set; }
+            [JsonProperty("is_staff")]
+            public bool IsStaff { get; set; }
+            [JsonProperty("is_active")]
+            public bool IsActive { get; set; }
+            [JsonProperty("date_joined")]
+            public DateTime DateJoined { get; set; }
+            [JsonProperty("patronymic")]
+            public string Patronymic { get; set; }
+            [JsonProperty("use_english")]
+            public bool UseEnglish { get; set; }
+            [JsonProperty("anonymous")]
+            public bool Anonymous { get; set; }
+            [JsonProperty("right_answers")]
+            public int RightAnswers { get; set; }
+            [JsonProperty("wrong_answers")]
+            public int WrongAnswers { get; set; }
+            [JsonProperty("groups")]
+            public List<object> Groups { get; set; }
+            [JsonProperty("user_permissions")]
+            public List<object> UserPermissions { get; set; }
         }
     }
 }
