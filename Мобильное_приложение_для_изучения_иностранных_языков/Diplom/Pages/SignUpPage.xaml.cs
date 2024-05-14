@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using Newtonsoft.Json;
@@ -29,15 +30,37 @@ namespace Diplom.Pages
             // Добавляем дату и время регистрации в JSON
             string jsonData = $"{{\"username\":\"{username}\",\"password\":\"{password}\",\"last_login\":\"{lastlogin}\",\"data_joined\":\"{lastlogin}\"}}";
 
+            List<string> errors = new List<string>();
+
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                await DisplayAlert("Ошибка", "Введите логин и пароль", "OK");
-                return;
+                errors.Add("Введите логин и пароль");
             }
 
             if (password != confirmPassword)
             {
-                await DisplayAlert("Ошибка", "Пароли не совпадают", "OK");
+                errors.Add("Пароли не совпадают");
+            }
+
+            if (password.Length < 8 || confirmPassword.Length < 8)
+            {
+                errors.Add("Пароль слишком короткий. Минимум 8 символов.");
+            }
+
+            if (username.Length >= 16)
+            {
+                errors.Add("Логин должен быть не длиннее 15 символов.");
+            }
+
+            if (!IsAlphanumeric(password) || !IsAlphanumeric(confirmPassword))
+            {
+                errors.Add("Можно использовать только буквы и цифры в пароле.");
+            }
+
+            if (errors.Count > 0)
+            {
+                string errorMessage = string.Join("\n", errors);
+                await DisplayAlert("Ошибка", errorMessage, "OK");
                 return;
             }
 
@@ -80,6 +103,19 @@ namespace Diplom.Pages
                 // Вывод сообщения об ошибке в случае исключения
                 await DisplayAlert("Ошибка", $"Ошибка: {ex.Message}", "OK");
             }
+        }
+
+        // Метод для проверки строки на наличие только букв и цифр
+        private bool IsAlphanumeric(string str)
+        {
+            foreach (char c in str)
+            {
+                if (!char.IsLetterOrDigit(c))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }
