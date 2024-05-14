@@ -73,9 +73,9 @@ namespace Diplom.Pages
             SuggestionLabel.Text = currentSuggestion.Suggestion.Replace(currentSuggestion.RightWord, "__________");
 
             List<string> words = new List<string>
-    {
-        currentSuggestion.RightWord
-    };
+            {
+                currentSuggestion.RightWord
+            };
 
             // Добавляем два случайных слова из right_word
             while (words.Count < 3)

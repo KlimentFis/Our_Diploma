@@ -34,27 +34,28 @@ namespace Diplom.Pages
 
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                errors.Add("Введите логин и пароль");
+                await DisplayAlert("Ошибка", "Введите логин и пароль", "OK");
+                return;
             }
 
             if (password != confirmPassword)
             {
-                errors.Add("Пароли не совпадают");
+                errors.Add("- Пароли не совпадают");
             }
 
             if (password.Length < 8 || confirmPassword.Length < 8)
             {
-                errors.Add("Пароль слишком короткий. Минимум 8 символов.");
+                errors.Add("- Пароль слишком короткий. Минимум 8 символов.");
             }
 
             if (username.Length >= 16)
             {
-                errors.Add("Логин должен быть не длиннее 15 символов.");
+                errors.Add("- Логин должен быть не длиннее 15 символов.");
             }
 
             if (!IsAlphanumeric(password) || !IsAlphanumeric(confirmPassword))
             {
-                errors.Add("Можно использовать только буквы и цифры в пароле.");
+                errors.Add("- Можно использовать только буквы и цифры в пароле.");
             }
 
             if (errors.Count > 0)
