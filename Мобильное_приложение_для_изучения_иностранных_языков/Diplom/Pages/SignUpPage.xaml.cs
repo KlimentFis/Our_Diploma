@@ -11,7 +11,7 @@ namespace Diplom.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SignUpPage : ContentPage
     {
-        private const string url = "http://test.bipchik.keenetic.pro/api/create_user/";
+        private const string url = "http://192.168.1.16:8888/api/create_user/";
 
         public SignUpPage()
         {

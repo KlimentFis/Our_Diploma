@@ -9,13 +9,14 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using static Diplom.Pages.UsersPage;
+using static Diplom.models;
 
 namespace Diplom.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TestsTranslation : ContentPage
     {
-        private readonly string apiUrl = "http://test.bipchik.keenetic.pro/api/words/";
+        private readonly string apiUrl = "http://192.168.1.16:8888/api/words/";
         private List<Words> wordsList;
         private Words currentWord;
         private RadioButton correctRadioButton;
@@ -152,17 +153,6 @@ namespace Diplom.Pages
                 if (radioButton != RadioBtn3)
                     RadioBtn3.IsChecked = false;
             }
-        }
-
-
-        public class Words
-        {
-            [JsonProperty("id")]
-            public int Id { get; set; }
-            [JsonProperty("name")]
-            public string Name { get; set; }
-            [JsonProperty("translate")]
-            public string Translate { get; set; }
         }
     }
 }

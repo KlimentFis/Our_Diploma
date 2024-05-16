@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using Xamarin.Forms;
+using static Diplom.models;
 
 namespace Diplom.Pages
 {
     public partial class TestsWords : ContentPage
     {
-        private readonly string apiUrl = "http://test.bipchik.keenetic.pro/api/suggestions/";
+        private readonly string apiUrl = "http://192.168.1.16:8888/api/suggestions/";
         private string accessToken;
         private List<Suggestions> suggestionsList;
         private Suggestions currentSuggestion;
@@ -51,6 +52,7 @@ namespace Diplom.Pages
                         string jsonResponse = await response.Content.ReadAsStringAsync();
                         // Десериализация JSON в список предложений
                         suggestionsList = JsonConvert.DeserializeObject<List<Suggestions>>(jsonResponse);
+                        Console.WriteLine(jsonResponse);
                         // Отображение случайного предложения
                         DisplayRandomSuggestion();
                     }
@@ -101,6 +103,8 @@ namespace Diplom.Pages
             string selectedWord = RadioBtn1.IsChecked ? RadioBtn1.Content.ToString() :
                                   RadioBtn2.IsChecked ? RadioBtn2.Content.ToString() :
                                   RadioBtn3.Content.ToString();
+                
+            var this_user = true;
 
             if (selectedWord.Equals(currentSuggestion.RightWord))
             {
@@ -131,16 +135,6 @@ namespace Diplom.Pages
                 if (radioButton != RadioBtn3)
                     RadioBtn3.IsChecked = false;
             }
-        }
-
-        public class Suggestions
-        {
-            [JsonProperty("id")]
-            public int Id { get; set; }
-            [JsonProperty("suggestion")]
-            public string Suggestion { get; set; }
-            [JsonProperty("right_word")]
-            public string RightWord { get; set; }
         }
     }
 }
