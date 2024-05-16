@@ -16,7 +16,7 @@
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 
-                <Label Margin="5,15,5,5" Grid.Row="0" Text="Диплом" FontSize="50" HorizontalOptions="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                <Label Margin="5,15,5,5" Grid.Row="0" Text="OnlineLessons" FontSize="50" HorizontalOptions="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
 
 
                 <Label Margin="10,10,10,0" Grid.Row="1" Text="Зачем мы сделали данный проект:" FontSize="30" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>

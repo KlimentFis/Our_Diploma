@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using static Diplom.models;
 
@@ -10,7 +11,8 @@ namespace Diplom.Pages
 {
     public partial class TestsWords : ContentPage
     {
-        private readonly string apiUrl = "http://192.168.1.16:8888/api/suggestions/";
+        //private readonly string apiUrl = "http://192.168.1.16:8888/api/suggestions/";
+        private readonly string apiUrl = config.Our_addres;
         private string accessToken;
         private List<Suggestions> suggestionsList;
         private Suggestions currentSuggestion;
@@ -96,15 +98,13 @@ namespace Diplom.Pages
             RadioBtn3.Content = words[2];
         }
 
-
-
         private void SendBtn_Clicked(object sender, EventArgs e)
         {
             string selectedWord = RadioBtn1.IsChecked ? RadioBtn1.Content.ToString() :
                                   RadioBtn2.IsChecked ? RadioBtn2.Content.ToString() :
                                   RadioBtn3.Content.ToString();
                 
-            var this_user = true;
+            
 
             if (selectedWord.Equals(currentSuggestion.RightWord))
             {

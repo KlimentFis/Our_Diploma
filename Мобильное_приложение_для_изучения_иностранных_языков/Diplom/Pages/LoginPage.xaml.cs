@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using static Diplom.config;
 
 
 namespace Diplom.Pages
@@ -21,7 +22,8 @@ namespace Diplom.Pages
         {
             try
             {
-                string url = "http://192.168.1.16:8888/api/token/";
+                //string url = "http://192.168.1.16:8888/api/token/";
+                string url = config.Our_addres;
                 string username = LoginEntry.Text;
                 string password = PasswordEntry.Text;
                 string jsonData = $"{{\"username\":\"{username}\",\"password\":\"{password}\"}}";
