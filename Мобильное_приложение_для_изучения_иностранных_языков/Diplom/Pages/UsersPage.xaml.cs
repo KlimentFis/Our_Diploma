@@ -23,34 +23,26 @@ namespace Diplom.Pages
         {
             try
             {
-                // Получение access токена из хранилища
                 string accessToken = Application.Current.Properties["AccessToken"].ToString();
 
-                // Создание объекта HttpClient для отправки запросов
                 using (HttpClient client = new HttpClient())
                 {
-                    // Создание объекта HttpRequestMessage
                     var request = new HttpRequestMessage(HttpMethod.Get, apiUrl);
-                    // Добавление токена в заголовок запроса "Authorization"
                     request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
 
-                    // Отправка запроса и получение ответа
                     HttpResponseMessage response = await client.SendAsync(request);
 
-                    // Проверка успешности запроса
                     if (response.IsSuccessStatusCode)
                     {
-                        // Чтение ответа в формате JSON
                         string jsonResponse = await response.Content.ReadAsStringAsync();
-                        // Десериализация JSON в список пользователей
                         List<MyUser> users = JsonConvert.DeserializeObject<List<MyUser>>(jsonResponse);
-                        // Добавление адреса к изображениям
                         foreach (var user in users)
                         {
-                            user.Image = "http://test.bipchik.keenetic.pro" + user.Image;
-                            Console.WriteLine(user.Image);
+                            if (!string.IsNullOrEmpty(user.Image))
+                            {
+                                user.Image = "http://test.bipchik.keenetic.pro" + user.Image;
+                            }
                         }
-                        // Отображение списка пользователей на странице
                         listView.ItemsSource = users;
                     }
                     else

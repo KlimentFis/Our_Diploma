@@ -7,6 +7,7 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <local:NullToPlaceholderConverter x:Key="NullToPlaceholderConverter"/>
+            <local:NullToDefaultImageConverter x:Key="NullToDefaultImageConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
@@ -17,11 +18,8 @@
                         <Frame HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
                             <StackLayout>
                                 <Image WidthRequest="150" HeightRequest="150" Aspect="AspectFill" 
-                                   HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-                                    <Image.Source>
-                                        <UriImageSource Uri="{Binding Image}" CacheValidity="30"/>
-                                    </Image.Source>
-                                </Image>
+                                       HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
+                                       Source="{Binding Image, Converter={StaticResource NullToDefaultImageConverter}}" />
                                 <Label Text="Пользователь:" FontAttributes="Bold" HorizontalTextAlignment="Center" FontSize="20" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
                                 <Label Text="{Binding Username}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
                                 <StackLayout Orientation="Horizontal">
