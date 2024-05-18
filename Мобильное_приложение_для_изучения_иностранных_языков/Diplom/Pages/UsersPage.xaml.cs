@@ -11,7 +11,7 @@ namespace Diplom.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class UsersPage : ContentPage
     {
-        readonly string apiUrl = "http://192.168.1.16:8888/api/users/";
+        readonly string apiUrl = "http://test.bipchik.keenetic.pro/api/users/";
 
         public UsersPage()
         {
@@ -47,7 +47,7 @@ namespace Diplom.Pages
                         // Добавление адреса к изображениям
                         foreach (var user in users)
                         {
-                            user.Image = "http://192.168.1.16" + user.Image;
+                            user.Image = "http://test.bipchik.keenetic.pro" + user.Image;
                             Console.WriteLine(user.Image);
                         }
                         // Отображение списка пользователей на странице

@@ -1,8 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Diplom"
              x:Class="Diplom.Pages.UsersPage"
              Title="Список пользователей">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:NullToPlaceholderConverter x:Key="NullToPlaceholderConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <ListView x:Name="listView" RowHeight="450">
             <ListView.ItemTemplate>
@@ -20,15 +26,15 @@
                                 <Label Text="{Binding Username}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
                                 <StackLayout Orientation="Horizontal">
                                     <Label Text="Имя: " TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
-                                    <Label Text="{Binding FirstName}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                    <Label Text="{Binding FirstName, Converter={StaticResource NullToPlaceholderConverter}}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal">
                                     <Label Text="Фамилия: " TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
-                                    <Label Text="{Binding LastName}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                    <Label Text="{Binding LastName, Converter={StaticResource NullToPlaceholderConverter}}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal">
                                     <Label Text="Отчество: " TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
-                                    <Label Text="{Binding Patronymic}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                    <Label Text="{Binding Patronymic, Converter={StaticResource NullToPlaceholderConverter}}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
                                 </StackLayout>
                                 <StackLayout Orientation="Horizontal">
                                     <Label Text="Правильные ответы: " TextColor="{AppThemeBinding Dark=White, Light=Black}"/>

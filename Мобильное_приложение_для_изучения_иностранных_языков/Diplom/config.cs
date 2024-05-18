@@ -7,7 +7,7 @@ namespace Diplom
 {
     public static class config
     {
-        //string Our_addres = "http://test.bipchik.keenetick.pro";
-        public static readonly string Our_addres = "http://192.168.1.16:8888";
+        public static readonly string Our_addres = "http://test.bipchik.keenetick.pro";
+        //public static readonly string Our_addres = "http://192.168.1.16:8888";
     }
 }

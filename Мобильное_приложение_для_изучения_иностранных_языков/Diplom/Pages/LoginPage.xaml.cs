@@ -22,8 +22,8 @@ namespace Diplom.Pages
         {
             try
             {
-                //string url = "http://192.168.1.16:8888/api/token/";
-                string url = config.Our_addres;
+                string url = "http://test.bipchik.keenetic.pro/api/token/";
+                //string url = config.Our_addres;
                 string username = LoginEntry.Text;
                 string password = PasswordEntry.Text;
                 string jsonData = $"{{\"username\":\"{username}\",\"password\":\"{password}\"}}";
