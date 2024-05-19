@@ -44,14 +44,7 @@ def user_list(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-##############################################################################################################
-# МОжно будет потом удалить
-##############################################################################################################
-import logging
-
-logger = logging.getLogger(__name__)
-
-@api_view(['PUT'])
+@api_view(['GET', 'PUT', 'DELETE'])
 @permission_classes([IsAuthenticated])
 def user_detail(request, username):
     try:
@@ -59,21 +52,20 @@ def user_detail(request, username):
     except MyUser.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    if request.method == 'PUT':
-        try:
-            serializer = MyUserSerializer(user, data=request.data, partial=True)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data)
-            else:
-                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        except Exception as e:
-            logger.error(f"An error occurred while updating user {username}: {str(e)}")
-            return Response({'error': 'An error occurred while updating user.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    if request.method == 'GET':
+        serializer = MyUserSerializer(user)
+        return Response(serializer.data)
 
-##############################################################################################################
+    elif request.method == 'PUT':
+        serializer = MyUserSerializer(user, data=request.data, partial=True)  # Используем partial=True для частичного обновления
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-##############################################################################################################
+    elif request.method == 'DELETE':
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
