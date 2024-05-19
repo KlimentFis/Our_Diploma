@@ -74,6 +74,9 @@ namespace Diplom.Pages
                     string content = await response.Content.ReadAsStringAsync();
                     var user = JsonConvert.DeserializeObject<MyUser>(content);
 
+                    // Set the Image property for the user
+                    user.Image = "http://test.bipchik.keenetic.pro" + user.Image; // Full image URL
+
                     // Bind the data to the UI elements
                     UsernameLabel.Text = user.Username;
                     LastNameEntry.Text = user.LastName;
@@ -81,6 +84,7 @@ namespace Diplom.Pages
                     PatronomicNameEntry.Text = user.Patronymic;
                     AnonimousEntry.IsChecked = user.Anonymous;
                     UseEnglishEntry.IsChecked = user.UseEnglish;
+                    UserPhoto.Source = ImageSource.FromUri(new Uri(user.Image)); // Set the image source for the Image element
                 }
                 else
                 {

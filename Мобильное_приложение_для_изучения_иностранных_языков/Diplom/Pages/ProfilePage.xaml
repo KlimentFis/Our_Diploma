@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Diplom.Pages.ProfilePage"
-             Title="Профиль">
+                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                x:Class="Diplom.Pages.ProfilePage"
+                Title="Профиль">
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
@@ -10,7 +10,7 @@
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnFramePhoto"/>
                     </Frame.GestureRecognizers>
-                    <Image x:Name="UserPhoto"/>
+                    <Image x:Name="UserPhoto" WidthRequest="150" HeightRequest="150" Aspect="AspectFill" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
                 </Frame>
                 <Label Margin="10,0,10,10" Text="" HorizontalOptions="CenterAndExpand" x:Name="UsernameLabel"/>
                 <Frame Margin="10,0,10,10" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#133a5e, Light=#D2EAFE}">
