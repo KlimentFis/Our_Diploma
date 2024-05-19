@@ -296,7 +296,7 @@ Authorization: Brearer access_токен
 }
 ```
 
-- ### PUT /api/users/5/ - Для обнавления данных пользователя
+- ### PUT /api/users/<str:username>/ - Для обнавления данных пользователя
 Входные данные:
 ```json 
 {
@@ -310,7 +310,7 @@ Authorization: Brearer access_токен
 {
     "id": 5,
     "image": null,
-    "password": "pbkdf2_sha256$260000$6SejGoxfvPftJjauS2nKDy$vu8e2L86UJi5G7EU/VnhfvqCGFdhuv5K1coX8N5E/tg=",
+    "password": "",
     "last_login": "2024-05-19T04:31:13.161827+03:00",
     "is_superuser": false,
     "username": "MyTestUser",

@@ -25,5 +25,5 @@ urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('create_user/', create_user ,name='create_user'),
-    path('users/<int:pk>/', user_detail, name='user_detail')
+    path('users/<str:username>/', user_detail, name='user_detail')
 ]

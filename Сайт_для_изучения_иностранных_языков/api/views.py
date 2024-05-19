@@ -38,9 +38,9 @@ def user_list(request):
 
 @api_view(['GET', 'PUT', 'DELETE'])
 @permission_classes([IsAuthenticated])
-def user_detail(request, pk):
+def user_detail(request, username):
     try:
-        user = MyUser.objects.get(pk=pk)
+        user = MyUser.objects.get(username=username)
     except MyUser.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
