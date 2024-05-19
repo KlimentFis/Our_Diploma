@@ -296,7 +296,42 @@ Authorization: Brearer access_токен
 }
 ```
 
-- ### POST /api/delete_user/ - Для удаления пользователя [!!!]
+- ### PUT /api/users/5/ - Для обнавления данных пользователя
+Входные данные:
+```json 
+{
+    "password": "",
+    "username": "",
+    "use_english": false
+}
+```
+Результат выполнения:
+```json
+{
+    "id": 5,
+    "image": null,
+    "password": "pbkdf2_sha256$260000$6SejGoxfvPftJjauS2nKDy$vu8e2L86UJi5G7EU/VnhfvqCGFdhuv5K1coX8N5E/tg=",
+    "last_login": "2024-05-19T04:31:13.161827+03:00",
+    "is_superuser": false,
+    "username": "MyTestUser",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2024-05-19T04:31:13.145312+03:00",
+    "patronymic": "",
+    "use_english": false,
+    "anonymous": false,
+    "data_joined": "2024-05-19T04:31:12.777854+03:00",
+    "right_answers": 0,
+    "wrong_answers": 0,
+    "groups": [],
+    "user_permissions": []
+}
+```
+
+- ### POST /api/delete_user/ - Для удаления пользователя [❗❗❗]
 Нужно передать в заголовке:
 ```
 Authorization: Brearer access_токен
@@ -328,6 +363,12 @@ Authorization: Brearer access_токен
   "refresh": "",
   "access": ""
 }
+```
+
+- POST /api/users/<int:pk>/
+Храниться в базе
+```json
+
 ```
 
 # Тестирование Rest API
