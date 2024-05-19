@@ -66,5 +66,10 @@ namespace Diplom
             [JsonProperty("user_permissions")]
             public List<object> UserPermissions { get; set; }
         }
+        public class User
+        {
+            [JsonProperty("username")]
+            public string Username { get; set; }
+        }
     }
 }

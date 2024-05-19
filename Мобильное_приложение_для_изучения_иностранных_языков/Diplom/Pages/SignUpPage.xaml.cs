@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -11,7 +12,8 @@ namespace Diplom.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SignUpPage : ContentPage
     {
-        private const string url = "http://test.bipchik.keenetic.pro/api/create_user/";
+        private const string createUserUrl = "http://test.bipchik.keenetic.pro/api/create_user/";
+        private const string allUsersUrl = "http://test.bipchik.keenetic.pro/api/all_users/";
 
         public SignUpPage()
         {
@@ -38,14 +40,12 @@ namespace Diplom.Pages
                 return;
             }
 
-            if (password != confirmPassword)
+            // Проверка на существующего пользователя
+            var existingUsernames = await FetchAllUsernames();
+            if (existingUsernames.Contains(username))
             {
-                errors.Add("- Пароли не совпадают");
-            }
-
-            if (password.Length < 8 || confirmPassword.Length < 8)
-            {
-                errors.Add("- Пароль слишком короткий. Минимум 8 символов.");
+                await DisplayAlert("Ошибка", "Пользователь с таким логином уже существует.", "OK");
+                return;
             }
 
             if (username.Length >= 16)
@@ -56,6 +56,16 @@ namespace Diplom.Pages
             if (!IsAlphanumeric(password) || !IsAlphanumeric(confirmPassword))
             {
                 errors.Add("- Можно использовать только буквы и цифры в пароле.");
+            }
+
+            if (password.Length < 8)
+            {
+                errors.Add("- Пароль слишком короткий. Минимум 8 символов.");
+            }
+
+            if (password != confirmPassword)
+            {
+                errors.Add("- Пароли не совпадают");
             }
 
             if (errors.Count > 0)
@@ -70,7 +80,7 @@ namespace Diplom.Pages
                 using (HttpClient client = new HttpClient())
                 {
                     HttpContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
-                    HttpResponseMessage response = await client.PostAsync(url, content);
+                    HttpResponseMessage response = await client.PostAsync(createUserUrl, content);
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -117,6 +127,34 @@ namespace Diplom.Pages
                 }
             }
             return true;
+        }
+
+        // Метод для получения списка всех пользователей
+        private async Task<List<string>> FetchAllUsernames()
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    HttpResponseMessage response = await client.GetAsync(allUsersUrl);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string responseContent = await response.Content.ReadAsStringAsync();
+                        var usernames = JsonConvert.DeserializeObject<List<string>>(responseContent);
+                        return usernames;
+                    }
+                    else
+                    {
+                        await DisplayAlert("Ошибка", "Не удалось получить список пользователей", "OK");
+                        return new List<string>();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Ошибка", $"Ошибка: {ex.Message}", "OK");
+                return new List<string>();
+            }
         }
     }
 }
