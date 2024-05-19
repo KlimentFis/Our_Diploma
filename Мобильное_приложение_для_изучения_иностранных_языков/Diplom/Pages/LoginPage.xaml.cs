@@ -51,7 +51,7 @@ namespace Diplom.Pages
 
                         // Перейти на другую страницу после успешной аутентификации
                         await DisplayAlert("Успех", "Вы успешно вошли", "OK");
-//                        await Navigation.PushAsync(new UsersPage());
+//                      await Navigation.PushAsync(new UsersPage());
                     }
                     else
                     {
