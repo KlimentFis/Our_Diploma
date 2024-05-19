@@ -57,7 +57,7 @@ def user_detail(request, username):
         return Response(serializer.data)
 
     elif request.method == 'PUT':
-        serializer = MyUserSerializer(user, data=request.data)
+        serializer = MyUserSerializer(user, data=request.data, partial=True)  # Используем partial=True для частичного обновления
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

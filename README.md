@@ -375,12 +375,6 @@ Authorization: Brearer access_токен
 }
 ```
 
-- POST /api/users/<int:pk>/
-Храниться в базе
-```json
-
-```
-
 # Тестирование Rest API
 Запуск приложения для тестирования API:
 ```
