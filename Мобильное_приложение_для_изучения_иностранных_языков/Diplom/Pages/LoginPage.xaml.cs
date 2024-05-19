@@ -23,6 +23,8 @@ namespace Diplom.Pages
                 string usersUrl = "http://test.bipchik.keenetic.pro/api/all_users/";
                 string username = LoginEntry.Text;
                 string password = PasswordEntry.Text;
+                Application.Current.Properties["Username"] = username;
+                Application.Current.Properties["Password"] = password;
 
                 using (HttpClient client = new HttpClient())
                 {
@@ -54,7 +56,7 @@ namespace Diplom.Pages
                                 await Application.Current.SavePropertiesAsync();
 
                                 await DisplayAlert("Успех", "Вы успешно вошли", "OK");
-                                // await Navigation.PushAsync(new UsersPage());
+                                await Navigation.PushAsync(new ProfilePage());
                             }
                             else
                             {

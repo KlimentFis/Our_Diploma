@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
+using System.Net.Http;
 using System.Threading.Tasks;
-
+using Newtonsoft.Json;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using Plugin.Media.Abstractions;
 using Plugin.Media;
-using Newtonsoft.Json;
+using Plugin.Media.Abstractions;
 using static Diplom.models;
-
 
 namespace Diplom.Pages
 {
@@ -23,14 +19,81 @@ namespace Diplom.Pages
             InitializeComponent();
         }
 
-        [Obsolete]
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            CheckAccessToken();
+        }
+
+        private async void CheckAccessToken()
+        {
+            if (Application.Current.Properties.ContainsKey("AccessToken") &&
+                Application.Current.Properties["AccessToken"] != null)
+            {
+                string accessToken = Application.Current.Properties["AccessToken"].ToString();
+
+                bool isValidToken = await VerifyToken(accessToken);
+
+                if (isValidToken)
+                {
+                    await LoadUserProfile();
+                }
+                else
+                {
+                    await DisplayAlert("Сессия истекла", "Ваша сессия истекла. Пожалуйста, войдите снова.", "OK");
+                    Application.Current.Properties["AccessToken"] = null;
+                    await Navigation.PushAsync(new LoginPage());
+                }
+            }
+            else
+            {
+                await Navigation.PushAsync(new LoginPage());
+            }
+        }
+
+        private async Task<bool> VerifyToken(string token)
+        {
+            // Implement your token verification logic here.
+            await Task.Delay(500); // Simulate network call
+            return true; // Change to actual validation logic
+        }
+
+        private async Task LoadUserProfile()
+        {
+            string apiUrl = $"http://test.bipchik.keenetic.pro/api/users/{Application.Current.Properties["Username"]}/";
+
+            using (HttpClient client = new HttpClient())
+            {
+                string accessToken = Application.Current.Properties["AccessToken"].ToString();
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+
+                HttpResponseMessage response = await client.GetAsync(apiUrl);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    var user = JsonConvert.DeserializeObject<MyUser>(content);
+
+                    // Bind the data to the UI elements
+                    UsernameLabel.Text = user.Username;
+                    LastNameEntry.Text = user.LastName;
+                    FirstNameEntry.Text = user.FirstName;
+                    PatronomicNameEntry.Text = user.Patronymic;
+                    AnonimousEntry.IsChecked = user.Anonymous;
+                    UseEnglishEntry.IsChecked = user.UseEnglish;
+                }
+                else
+                {
+                    await DisplayAlert("Ошибка", "Не удалось загрузить данные профиля.", "OK");
+                }
+            }
+        }
+
         private async void OnFramePhoto(object sender, EventArgs e)
         {
             var photoStream = await PickPhotoAsync();
             if (photoStream != null)
             {
-
-                // Отобразите выбранное изображение в элементе Image
                 UserPhoto.Source = ImageSource.FromStream(() => photoStream);
             }
         }
@@ -41,28 +104,25 @@ namespace Diplom.Pages
 
             if (!CrossMedia.Current.IsPickPhotoSupported)
             {
-                _ = DisplayAlert("Ошибка", $"Выбор фотографий не поддерживается на устройстве", "OK");
+                await DisplayAlert("Ошибка", $"Выбор фотографий не поддерживается на устройстве", "OK");
                 return null;
             }
 
             var options = new PickMediaOptions
             {
-                // Размер выбранного изображения
                 PhotoSize = PhotoSize.Custom,
-                CustomPhotoSize = 10, // Укажите желаемый размер в процентах от оригинального размера
+                CustomPhotoSize = 10,
                 RotateImage = false,
-                MaxWidthHeight = 2000, // Максимальные размеры изображения (не обязательно)
-                SaveMetaData = true, // Сохранение метаданных (не обязательно)
-                CompressionQuality = 92 // Качество сжатия изображения (не обязательно)
+                MaxWidthHeight = 2000,
+                SaveMetaData = true,
+                CompressionQuality = 92
             };
 
             var file = await CrossMedia.Current.PickPhotoAsync(options);
 
-            if (file == null)
-                return null;
-
-            return file.GetStream();
+            return file?.GetStream();
         }
+
         private async void DeleteBtn_Clicked(object sender, EventArgs e)
         {
             bool answer = await DisplayAlert("Внимание!", "Вы уверены, что хотите удалить аккаунт?", "Да", "Нет");
@@ -72,9 +132,18 @@ namespace Diplom.Pages
                 // Удаление аккаунта
             }
         }
-        private void SaveBtn_Clicked(Object sender, EventArgs e)
+
+        private async void ExitBtn_Clicked(object sender, EventArgs e)
         {
-            _ = DisplayAlert("Сохранение", $"Данные успешно сохранены", "OK");
+            Application.Current.Properties["RefreshToken"] = null;
+            Application.Current.Properties["AccessToken"] = null;
+            await Application.Current.SavePropertiesAsync();
+            await Navigation.PushAsync(new LoginPage());
+        }
+
+        private void SaveBtn_Clicked(object sender, EventArgs e)
+        {
+            DisplayAlert("Сохранение", $"Данные успешно сохранены", "OK");
         }
     }
 }

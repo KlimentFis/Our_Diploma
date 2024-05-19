@@ -24,6 +24,8 @@ namespace Diplom.Pages
         {
             string username = LoginTxt.Text;
             string password = PassTxt.Text;
+            Application.Current.Properties["Username"] = username;
+            Application.Current.Properties["Password"] = password;
             string confirmPassword = ConfPassTxt.Text;
 
             // Получаем текущую дату и время
