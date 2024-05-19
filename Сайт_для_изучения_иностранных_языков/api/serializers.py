@@ -15,7 +15,7 @@ class MyUserSerializer(serializers.ModelSerializer):
         model = MyUser
         fields = '__all__'
         extra_kwargs = {
-            'password': {'write_only': True},
+            'password': {'read_only': True},
             'is_active': {'default': True}  # Установка is_active по умолчанию как True
         }
 

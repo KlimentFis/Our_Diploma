@@ -5,8 +5,8 @@ from users.models import MyUser
 from words.models import Word, Suggestion
 from .serializers import MyUserSerializer, WordSerializer, SuggestionSerializer
 from rest_framework.exceptions import AuthenticationFailed
-from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework import status
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -22,6 +22,13 @@ def create_user(request):
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def all_users(request):
+    if request.method == "GET":
+        users = MyUser.objects.all()
+        usernames = [user.username for user in users]
+        return Response(usernames)
 
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
@@ -36,6 +43,29 @@ def user_list(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
+def user_detail(request, username):
+    try:
+        user = MyUser.objects.get(username=username)
+    except MyUser.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = MyUserSerializer(user)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = MyUserSerializer(user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
