@@ -22,6 +22,14 @@ def create_user(request):
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def all_users(request):
+    if request.method == "GET":
+        users = MyUser.objects.all()
+        usernames = [user.username for user in users]
+        return Response(usernames)
+
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
 def user_list(request):

@@ -295,6 +295,16 @@ Authorization: Brearer access_токен
   "access": ""
 }
 ```
+- ### GET /api/all_users/ - Для получения всех ников пользоватеей
+Результат выполнения:
+```json
+[
+    "Test",
+    "TEST",
+    "Kirill",
+    "MyTestUser"
+]
+```
 
 - ### PUT /api/users/<str:username>/ - Для обнавления данных пользователя
 Входные данные:
