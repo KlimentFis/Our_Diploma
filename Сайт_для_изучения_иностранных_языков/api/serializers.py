@@ -24,6 +24,15 @@ class MyUserSerializer(serializers.ModelSerializer):
         if 'password' in validated_data:
             validated_data['password'] = make_password(
                 validated_data.get('password'))  # использование 'password' из validated_data
+
+            # Проверка и исключение поля last_login
+        if 'last_login' in validated_data:
+            validated_data.pop('last_login')
+
+            # Проверка и исключение поля date_joined
+        if 'date_joined' in validated_data:
+            validated_data.pop('date_joined')
+
         return super().update(instance, validated_data)
 
 class WordSerializer(serializers.ModelSerializer):
