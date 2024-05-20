@@ -20,9 +20,17 @@ namespace Diplom.Pages
         {
             try
             {
-                string usersUrl = "http://test.bipchik.keenetic.pro/api/all_users/";
                 string username = LoginEntry.Text;
                 string password = PasswordEntry.Text;
+
+                // Check if username or password fields are empty
+                if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+                {
+                    await DisplayAlert("Ошибка", "Введите логин и пароль", "OK");
+                    return;
+                }
+
+                string usersUrl = "http://test.bipchik.keenetic.pro/api/all_users/";
                 Application.Current.Properties["Username"] = username;
                 Application.Current.Properties["Password"] = password;
 
@@ -79,6 +87,7 @@ namespace Diplom.Pages
                 await DisplayAlert("Ошибка", $"Ошибка: {ex.Message}", "OK");
             }
         }
+
 
         private async void SignUpPage(object sender, EventArgs e)
         {
