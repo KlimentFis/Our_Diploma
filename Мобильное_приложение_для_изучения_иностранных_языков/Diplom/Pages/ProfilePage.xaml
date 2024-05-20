@@ -32,11 +32,11 @@
                     </StackLayout>
                 </Frame>
                 <StackLayout Orientation="Horizontal">
-                    <CheckBox x:Name="AnonimousNameEntry"/>
+                    <CheckBox x:Name="UseEnglisNamehEntry"/>
                     <Label Text="Use english for interface" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
-                    <CheckBox x:Name="UseEnglisNamehEntry"/>
+                    <CheckBox x:Name="AnonimousNameEntry"/>
                     <Label Text="Анонимный пользователь" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20"/>
                 </StackLayout>
                 <Button Margin="10" Text="Сохранить" CornerRadius="15" HorizontalOptions="CenterAndExpand" Clicked="SaveBtn_Clicked"/>
