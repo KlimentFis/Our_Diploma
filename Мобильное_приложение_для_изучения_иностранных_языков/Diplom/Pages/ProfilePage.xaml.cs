@@ -77,7 +77,16 @@ namespace Diplom.Pages
                     var user = JsonConvert.DeserializeObject<MyUser>(content);
 
                     // Set the Image property for the user
-                    user.Image = "http://test.bipchik.keenetic.pro" + user.Image; // Full image URL
+                    if (!string.IsNullOrEmpty(user.Image))
+                    {
+                        user.Image = "http://test.bipchik.keenetic.pro" + user.Image; // Full image URL
+                        UserPhoto.Source = ImageSource.FromUri(new Uri(user.Image)); // Set the image source for the Image element
+                    }
+                    else
+                    {
+                        // If user does not have an image, set default image
+                        UserPhoto.Source = ImageSource.FromFile("DefaultUser.png");
+                    }
 
                     // Bind the data to the UI elements
                     UsernameLabel.Text = user.Username;
@@ -86,7 +95,6 @@ namespace Diplom.Pages
                     PatronomicNameEntry.Text = user.Patronymic;
                     AnonimousNameEntry.IsChecked = user.Anonymous;
                     UseEnglisNamehEntry.IsChecked = user.UseEnglish;
-                    UserPhoto.Source = ImageSource.FromUri(new Uri(user.Image)); // Set the image source for the Image element
                 }
                 else
                 {
@@ -94,6 +102,7 @@ namespace Diplom.Pages
                 }
             }
         }
+
 
         private async void OnFramePhoto(object sender, EventArgs e)
         {
@@ -157,7 +166,7 @@ namespace Diplom.Pages
                 LastName = LastNameEntry.Text,
                 Patronymic = PatronomicNameEntry.Text,
                 Anonymous = AnonimousNameEntry.IsChecked,
-                UseEnglish = UseEnglisNamehEntry.IsChecked
+                UseEnglish = UseEnglisNamehEntry.IsChecked,
             };
 
             // Сериализуем объект в JSON

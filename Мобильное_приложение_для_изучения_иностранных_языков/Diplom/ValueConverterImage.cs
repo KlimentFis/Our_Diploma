@@ -9,7 +9,7 @@ namespace Diplom
         {
             if (value == null || string.IsNullOrEmpty(value.ToString()))
             {
-                return ImageSource.FromFile("DefaultUser.png"); // Local default image
+                return ImageSource.FromFile("DefaultUser.png"); // Ensure DefaultUser.png is in your resources
             }
             return ImageSource.FromUri(new Uri(value.ToString()));
         }
