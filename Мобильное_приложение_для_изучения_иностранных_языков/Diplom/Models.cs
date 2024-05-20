@@ -34,10 +34,12 @@ namespace Diplom
             [JsonProperty("image")]
             public string Image { get; set; }
             [JsonProperty("last_login")]
-            public DateTime LastLogin { get; set; }
+            public DateTime? LastLogin { get; set; }
             [JsonProperty("is_superuser")]
             public bool IsSuperuser { get; set; }
             [JsonProperty("username")]
+            public string Password { get; set; }
+            [JsonProperty("password")]
             public string Username { get; set; }
             [JsonProperty("first_name")]
             public string FirstName { get; set; }
@@ -65,11 +67,6 @@ namespace Diplom
             public List<object> Groups { get; set; }
             [JsonProperty("user_permissions")]
             public List<object> UserPermissions { get; set; }
-        }
-        public class User
-        {
-            [JsonProperty("username")]
-            public string Username { get; set; }
         }
     }
 }

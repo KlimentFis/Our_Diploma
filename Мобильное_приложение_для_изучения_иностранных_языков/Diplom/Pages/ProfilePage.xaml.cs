@@ -8,6 +8,8 @@ using Xamarin.Forms.Xaml;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using static Diplom.models;
+using System.Text;
+using System.Reflection;
 
 namespace Diplom.Pages
 {
@@ -82,8 +84,8 @@ namespace Diplom.Pages
                     LastNameEntry.Text = user.LastName;
                     FirstNameEntry.Text = user.FirstName;
                     PatronomicNameEntry.Text = user.Patronymic;
-                    AnonimousEntry.IsChecked = user.Anonymous;
-                    UseEnglishEntry.IsChecked = user.UseEnglish;
+                    AnonimousNameEntry.IsChecked = user.Anonymous;
+                    UseEnglisNamehEntry.IsChecked = user.UseEnglish;
                     UserPhoto.Source = ImageSource.FromUri(new Uri(user.Image)); // Set the image source for the Image element
                 }
                 else
@@ -145,9 +147,64 @@ namespace Diplom.Pages
             await Navigation.PushAsync(new LoginPage());
         }
 
-        private void SaveBtn_Clicked(object sender, EventArgs e)
+        private async void SaveBtn_Clicked(object sender, EventArgs e)
         {
-            DisplayAlert("Сохранение", $"Данные успешно сохранены", "OK");
+            MyUser user = new MyUser
+            {
+                Username = Application.Current.Properties["Username"].ToString(),
+                Password = Application.Current.Properties["Password"].ToString(),
+                FirstName = FirstNameEntry.Text,
+                LastName = LastNameEntry.Text,
+                Patronymic = PatronomicNameEntry.Text,
+                Anonymous = AnonimousNameEntry.IsChecked,
+                UseEnglish = UseEnglisNamehEntry.IsChecked
+            };
+
+            // Сериализуем объект в JSON
+            string json = JsonConvert.SerializeObject(user);
+
+            // Выводим JSON в консоль для проверки
+            Console.WriteLine("Отправляемые данные: " + json);
+
+            // Определяем URL для отправки запроса
+            string apiUrl = $"http://test.bipchik.keenetic.pro/api/users/{Application.Current.Properties["Username"]}/";
+
+            try
+            {
+                // Отправляем запрос методом PUT
+                using (HttpClient client = new HttpClient())
+                {
+                    // Получаем токен доступа
+                    string accessToken = Application.Current.Properties["AccessToken"].ToString();
+                    // Устанавливаем заголовок Authorization
+                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+
+                    // Создаем HttpContent из JSON
+                    HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                    // Отправляем PUT запрос
+                    HttpResponseMessage response = await client.PutAsync(apiUrl, content);
+
+                    // Проверяем ответ сервера
+                    if (response.IsSuccessStatusCode)
+                    {
+                        await DisplayAlert("Успех", "Данные успешно отправлены!", "OK");
+                        Console.WriteLine("Данные успешно отправлены!");
+                    }
+                    else
+                    {
+                        string errorContent = await response.Content.ReadAsStringAsync();
+                        await DisplayAlert("Ошибка", $"Ошибка при отправке данных: {response.StatusCode}\n{errorContent}", "OK");
+                        Console.WriteLine($"Ошибка при отправке данных: {response.StatusCode}\n{errorContent}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+                Console.WriteLine($"Произошла ошибка: {ex.Message}");
+            }
         }
+
     }
 }
