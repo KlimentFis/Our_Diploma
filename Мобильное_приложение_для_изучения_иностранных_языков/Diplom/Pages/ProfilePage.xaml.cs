@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Xamarin.Forms;
@@ -8,8 +9,6 @@ using Xamarin.Forms.Xaml;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using static Diplom.models;
-using System.Text;
-using System.Reflection;
 
 namespace Diplom.Pages
 {
@@ -103,7 +102,6 @@ namespace Diplom.Pages
             }
         }
 
-
         private async void OnFramePhoto(object sender, EventArgs e)
         {
             var photoStream = await PickPhotoAsync();
@@ -144,7 +142,53 @@ namespace Diplom.Pages
 
             if (answer)
             {
-                // Удаление аккаунта
+                await DeleteAccount();
+            }
+        }
+
+        private async Task DeleteAccount()
+        {
+            try
+            {
+                string apiUrl = "http://test.bipchik.keenetic.pro/api/delete_user/";
+                string accessToken = Application.Current.Properties["AccessToken"].ToString();
+
+                using (HttpClient client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+
+                    var deleteData = new
+                    {
+                        username = Application.Current.Properties["Username"].ToString(),
+                        password = Application.Current.Properties["Password"].ToString()
+                    };
+
+                    string jsonData = JsonConvert.SerializeObject(deleteData);
+                    HttpContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+                    HttpResponseMessage response = await client.PostAsync(apiUrl, content);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string responseContent = await response.Content.ReadAsStringAsync();
+                        var result = JsonConvert.DeserializeObject<dynamic>(responseContent);
+                        await DisplayAlert("Успешно", result.detail.ToString(), "OK");
+
+                        Application.Current.Properties["RefreshToken"] = null;
+                        Application.Current.Properties["AccessToken"] = null;
+                        await Application.Current.SavePropertiesAsync();
+                        await Navigation.PushAsync(new LoginPage());
+                    }
+                    else
+                    {
+                        string errorContent = await response.Content.ReadAsStringAsync();
+                        await DisplayAlert("Ошибка", $"Ошибка при удалении аккаунта: {response.StatusCode}\n{errorContent}", "OK");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
             }
         }
 
@@ -169,32 +213,32 @@ namespace Diplom.Pages
                 UseEnglish = UseEnglisNamehEntry.IsChecked,
             };
 
-            // Сериализуем объект в JSON
+            // Serialize the user object to JSON
             string json = JsonConvert.SerializeObject(user);
 
-            // Выводим JSON в консоль для проверки
+            // Output JSON to console for verification
             Console.WriteLine("Отправляемые данные: " + json);
 
-            // Определяем URL для отправки запроса
+            // Define the URL to send the request
             string apiUrl = $"http://test.bipchik.keenetic.pro/api/users/{Application.Current.Properties["Username"]}/";
 
             try
             {
-                // Отправляем запрос методом PUT
+                // Send the request using PUT method
                 using (HttpClient client = new HttpClient())
                 {
-                    // Получаем токен доступа
+                    // Get the access token
                     string accessToken = Application.Current.Properties["AccessToken"].ToString();
-                    // Устанавливаем заголовок Authorization
+                    // Set the Authorization header
                     client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
 
-                    // Создаем HttpContent из JSON
+                    // Create HttpContent from JSON
                     HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                    // Отправляем PUT запрос
+                    // Send the PUT request
                     HttpResponseMessage response = await client.PutAsync(apiUrl, content);
 
-                    // Проверяем ответ сервера
+                    // Check the server response
                     if (response.IsSuccessStatusCode)
                     {
                         await DisplayAlert("Успех", "Данные успешно отправлены!", "OK");
@@ -214,6 +258,5 @@ namespace Diplom.Pages
                 Console.WriteLine($"Произошла ошибка: {ex.Message}");
             }
         }
-
     }
 }
