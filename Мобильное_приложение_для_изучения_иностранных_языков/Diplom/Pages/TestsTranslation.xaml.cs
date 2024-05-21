@@ -3,19 +3,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using static Diplom.models;
+using static Diplom.config;
+using System.Text;
 
 namespace Diplom.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TestsTranslation : ContentPage
     {
-        private readonly string apiUrl = "http://test.bipchik.keenetic.pro/api/words/";
+        private readonly string apiUrl = $"{Our_addres}/api/words/";
+        private string accessToken;
         private List<Words> wordsList;
         private Words currentWord;
         private RadioButton correctRadioButton;
@@ -37,7 +37,7 @@ namespace Diplom.Pages
             try
             {
                 // Получение access токена из хранилища
-                string accessToken = Application.Current.Properties["AccessToken"].ToString();
+                accessToken = Application.Current.Properties["AccessToken"].ToString();
 
                 // Создание объекта HttpClient для отправки запросов
                 using (HttpClient client = new HttpClient())
@@ -118,23 +118,89 @@ namespace Diplom.Pages
         }
 
 
-        private void SendBtn_Clicked(object sender, EventArgs e)
+        private async void SendBtn_Clicked(object sender, EventArgs e)
         {
-            if (correctRadioButton.IsChecked)
+            MyUser user = null; // Инициализируем переменную, но не присваиваем значение Password сразу
+            bool isAnswerCorrect = correctRadioButton.IsChecked;
+
+            // Обновление UI в зависимости от правильного или неправильного ответа
+            if (isAnswerCorrect)
             {
                 ResultLabel.Text = "Правильно!";
                 ResultFrame.BackgroundColor = Color.FromHex("#72c255");
-                ResultFrame.IsVisible = true; // Скрываем ResultFrame при правильном ответе
             }
             else
             {
                 string correctTranslation = correctRadioButton.Content.ToString();
                 ResultLabel.Text = $"Неправильно! Правильное слово: {correctTranslation}";
                 ResultFrame.BackgroundColor = Color.FromHex("#ff6161");
-                ResultFrame.IsVisible = true; // Показываем ResultFrame при неправильном ответе
             }
+            ResultFrame.IsVisible = true;
+
+            string apiUrl = $"{Our_addres}/api/users/{Application.Current.Properties["Username"]}/";
+
+            using (HttpClient client = new HttpClient())
+            {
+                string accessToken = Application.Current.Properties["AccessToken"].ToString();
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+
+                try
+                {
+                    // Получение данных пользователя
+                    HttpResponseMessage response = await client.GetAsync(apiUrl);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string content = await response.Content.ReadAsStringAsync();
+                        user = JsonConvert.DeserializeObject<MyUser>(content);
+
+                        // Обновление количества правильных и неправильных ответов
+                        if (isAnswerCorrect)
+                        {
+                            user.RightAnswers++;
+                        }
+                        else
+                        {
+                            user.WrongAnswers++;
+                        }
+
+                        // Присваиваем значение Password после получения данных пользователя
+                        user.Password = Application.Current.Properties["Password"].ToString();
+
+                        // Подготовка данных для отправки
+                        string json = JsonConvert.SerializeObject(user);
+                        HttpContent httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+                        // Отправка обновленных данных пользователя с использованием PUT запроса
+                        HttpResponseMessage newResponse = await client.PutAsync(apiUrl, httpContent);
+                        if (newResponse.IsSuccessStatusCode)
+                        {
+                            await DisplayAlert("Успех", "Данные успешно отправлены!", "OK");
+                            Console.WriteLine("Данные успешно отправлены!");
+                        }
+                        else
+                        {
+                            string errorContent = await newResponse.Content.ReadAsStringAsync();
+                            await DisplayAlert("Ошибка", $"Ошибка при отправке данных: {newResponse.StatusCode}\n{errorContent}", "OK");
+                            Console.WriteLine($"Ошибка при отправке данных: {newResponse.StatusCode}\n{errorContent}");
+                        }
+                    }
+                    else
+                    {
+                        await DisplayAlert("Ошибка", "Не удалось загрузить данные профиля.", "OK");
+                        return;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+                    return;
+                }
+            }
+
             DisplayRandomWord();
         }
+
+
 
 
         private void RadioButton_CheckedChanged(object sender, CheckedChangedEventArgs e)

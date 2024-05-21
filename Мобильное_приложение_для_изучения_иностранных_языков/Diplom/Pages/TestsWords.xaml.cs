@@ -3,16 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using static Diplom.models;
+using static Diplom.config;
 
 namespace Diplom.Pages
 {
     public partial class TestsWords : ContentPage
     {
-        //private readonly string apiUrl = "http://192.168.1.16:8888/api/suggestions/";
-        private readonly string apiUrl = config.Our_addres;
+        private readonly string apiUrl = $"{Our_addres}/api/suggestions/";
         private string accessToken;
         private List<Suggestions> suggestionsList;
         private Suggestions currentSuggestion;
