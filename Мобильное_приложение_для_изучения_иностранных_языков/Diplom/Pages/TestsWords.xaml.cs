@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using Xamarin.Forms;
+using System.Text;
 using static Diplom.models;
 using static Diplom.config;
 
@@ -15,6 +16,7 @@ namespace Diplom.Pages
         private string accessToken;
         private List<Suggestions> suggestionsList;
         private Suggestions currentSuggestion;
+        private RadioButton correctRadioButton;
 
         public TestsWords()
         {
@@ -95,17 +97,22 @@ namespace Diplom.Pages
             RadioBtn1.Content = words[0];
             RadioBtn2.Content = words[1];
             RadioBtn3.Content = words[2];
+
+            // Устанавливаем правильный ответ в correctRadioButton
+            if (words[0] == currentSuggestion.RightWord) correctRadioButton = RadioBtn1;
+            else if (words[1] == currentSuggestion.RightWord) correctRadioButton = RadioBtn2;
+            else correctRadioButton = RadioBtn3;
         }
 
-        private void SendBtn_Clicked(object sender, EventArgs e)
+        private async void SendBtn_Clicked(object sender, EventArgs e)
         {
             string selectedWord = RadioBtn1.IsChecked ? RadioBtn1.Content.ToString() :
                                   RadioBtn2.IsChecked ? RadioBtn2.Content.ToString() :
                                   RadioBtn3.Content.ToString();
-                
-            
 
-            if (selectedWord.Equals(currentSuggestion.RightWord))
+            bool isAnswerCorrect = selectedWord.Equals(currentSuggestion.RightWord);
+
+            if (isAnswerCorrect)
             {
                 ResultLabel.Text = "Правильно!";
                 ResultFrame.BackgroundColor = Color.FromHex("#72c255");
@@ -116,23 +123,77 @@ namespace Diplom.Pages
                 ResultFrame.BackgroundColor = Color.FromHex("#ff6161");
             }
             ResultFrame.IsVisible = true;
+
+            await UpdateUserStatistics(isAnswerCorrect);
             DisplayRandomSuggestion();
+        }
+
+        private async System.Threading.Tasks.Task UpdateUserStatistics(bool isAnswerCorrect)
+        {
+            MyUser user = null;
+            string apiUrl = $"{Our_addres}/api/users/{Application.Current.Properties["Username"]}/";
+
+            using (HttpClient client = new HttpClient())
+            {
+                string accessToken = Application.Current.Properties["AccessToken"].ToString();
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(apiUrl);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string content = await response.Content.ReadAsStringAsync();
+                        user = JsonConvert.DeserializeObject<MyUser>(content);
+
+                        if (isAnswerCorrect)
+                        {
+                            user.RightAnswers++;
+                        }
+                        else
+                        {
+                            user.WrongAnswers++;
+                        }
+
+                        user.Password = Application.Current.Properties["Password"].ToString();
+
+                        string json = JsonConvert.SerializeObject(user);
+                        HttpContent httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+
+                        HttpResponseMessage newResponse = await client.PutAsync(apiUrl, httpContent);
+                        if (newResponse.IsSuccessStatusCode)
+                        {
+                            
+                        }
+                        else
+                        {
+                            string errorContent = await newResponse.Content.ReadAsStringAsync();
+                            await DisplayAlert("Ошибка", $"Ошибка при отправке данных: {newResponse.StatusCode}\n{errorContent}", "OK");
+                        }
+                    }
+                    else
+                    {
+                        await DisplayAlert("Ошибка", "Не удалось загрузить данные профиля.", "OK");
+                        return;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+                    return;
+                }
+            }
         }
 
         private void RadioButton_CheckedChanged(object sender, CheckedChangedEventArgs e)
         {
-            // Получаем RadioButton, который вызвал событие
             var radioButton = (RadioButton)sender;
 
-            // Если флажок установлен (RadioButton выбран), сбрасываем флажок для остальных RadioButton
             if (radioButton.IsChecked)
             {
-                if (radioButton != RadioBtn1)
-                    RadioBtn1.IsChecked = false;
-                if (radioButton != RadioBtn2)
-                    RadioBtn2.IsChecked = false;
-                if (radioButton != RadioBtn3)
-                    RadioBtn3.IsChecked = false;
+                if (radioButton != RadioBtn1) RadioBtn1.IsChecked = false;
+                if (radioButton != RadioBtn2) RadioBtn2.IsChecked = false;
+                if (radioButton != RadioBtn3) RadioBtn3.IsChecked = false;
             }
         }
     }
