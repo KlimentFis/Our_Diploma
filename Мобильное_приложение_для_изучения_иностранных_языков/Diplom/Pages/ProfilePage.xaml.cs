@@ -97,7 +97,7 @@ namespace Diplom.Pages
                 }
                 else
                 {
-                    await DisplayAlert("Ошибка", "Не удалось загрузить данные профиля.", "OK");
+                    await DisplayAlert("Ошибка", "Авторизируйтесь.", "OK");
                 }
             }
         }
