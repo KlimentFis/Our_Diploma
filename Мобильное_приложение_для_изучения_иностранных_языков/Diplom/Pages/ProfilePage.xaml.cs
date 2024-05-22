@@ -54,9 +54,9 @@ namespace Diplom.Pages
 
         private async Task<bool> VerifyToken(string token)
         {
-            // Implement your token verification logic here.
-            await Task.Delay(500); // Simulate network call
-            return true; // Change to actual validation logic
+            
+            await Task.Delay(500); 
+            return true; 
         }
 
         private async Task LoadUserProfile()
@@ -75,19 +75,19 @@ namespace Diplom.Pages
                     string content = await response.Content.ReadAsStringAsync();
                     var user = JsonConvert.DeserializeObject<MyUser>(content);
 
-                    // Set the Image property for the user
+                    
                     if (!string.IsNullOrEmpty(user.Image))
                     {
-                        user.Image = "http://test.bipchik.keenetic.pro" + user.Image; // Full image URL
-                        UserPhoto.Source = ImageSource.FromUri(new Uri(user.Image)); // Set the image source for the Image element
+                        user.Image = "http://test.bipchik.keenetic.pro" + user.Image; 
+                        UserPhoto.Source = ImageSource.FromUri(new Uri(user.Image)); 
                     }
                     else
                     {
-                        // If user does not have an image, set default image
+                        
                         UserPhoto.Source = ImageSource.FromFile("DefaultUser.png");
                     }
 
-                    // Bind the data to the UI elements
+                    
                     UsernameLabel.Text = user.Username;
                     LastNameEntry.Text = user.LastName;
                     FirstNameEntry.Text = user.FirstName;
@@ -213,32 +213,32 @@ namespace Diplom.Pages
                 UseEnglish = UseEnglisNamehEntry.IsChecked,
             };
 
-            // Serialize the user object to JSON
+  
             string json = JsonConvert.SerializeObject(user);
 
-            // Output JSON to console for verification
+            
             Console.WriteLine("Отправляемые данные: " + json);
 
-            // Define the URL to send the request
+            
             string apiUrl = $"http://test.bipchik.keenetic.pro/api/users/{Application.Current.Properties["Username"]}/";
 
             try
             {
-                // Send the request using PUT method
+                
                 using (HttpClient client = new HttpClient())
                 {
-                    // Get the access token
+                    
                     string accessToken = Application.Current.Properties["AccessToken"].ToString();
-                    // Set the Authorization header
+                    
                     client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
 
-                    // Create HttpContent from JSON
+                    
                     HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                    // Send the PUT request
+                    
                     HttpResponseMessage response = await client.PutAsync(apiUrl, content);
 
-                    // Check the server response
+                    
                     if (response.IsSuccessStatusCode)
                     {
                         await DisplayAlert("Успех", "Данные успешно отправлены!", "OK");

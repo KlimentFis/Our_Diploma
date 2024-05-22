@@ -53,5 +53,11 @@ namespace Diplom.Pages
         {
             Device.OpenUri(new Uri("https://www.learn-english-today.com/lessons/lessons_list.html"));
         }
+
+        [Obsolete]
+        private async void OnFrameDictionary(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new DictionaryWords());
+        }
     }
 }
