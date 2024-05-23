@@ -36,6 +36,7 @@ namespace Diplom.Pages
                     {
                         string jsonResponse = await response.Content.ReadAsStringAsync();
                         List<MyUser> users = JsonConvert.DeserializeObject<List<MyUser>>(jsonResponse);
+
                         foreach (var user in users)
                         {
                             if (!string.IsNullOrEmpty(user.Image))
@@ -43,6 +44,18 @@ namespace Diplom.Pages
                                 user.Image = "http://test.bipchik.keenetic.pro" + user.Image;
                             }
                         }
+
+                        // Сортировка пользователей по правильным и неправильным ответам
+                        users.Sort((u1, u2) =>
+                        {
+                            int rightAnswerComparison = u2.RightAnswers.CompareTo(u1.RightAnswers);
+                            if (rightAnswerComparison == 0)
+                            {
+                                return u1.WrongAnswers.CompareTo(u2.WrongAnswers);
+                            }
+                            return rightAnswerComparison;
+                        });
+
                         listView.ItemsSource = users;
                     }
                     else
