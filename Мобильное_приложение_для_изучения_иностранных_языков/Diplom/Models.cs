@@ -59,6 +59,5 @@ namespace Diplom
             [JsonProperty("image")]
             public string Image { get; set; }
         }
-
     }
 }
