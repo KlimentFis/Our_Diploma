@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;  
 using System.Net.Http;
 using Newtonsoft.Json;
 using Xamarin.Forms;
@@ -56,7 +57,10 @@ namespace Diplom.Pages
                             return rightAnswerComparison;
                         });
 
-                        listView.ItemsSource = users;
+                        // Take only the top 100 users
+                        var topUsers = users.Take(100).ToList();
+
+                        listView.ItemsSource = topUsers;
                     }
                     else
                     {
