@@ -1,9 +1,11 @@
 ﻿using System;
 using System.IO;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Plugin.Media;
@@ -15,6 +17,8 @@ namespace Diplom.Pages
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ProfilePage : ContentPage
     {
+        private string _photoFilePath;
+
         public ProfilePage()
         {
             InitializeComponent();
@@ -54,9 +58,8 @@ namespace Diplom.Pages
 
         private async Task<bool> VerifyToken(string token)
         {
-            
-            await Task.Delay(500); 
-            return true; 
+            await Task.Delay(500);
+            return true;
         }
 
         private async Task LoadUserProfile()
@@ -66,7 +69,7 @@ namespace Diplom.Pages
             using (HttpClient client = new HttpClient())
             {
                 string accessToken = Application.Current.Properties["AccessToken"].ToString();
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
                 HttpResponseMessage response = await client.GetAsync(apiUrl);
 
@@ -75,25 +78,22 @@ namespace Diplom.Pages
                     string content = await response.Content.ReadAsStringAsync();
                     var user = JsonConvert.DeserializeObject<MyUser>(content);
 
-                    
                     if (!string.IsNullOrEmpty(user.Image))
                     {
-                        user.Image = "http://test.bipchik.keenetic.pro" + user.Image; 
-                        UserPhoto.Source = ImageSource.FromUri(new Uri(user.Image)); 
+                        user.Image = "http://test.bipchik.keenetic.pro" + user.Image;
+                        UserPhoto.Source = ImageSource.FromUri(new Uri(user.Image));
                     }
                     else
                     {
-                        
                         UserPhoto.Source = ImageSource.FromFile("DefaultUser.png");
                     }
 
-                    
                     UsernameLabel.Text = user.Username;
                     LastNameEntry.Text = user.LastName;
                     FirstNameEntry.Text = user.FirstName;
                     PatronomicNameEntry.Text = user.Patronymic;
-                    AnonimousNameEntry.IsChecked = user.Anonymous;
-                    UseEnglisNamehEntry.IsChecked = user.UseEnglish;
+                    AnonimousCheck.IsChecked = user.Anonymous;
+                    UseEnglisCheck.IsChecked = user.UseEnglish;
                 }
                 else
                 {
@@ -107,7 +107,18 @@ namespace Diplom.Pages
             var photoStream = await PickPhotoAsync();
             if (photoStream != null)
             {
-                UserPhoto.Source = ImageSource.FromStream(() => photoStream);
+                string directory = Path.Combine(FileSystem.AppDataDirectory, "photos");
+                if (!Directory.Exists(directory))
+                    Directory.CreateDirectory(directory);
+
+                _photoFilePath = Path.Combine(directory, "user_photo.jpg");
+
+                using (var fileStream = File.Open(_photoFilePath, FileMode.Create))
+                {
+                    await photoStream.CopyToAsync(fileStream);
+                }
+
+                UserPhoto.Source = ImageSource.FromFile(_photoFilePath);
             }
         }
 
@@ -117,7 +128,7 @@ namespace Diplom.Pages
 
             if (!CrossMedia.Current.IsPickPhotoSupported)
             {
-                await DisplayAlert("Ошибка", $"Выбор фотографий не поддерживается на устройстве", "OK");
+                await DisplayAlert("Ошибка", "Выбор фотографий не поддерживается на устройстве", "OK");
                 return null;
             }
 
@@ -134,6 +145,65 @@ namespace Diplom.Pages
             var file = await CrossMedia.Current.PickPhotoAsync(options);
 
             return file?.GetStream();
+        }
+
+        private async void SaveBtn_Clicked(object sender, EventArgs e)
+        {
+            MyUser user = new MyUser
+            {
+                Username = Application.Current.Properties["Username"].ToString(),
+                Password = Application.Current.Properties["Password"].ToString(),
+                FirstName = FirstNameEntry.Text,
+                LastName = LastNameEntry.Text,
+                Patronymic = PatronomicNameEntry.Text,
+                Anonymous = AnonimousCheck.IsChecked,
+                UseEnglish = UseEnglisCheck.IsChecked,
+            };
+
+            string apiUrl = $"http://test.bipchik.keenetic.pro/api/users/{Application.Current.Properties["Username"]}/";
+
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string accessToken = Application.Current.Properties["AccessToken"].ToString();
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+
+                    using (var content = new MultipartFormDataContent())
+                    {
+                        content.Add(new StringContent(user.Username), "username");
+                        content.Add(new StringContent(user.Password), "password");
+                        content.Add(new StringContent(user.FirstName), "first_name");
+                        content.Add(new StringContent(user.LastName), "last_name");
+                        content.Add(new StringContent(user.Patronymic), "patronymic");
+                        content.Add(new StringContent(user.Anonymous.ToString()), "anonymous");
+                        content.Add(new StringContent(user.UseEnglish.ToString()), "use_english");
+
+                        if (!string.IsNullOrEmpty(_photoFilePath))
+                        {
+                            var photoContent = new StreamContent(File.OpenRead(_photoFilePath));
+                            photoContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+                            content.Add(photoContent, "image", Path.GetFileName(_photoFilePath));
+                        }
+
+                        HttpResponseMessage response = await client.PutAsync(apiUrl, content);
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            await DisplayAlert("Успех", "Данные успешно отправлены!", "OK");
+                        }
+                        else
+                        {
+                            string errorContent = await response.Content.ReadAsStringAsync();
+                            await DisplayAlert("Ошибка", $"Ошибка при отправке данных: {response.StatusCode}\n{errorContent}", "OK");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
+            }
         }
 
         private async void DeleteBtn_Clicked(object sender, EventArgs e)
@@ -155,7 +225,7 @@ namespace Diplom.Pages
 
                 using (HttpClient client = new HttpClient())
                 {
-                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
                     var deleteData = new
                     {
@@ -198,65 +268,6 @@ namespace Diplom.Pages
             Application.Current.Properties["AccessToken"] = null;
             await Application.Current.SavePropertiesAsync();
             await Navigation.PushAsync(new LoginPage());
-        }
-
-        private async void SaveBtn_Clicked(object sender, EventArgs e)
-        {
-            MyUser user = new MyUser
-            {
-                Username = Application.Current.Properties["Username"].ToString(),
-                Password = Application.Current.Properties["Password"].ToString(),
-                FirstName = FirstNameEntry.Text,
-                LastName = LastNameEntry.Text,
-                Patronymic = PatronomicNameEntry.Text,
-                Anonymous = AnonimousNameEntry.IsChecked,
-                UseEnglish = UseEnglisNamehEntry.IsChecked,
-            };
-
-  
-            string json = JsonConvert.SerializeObject(user);
-
-            
-            Console.WriteLine("Отправляемые данные: " + json);
-
-            
-            string apiUrl = $"http://test.bipchik.keenetic.pro/api/users/{Application.Current.Properties["Username"]}/";
-
-            try
-            {
-                
-                using (HttpClient client = new HttpClient())
-                {
-                    
-                    string accessToken = Application.Current.Properties["AccessToken"].ToString();
-                    
-                    client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
-
-                    
-                    HttpContent content = new StringContent(json, Encoding.UTF8, "application/json");
-
-                    
-                    HttpResponseMessage response = await client.PutAsync(apiUrl, content);
-
-                    
-                    if (response.IsSuccessStatusCode)
-                    {
-                        await DisplayAlert("Успех", "Данные успешно отправлены!", "OK");
-                        Console.WriteLine("Данные успешно отправлены!");
-                    }
-                    else
-                    {
-                        string errorContent = await response.Content.ReadAsStringAsync();
-                        await DisplayAlert("Ошибка", $"Ошибка при отправке данных: {response.StatusCode}\n{errorContent}", "OK");
-                        Console.WriteLine($"Ошибка при отправке данных: {response.StatusCode}\n{errorContent}");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                await DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
-                Console.WriteLine($"Произошла ошибка: {ex.Message}");
-            }
         }
     }
 }

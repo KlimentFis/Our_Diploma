@@ -15,33 +15,33 @@
                 <Label Margin="10,0,10,10" Text="" HorizontalOptions="CenterAndExpand" x:Name="UsernameLabel" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="25" FontAttributes="Bold"/>
                 <Frame Margin="10,0,10,10" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#133a5e, Light=#D2EAFE}">
                     <StackLayout>
-                        <Label Text="Фамилия:" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20"/>
+                        <Label Text="Фамилия:" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20" x:Name="LastNameLabel"/>
                         <Entry Placeholder="Фамилия" PlaceholderColor="LightGray" x:Name="LastNameEntry"/>
                     </StackLayout>
                 </Frame>
                 <Frame Margin="10,0,10,10" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#133a5e, Light=#D2EAFE}">
                     <StackLayout>
-                        <Label Text="Имя:" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20"/>
+                        <Label Text="Имя:" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20" x:Name="FirstNameLabel"/>
                         <Entry Placeholder="Имя" PlaceholderColor="LightGray" x:Name="FirstNameEntry"/>
                     </StackLayout>
                 </Frame>
                 <Frame Margin="10,0,10,10" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#133a5e, Light=#D2EAFE}">
                     <StackLayout>
-                        <Label Text="Отчество:" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20"/>
+                        <Label Text="Отчество:" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20" x:Name="PatronomicNameLabel"/>
                         <Entry Placeholder="Отчество" PlaceholderColor="LightGray" x:Name="PatronomicNameEntry"/>
                     </StackLayout>
                 </Frame>
                 <StackLayout Orientation="Horizontal">
-                    <CheckBox x:Name="UseEnglisNamehEntry"/>
-                    <Label Text="Use english for interface" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20"/>
+                    <CheckBox x:Name="UseEnglisCheck"/>
+                    <Label Text="Use english for interface" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20" x:Name="UseEnglisLabel"/>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal">
-                    <CheckBox x:Name="AnonimousNameEntry"/>
-                    <Label Text="Анонимный пользователь" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20"/>
+                    <CheckBox x:Name="AnonimousCheck"/>
+                    <Label Text="Анонимный пользователь" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20" x:Name="AnonimousLabel"/>
                 </StackLayout>
-                <Button Margin="10" Text="Сохранить" CornerRadius="15" HorizontalOptions="CenterAndExpand" Clicked="SaveBtn_Clicked"/>
-                <Button Margin="10,0,10,10" Text="Выйти из аккаунта" BackgroundColor="Red" CornerRadius="15" HorizontalOptions="CenterAndExpand" Clicked="ExitBtn_Clicked"/>
-                <Button Margin="10,0,10,10" Text="Удалить аккаунт" BackgroundColor="Red" CornerRadius="15" HorizontalOptions="CenterAndExpand" Clicked="DeleteBtn_Clicked"/>
+                <Button Margin="10" Text="Сохранить изменения" CornerRadius="15" HorizontalOptions="CenterAndExpand" Clicked="SaveBtn_Clicked" x:Name="SaveBtn"/>
+                <Button Margin="10,0,10,10" Text="Выйти из аккаунта" BackgroundColor="Red" CornerRadius="15" HorizontalOptions="CenterAndExpand" Clicked="ExitBtn_Clicked" x:Name="ExitBtn"/>
+                <Button Margin="10,0,10,10" Text="Удалить аккаунт" BackgroundColor="Red" CornerRadius="15" HorizontalOptions="CenterAndExpand" Clicked="DeleteBtn_Clicked" x:Name="DeleteBtn"/>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
