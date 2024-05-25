@@ -25,10 +25,10 @@ def letter_verification(request):
     error = check_auth(request, "Необходимо авторизоваться!")
     if error:
         return error
-    tool = LanguageTool('en-US')
     if request.method == 'GET':
         return render(request, 'tests/letter_verification.html')
     elif request.method == 'POST':
+        tool = LanguageTool('en-US')
         text = request.POST.get('not_checked_text', '')
         errors = tool.check(text)
         if errors:
