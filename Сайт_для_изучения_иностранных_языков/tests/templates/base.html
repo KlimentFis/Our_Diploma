@@ -148,7 +148,7 @@
                         <a class="nav-link" href="{% url 'about_us' %}">{% if request.user.use_english %}About Us{% else %}Информация о нас{% endif %}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'UserList' %}">{% if request.user.use_english %}User list{% else %}Топ 10{% endif %}</a>
+                        <a class="nav-link" href="{% url 'UserList' %}">{% if request.user.use_english %}Top 10{% else %}Топ 10{% endif %}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'links' %}">{% if request.user.use_english %}Links to training materials{% else %}Ссылки на учебные материалы{% endif %}</a>
