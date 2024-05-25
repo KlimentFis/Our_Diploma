@@ -11,6 +11,7 @@ using Xamarin.Forms.Xaml;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using static Diplom.models;
+using static Diplom.config;
 
 namespace Diplom.Pages
 {
@@ -64,7 +65,7 @@ namespace Diplom.Pages
 
         private async Task LoadUserProfile()
         {
-            string apiUrl = $"http://test.bipchik.keenetic.pro/api/users/{Application.Current.Properties["Username"]}/";
+            string apiUrl = $"{Our_addres}/api/users/{Application.Current.Properties["Username"]}/";
 
             using (HttpClient client = new HttpClient())
             {
@@ -80,7 +81,7 @@ namespace Diplom.Pages
 
                     if (!string.IsNullOrEmpty(user.Image))
                     {
-                        user.Image = "http://test.bipchik.keenetic.pro" + user.Image;
+                        user.Image = $"{Our_addres}" + user.Image;
                         UserPhoto.Source = ImageSource.FromUri(new Uri(user.Image));
                     }
                     else
@@ -160,7 +161,7 @@ namespace Diplom.Pages
                 UseEnglish = UseEnglisCheck.IsChecked,
             };
 
-            string apiUrl = $"http://test.bipchik.keenetic.pro/api/users/{Application.Current.Properties["Username"]}/";
+            string apiUrl = $"{Our_addres}/api/users/{Application.Current.Properties["Username"]}/";
 
             try
             {
@@ -220,7 +221,8 @@ namespace Diplom.Pages
         {
             try
             {
-                string apiUrl = "http://test.bipchik.keenetic.pro/api/delete_user/";
+                string apiUrl = $"{Our_addres}/api/delete_user/";
+
                 string accessToken = Application.Current.Properties["AccessToken"].ToString();
 
                 using (HttpClient client = new HttpClient())

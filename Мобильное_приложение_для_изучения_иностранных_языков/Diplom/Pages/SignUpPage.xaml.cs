@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using static Diplom.config;
 
 namespace Diplom.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SignUpPage : ContentPage
     {
-        private const string createUserUrl = "http://test.bipchik.keenetic.pro/api/create_user/";
-        private const string allUsersUrl = "http://test.bipchik.keenetic.pro/api/all_users/";
+        private readonly string createUserUrl = $"{Our_addres}/api/create_user/";
+        private readonly string allUsersUrl = $"{Our_addres}/api/all_users/";
 
         public SignUpPage()
         {

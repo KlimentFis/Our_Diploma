@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using static Diplom.config;
 
 namespace Diplom.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
+        private readonly string usersUrl = $"{Our_addres}/api/all_users/";
         public LoginPage()
         {
             InitializeComponent();
@@ -30,7 +32,7 @@ namespace Diplom.Pages
                     return;
                 }
 
-                string usersUrl = "http://test.bipchik.keenetic.pro/api/all_users/";
+ 
                 Application.Current.Properties["Username"] = username;
                 Application.Current.Properties["Password"] = password;
 
@@ -73,12 +75,12 @@ namespace Diplom.Pages
                         }
                         else
                         {
-                            await DisplayAlert("Ошибка", "Пользователь с таким логином не существует", "OK");
+                            await DisplayAlert("Ошибка", "Неправильный логин или пароль", "OK");
                         }
                     }
                     else
                     {
-                        await DisplayAlert("Ошибка", "Ошибка при получении списка пользователей", "OK");
+                        await DisplayAlert("Ошибка", "Неправильный логин или пароль", "OK");
                     }
                 }
             }
