@@ -208,6 +208,8 @@ def text_to_audio(request):
     if error:
         return error
 
+    audio_url = None  # Инициализация переменной audio_url
+
     if request.method == 'POST':
         text = request.POST.get('text', '')
         if text:
@@ -215,8 +217,13 @@ def text_to_audio(request):
             if re.match("^[a-zA-Z ]+$", text):
                 # Если текст на английском языке, преобразуем его в аудио
                 try:
+                    # Проверяем и создаем директорию media, если ее нет
+                    media_root = settings.MEDIA_ROOT
+                    if not os.path.exists(media_root):
+                        os.makedirs(media_root)
+
+                    audio_file_path = os.path.join(media_root, 'output.mp3')
                     tts = gTTS(text=text, lang='en')
-                    audio_file_path = settings.MEDIA_ROOT + '/output.mp3'
                     tts.save(audio_file_path)
                     audio_url = settings.MEDIA_URL + 'output.mp3'
                     return render(request, 'tests/text_to_audio.html', {'audio_url': audio_url, 'error': None})
@@ -227,7 +234,4 @@ def text_to_audio(request):
                 error = "Текст должен содержать только английские буквы и пробелы"
         else:
             error = "Введите текст для преобразования в аудио"
-    else:
-        audio_url = None
-
     return render(request, 'tests/text_to_audio.html', {'audio_url': audio_url, 'error': error})

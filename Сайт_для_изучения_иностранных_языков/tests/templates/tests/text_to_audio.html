@@ -16,7 +16,9 @@
     <form method="post">
         {% csrf_token %}
         <div class="form-group">
-            <div class="alert alert-succes">{{ error }}</div>
+            {% if not error == None %}
+                <div class="alert alert-danger">{{ error }}</div>
+            {% endif %}
             <textarea class="form-control" name="text" id="exampleFormControlTextarea1" rows="3">{{ request.POST.text }}</textarea>
             <div class="submit-button-container">
                 <div class="d-grid gap-2 d-flex justify-content-center">
