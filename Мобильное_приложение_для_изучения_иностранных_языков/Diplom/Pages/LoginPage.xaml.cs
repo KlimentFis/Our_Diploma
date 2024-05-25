@@ -48,7 +48,8 @@ namespace Diplom.Pages
                         // Check if the entered username exists in the list
                         if (Array.Exists(usersList, user => user == username))
                         {
-                            string authUrl = "http://test.bipchik.keenetic.pro/api/token/";
+                            string authUrl = $"{Our_addres}/api/token/";
+
                             string jsonData = $"{{\"username\":\"{username}\",\"password\":\"{password}\"}}";
                             HttpContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
                             HttpResponseMessage authResponse = await client.PostAsync(authUrl, content);
@@ -66,7 +67,11 @@ namespace Diplom.Pages
                                 await Application.Current.SavePropertiesAsync();
 
                                 await DisplayAlert("Успех", "Вы успешно вошли", "OK");
-                                //await Navigation.PushAsync(new ProfilePage());
+
+                                // Создаем новую главную страницу, чтобы открыть страницу авторизации
+                                MainPage mainPage = new MainPage();
+                                mainPage.Detail = new NavigationPage((Page)Activator.CreateInstance(typeof(ProfilePage)));
+                                Application.Current.MainPage = mainPage;
                             }
                             else
                             {

@@ -249,7 +249,11 @@ namespace Diplom.Pages
                         Application.Current.Properties["RefreshToken"] = null;
                         Application.Current.Properties["AccessToken"] = null;
                         await Application.Current.SavePropertiesAsync();
-                        await Navigation.PushAsync(new LoginPage());
+
+                        // Создаем новую главную страницу, чтобы открыть страницу авторизации
+                        MainPage mainPage = new MainPage();
+                        mainPage.Detail = new NavigationPage((Page)Activator.CreateInstance(typeof(LoginPage)));
+                        Application.Current.MainPage = mainPage;
                     }
                     else
                     {
