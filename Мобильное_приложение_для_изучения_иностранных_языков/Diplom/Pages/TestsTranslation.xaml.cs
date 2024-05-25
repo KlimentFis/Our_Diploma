@@ -174,8 +174,7 @@ namespace Diplom.Pages
                         HttpResponseMessage newResponse = await client.PutAsync(apiUrl, httpContent);
                         if (newResponse.IsSuccessStatusCode)
                         {
-                            await DisplayAlert("Успех", "Данные успешно отправлены!", "OK");
-                            Console.WriteLine("Данные успешно отправлены!");
+                            
                         }
                         else
                         {

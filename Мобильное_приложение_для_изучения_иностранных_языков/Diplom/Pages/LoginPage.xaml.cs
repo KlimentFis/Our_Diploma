@@ -64,7 +64,7 @@ namespace Diplom.Pages
                                 await Application.Current.SavePropertiesAsync();
 
                                 await DisplayAlert("Успех", "Вы успешно вошли", "OK");
-                                await Navigation.PushAsync(new ProfilePage());
+                                //await Navigation.PushAsync(new ProfilePage());
                             }
                             else
                             {

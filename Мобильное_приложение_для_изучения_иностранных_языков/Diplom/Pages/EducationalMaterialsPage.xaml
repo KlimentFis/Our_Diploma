@@ -5,26 +5,26 @@
              Title="Ссылки на учебные материалы">
     <ContentPage.Content>
         <ScrollView>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
+            <StackLayout>
 
-                <Label Grid.Row="0" Text="Для перехода на сайт, нажмите на его описание"/>
+                <Label Text="Для перехода на сайт, нажмите на его описание"/>
 
-                <Label Grid.Row="1" Margin="0,10,0,0" Text="Универсальные сайты" FontSize="35" TextColor="{AppThemeBinding Dark=White, Light=Black}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                <Frame Margin="10" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnFrameDictionary"/>
+                    </Frame.GestureRecognizers>
+                    <StackLayout>
+                        <Frame BackgroundColor="{AppThemeBinding Dark=#133a5e, Light=#D2EAFE}" CornerRadius="15">
+                            <Label Text="Словарь" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="25"/>
+                        </Frame>
+                        <Label Text="Словарь английских слов, которые используются в тестах."
+               TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="15"/>
+                    </StackLayout>
+                </Frame>
 
-                <Frame Margin="10" Grid.Row="2" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
+                <Label Margin="0,10,0,0" Text="Универсальные сайты" FontSize="35" TextColor="{AppThemeBinding Dark=White, Light=Black}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+
+                <Frame Margin="10" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnFrameEnglex"/>
                     </Frame.GestureRecognizers>
@@ -37,7 +37,7 @@
                     </StackLayout>
                 </Frame>
 
-                <Frame Margin="10" Grid.Row="3" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
+                <Frame Margin="10" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnFrameStudy"/>
                     </Frame.GestureRecognizers>
@@ -51,7 +51,7 @@
                     </StackLayout>
                 </Frame>
 
-                <Frame Margin="10" Grid.Row="4" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
+                <Frame Margin="10" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnFrameBistroenglish"/>
                     </Frame.GestureRecognizers>
@@ -64,7 +64,7 @@
                     </StackLayout>
                 </Frame>
 
-                <Frame Margin="10" Grid.Row="5" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
+                <Frame Margin="10" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnFrameDuolingo"/>
                     </Frame.GestureRecognizers>
@@ -78,9 +78,9 @@
                 </Frame>
 
 
-                <Label Grid.Row="6" Margin="0,50,0,0" Text="Учим новые слова" FontSize="35" TextColor="{AppThemeBinding Dark=White, Light=Black}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                <Label Margin="0,50,0,0" Text="Учим новые слова" FontSize="35" TextColor="{AppThemeBinding Dark=White, Light=Black}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
 
-                <Frame Margin="10" Grid.Row="7" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
+                <Frame Margin="10" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnFrameMemrise"/>
                     </Frame.GestureRecognizers>
@@ -93,9 +93,9 @@
                 </Frame>
 
 
-                <Label Grid.Row="8" Margin="0,50,0,0" Text="Учим азы грамматики" FontSize="35" TextColor="{AppThemeBinding Dark=White, Light=Black}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                <Label Margin="0,50,0,0" Text="Учим азы грамматики" FontSize="35" TextColor="{AppThemeBinding Dark=White, Light=Black}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
 
-                <Frame Margin="10" Grid.Row="9" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
+                <Frame Margin="10" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnFrameEngblog"/>
                     </Frame.GestureRecognizers>
@@ -107,7 +107,7 @@
                     </StackLayout>
                 </Frame>
 
-                <Frame Margin="10" Grid.Row="10" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
+                <Frame Margin="10" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Tapped="OnFrameLET"/>
                     </Frame.GestureRecognizers>
@@ -119,7 +119,7 @@
                     </StackLayout>
                 </Frame>
                 
-            </Grid>
+            </StackLayout>
         </ScrollView>
     </ContentPage.Content>
 </ContentPage>

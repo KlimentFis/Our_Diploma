@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;  
 using System.Net.Http;
 using Newtonsoft.Json;
 using Xamarin.Forms;
@@ -36,6 +37,7 @@ namespace Diplom.Pages
                     {
                         string jsonResponse = await response.Content.ReadAsStringAsync();
                         List<MyUser> users = JsonConvert.DeserializeObject<List<MyUser>>(jsonResponse);
+
                         foreach (var user in users)
                         {
                             if (!string.IsNullOrEmpty(user.Image))
@@ -43,7 +45,22 @@ namespace Diplom.Pages
                                 user.Image = "http://test.bipchik.keenetic.pro" + user.Image;
                             }
                         }
-                        listView.ItemsSource = users;
+
+                        // Сортировка пользователей по правильным и неправильным ответам
+                        users.Sort((u1, u2) =>
+                        {
+                            int rightAnswerComparison = u2.RightAnswers.CompareTo(u1.RightAnswers);
+                            if (rightAnswerComparison == 0)
+                            {
+                                return u1.WrongAnswers.CompareTo(u2.WrongAnswers);
+                            }
+                            return rightAnswerComparison;
+                        });
+
+                        // Take only the top 100 users
+                        var topUsers = users.Take(100).ToList();
+
+                        listView.ItemsSource = topUsers;
                     }
                     else
                     {
