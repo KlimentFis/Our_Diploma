@@ -24,7 +24,7 @@ def userList(request):
     error = check_auth(request, "Необходимо авторизоваться!")
     if error:
         return error
-    users = MyUser.objects.filter(is_staff=False)
+    users = MyUser.objects.filter(is_staff=False).order_by('-right_answers')[:10]
     context = {
         'users': users
     }
