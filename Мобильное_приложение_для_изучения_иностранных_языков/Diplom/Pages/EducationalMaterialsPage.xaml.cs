@@ -18,6 +18,26 @@ namespace Diplom.Pages
         }
 
         [Obsolete]
+        private async void OnFrameDictionary(object sender, EventArgs e)
+        {
+            if (!IsUserLoggedIn())
+            {
+                await Navigation.PushAsync(new LoginPage());
+                return;
+            }
+            else
+            {
+                await Navigation.PushAsync(new DictionaryWords());
+            }
+        }
+
+        [Obsolete]
+        private async void OnFrameTextToAudio(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new TextToAudio());
+        }
+
+        [Obsolete]
         private void OnFrameEnglex(object sender, EventArgs e)
         {
             Device.OpenUri(new Uri("https://englex.ru/articles/"));
@@ -54,10 +74,19 @@ namespace Diplom.Pages
             Device.OpenUri(new Uri("https://www.learn-english-today.com/lessons/lessons_list.html"));
         }
 
-        [Obsolete]
-        private async void OnFrameDictionary(object sender, EventArgs e)
+        private bool IsUserLoggedIn()
         {
-            await Navigation.PushAsync(new DictionaryWords());
+            // Проверка наличия токена в хранилище и его не пустое значение
+            if (Application.Current.Properties.ContainsKey("AccessToken") && Application.Current.Properties["AccessToken"] != null)
+            {
+                // Токен присутствует, пользователь вошел в систему
+                return true;
+            }
+            else
+            {
+                // Токен отсутствует или его значение null, пользователь не вошел в систему
+                return false;
+            }
         }
     }
 }

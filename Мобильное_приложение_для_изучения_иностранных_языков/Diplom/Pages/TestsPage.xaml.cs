@@ -54,15 +54,15 @@ namespace Diplom.Pages
         }
         private bool IsUserLoggedIn()
         {
-            // Проверка наличия токена в хранилище
-            if (Application.Current.Properties.ContainsKey("AccessToken"))
+            // Проверка наличия токена в хранилище и его не пустое значение
+            if (Application.Current.Properties.ContainsKey("AccessToken") && Application.Current.Properties["AccessToken"] != null)
             {
                 // Токен присутствует, пользователь вошел в систему
                 return true;
             }
             else
             {
-                // Токен отсутствует, пользователь не вошел в систему
+                // Токен отсутствует или его значение null, пользователь не вошел в систему
                 return false;
             }
         }
