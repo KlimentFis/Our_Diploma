@@ -18,6 +18,18 @@ namespace Diplom.Pages
         }
 
         [Obsolete]
+        private async void OnFrameDictionary(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new DictionaryWords());
+        }
+
+        [Obsolete]
+        private async void OnFrameTextToAudio(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new TextToAudio());
+        }
+
+        [Obsolete]
         private void OnFrameEnglex(object sender, EventArgs e)
         {
             Device.OpenUri(new Uri("https://englex.ru/articles/"));
@@ -52,12 +64,6 @@ namespace Diplom.Pages
         private void OnFrameLET(object sender, EventArgs e)
         {
             Device.OpenUri(new Uri("https://www.learn-english-today.com/lessons/lessons_list.html"));
-        }
-
-        [Obsolete]
-        private async void OnFrameDictionary(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new DictionaryWords());
         }
     }
 }
