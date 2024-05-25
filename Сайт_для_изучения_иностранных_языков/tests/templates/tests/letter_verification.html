@@ -1,55 +1,50 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-        }
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+    }
 
-        textarea {
-            width: 100%;
-            min-height: 200px;
-            max-height: 50%;
-            box-sizing: border-box;
-            resize: vertical;
-            border-radius: 10px;
-            padding: 10px;
-            border: 1px solid #ccc;
-        }
+    textarea {
+        width: 100%;
+        min-height: 200px;
+        max-height: 50%;
+        box-sizing: border-box;
+        resize: vertical;
+        border-radius: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+    }
 
-        .btn {
-            margin-top: 20px;
-        }
-    </style>
-    <div class="container" style="text-align: center;">
-        <h1 class="white-text first-text" style="margin-bottom: 20px;"><strong>{% if request.user.use_english %}Writing{% else %}Письмо{% endif %}</strong></h1>
-        <div>
-            {% if errors %}
-                {% for error in errors %}
-                    <div class="alert alert-danger" role="alert">{{ error.ruleId }} - {{ error.message }}</div>
-                {% endfor %}
-            {% elif text %}
-                <div class="alert alert-success">ОШИБОК НЕТ, ВЫ - МОЛОДЕЦ!!!</div>
-            {% endif %}
-        </div>
-        <form method="post">
-            {% csrf_token %}
-            <textarea name="not_checked_text" id="not_checked_text" style="color:">{{ text }}</textarea>
-            <div class="submit-button-container">
-                <div class="d-grid gap-2 d-flex justify-content-center">
-                    <input class="btn btn-primary btn-lg" type="submit" value="{% if request.user.use_english %}Send{% else %}Отправить{% endif %}" style="margin-bottom: 20px;">
-                </div>
+    .btn {
+        margin-top: 20px;
+    }
+
+    .alert {
+        margin-top: 10px;
+    }
+</style>
+<div class="container" style="text-align: center;">
+    <h1 class="white-text first-text" style="margin-bottom: 20px;"><strong>{% if request.user.use_english %}Writing{% else %}Письмо{% endif %}</strong></h1>
+    <div>
+        {% if errors %}
+            <div class="alert alert-danger" role="alert">
+                {{ errors }}
             </div>
-<!--            <div>-->
-<!--                {% if errors is NONE %}-->
-<!--                    {% for error in errors %}-->
-<!--                        <div class="alert alert-danger" role="alert">{{ error.ruleId }} - {{ error.message }}</div>-->
-<!--                    {% endfor %}-->
-<!--                {% else %}-->
-<!--                    <div class="alert alert-secondary">ОШИБОК НЕТ, ВЫ - МОЛОДЕЦ!!!</div>-->
-<!--                {% endif %}-->
-<!--            </div>-->
-        </form>
+        {% elif text %}
+            <div class="alert alert-success">ОШИБОК НЕТ, ВЫ - МОЛОДЕЦ!!!</div>
+        {% endif %}
     </div>
+    <form method="post">
+        {% csrf_token %}
+        <textarea name="not_checked_text" id="not_checked_text" style="color:">{{ text }}</textarea>
+        <div class="submit-button-container">
+            <div class="d-grid gap-2 d-flex justify-content-center">
+                <input class="btn btn-primary btn-lg" type="submit" value="{% if request.user.use_english %}Send{% else %}Отправить{% endif %}" style="margin-bottom: 20px;">
+            </div>
+        </div>
+    </form>
+</div>
 {% endblock %}

@@ -20,25 +20,37 @@ def links(request):
 def about_us(request):
     return render(request, 'tests/about_as.html')
 
+
 @csrf_exempt
 def letter_verification(request):
     error = check_auth(request, "Необходимо авторизоваться!")
     if error:
         return error
+
     if request.method == 'GET':
         return render(request, 'tests/letter_verification.html')
     elif request.method == 'POST':
-        tool = LanguageTool('en-US')
         text = request.POST.get('not_checked_text', '')
-        errors = tool.check(text)
-        if errors:
+
+        # Проверяем, был ли введен текст перед его проверкой
+        if not text:
+            errors = "Введите текст для проверки"
             context = {'text': text, 'errors': errors}
-        else:
-            context = {'text': text, 'errors': None}
+            return render(request, 'tests/letter_verification.html', context)
 
-        print(errors)
+        # Проверяем текст на наличие только английских букв, пробелов и некоторых знаков препинания
+        if not re.match(r'^[^\u0400-\u04FF]*$', text):
+            errors = "Текст должен содержать только английские буквы и символы"
+            context = {'text': text, 'errors': errors}
+            return render(request, 'tests/letter_verification.html', context)
 
+        # Если текст прошел проверку, выполняем проверку с помощью LanguageTool
+        tool = LanguageTool('en-US')
+        errors = tool.check(text)
+
+        context = {'text': text, 'errors': errors}
         return render(request, 'tests/letter_verification.html', context)
+
 
 @csrf_protect
 def check_word(request):
