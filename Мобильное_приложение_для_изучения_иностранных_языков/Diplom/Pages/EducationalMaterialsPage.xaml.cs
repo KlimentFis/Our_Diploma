@@ -20,7 +20,15 @@ namespace Diplom.Pages
         [Obsolete]
         private async void OnFrameDictionary(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new DictionaryWords());
+            if (!IsUserLoggedIn())
+            {
+                await Navigation.PushAsync(new LoginPage());
+                return;
+            }
+            else
+            {
+                await Navigation.PushAsync(new DictionaryWords());
+            }
         }
 
         [Obsolete]
@@ -64,6 +72,21 @@ namespace Diplom.Pages
         private void OnFrameLET(object sender, EventArgs e)
         {
             Device.OpenUri(new Uri("https://www.learn-english-today.com/lessons/lessons_list.html"));
+        }
+
+        private bool IsUserLoggedIn()
+        {
+            // Проверка наличия токена в хранилище и его не пустое значение
+            if (Application.Current.Properties.ContainsKey("AccessToken") && Application.Current.Properties["AccessToken"] != null)
+            {
+                // Токен присутствует, пользователь вошел в систему
+                return true;
+            }
+            else
+            {
+                // Токен отсутствует или его значение null, пользователь не вошел в систему
+                return false;
+            }
         }
     }
 }
