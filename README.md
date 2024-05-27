@@ -222,5 +222,5 @@ using (HttpClient client = new HttpClient())
 
 # Руководство по Rest API
 ### Авто-документация:
-- #### http://127.0.0.1:8000/http://127.0.0.1:8000/swagger-docs/
-- #### http://127.0.0.1:8000/http://127.0.0.1:8000/redoc/
+- #### http://127.0.0.1:8000/swagger-docs/
+- #### http://127.0.0.1:8000/redoc/
