@@ -14,14 +14,27 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import include
-from django.conf.urls.static import static
+from django.urls import include, path
 from django.conf import settings
-from django.contrib.auth import views as auth_views
+from django.conf.urls.static import static
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
 from tests.views import index, about_us, tests, links, about_us, download_app
 from users.views import userList, login_or_register
-from django.urls import path
 
+schema_view = get_schema_view(
+   openapi.Info(
+      title="OnlineLessons API",
+      default_version='v1',
+      description="API documentation for OnlineLessons",
+      terms_of_service="https://www.google.com/policies/terms/",
+      contact=openapi.Contact(email="contact@onlinelessons.local"),
+      license=openapi.License(name="BSD License"),
+   ),
+   public=True,
+   permission_classes=(permissions.AllowAny,),
+)
 
 urlpatterns = [
     path('', login_or_register, name='index'),
@@ -34,7 +47,11 @@ urlpatterns = [
     path('about_us/', about_us, name='about_us'),
     path('download_app/', download_app, name="download_app"),
     path('api/', include('api.urls'), name="api"),
-]
+    path('swagger-docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.MEDIA_ROOT)
