@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using static Diplom.config;
 
 namespace Diplom.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
+        private readonly string usersUrl = $"{Our_addres}/api/all_users/";
         public LoginPage()
         {
             InitializeComponent();
@@ -30,7 +32,7 @@ namespace Diplom.Pages
                     return;
                 }
 
-                string usersUrl = "http://test.bipchik.keenetic.pro/api/all_users/";
+ 
                 Application.Current.Properties["Username"] = username;
                 Application.Current.Properties["Password"] = password;
 
@@ -46,7 +48,8 @@ namespace Diplom.Pages
                         // Check if the entered username exists in the list
                         if (Array.Exists(usersList, user => user == username))
                         {
-                            string authUrl = "http://test.bipchik.keenetic.pro/api/token/";
+                            string authUrl = $"{Our_addres}/api/token/";
+
                             string jsonData = $"{{\"username\":\"{username}\",\"password\":\"{password}\"}}";
                             HttpContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
                             HttpResponseMessage authResponse = await client.PostAsync(authUrl, content);
@@ -64,7 +67,11 @@ namespace Diplom.Pages
                                 await Application.Current.SavePropertiesAsync();
 
                                 await DisplayAlert("Успех", "Вы успешно вошли", "OK");
-                                //await Navigation.PushAsync(new ProfilePage());
+
+                                // Создаем новую главную страницу, чтобы открыть страницу авторизации
+                                MainPage mainPage = new MainPage();
+                                mainPage.Detail = new NavigationPage((Page)Activator.CreateInstance(typeof(ProfilePage)));
+                                Application.Current.MainPage = mainPage;
                             }
                             else
                             {
@@ -73,12 +80,12 @@ namespace Diplom.Pages
                         }
                         else
                         {
-                            await DisplayAlert("Ошибка", "Пользователь с таким логином не существует", "OK");
+                            await DisplayAlert("Ошибка", "Неправильный логин или пароль", "OK");
                         }
                     }
                     else
                     {
-                        await DisplayAlert("Ошибка", "Ошибка при получении списка пользователей", "OK");
+                        await DisplayAlert("Ошибка", "Неправильный логин или пароль", "OK");
                     }
                 }
             }

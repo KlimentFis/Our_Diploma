@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using static Diplom.models;
+using static Diplom.config;
 
 namespace Diplom.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DictionaryWords : ContentPage
     {
-        readonly string apiUrl = "http://test.bipchik.keenetic.pro/api/words/";
+        private readonly string apiUrl = $"{Our_addres}/api/words/";
         List<Words> wordsList = new List<Words>();
         List<Words> filteredWordsList = new List<Words>();
 

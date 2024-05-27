@@ -4,12 +4,14 @@
              x:Class="Diplom.Pages.TextToAudio"
              Title="Текст в аудио">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Введите текст для перевода его в аудио" FontAttributes="Bold" Margin="10,15,10,10" FontSize="40" TextColor="{AppThemeBinding Dark=White, Light=Black}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
-            <Frame Margin="10,50,10,10" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
-                <Editor AutoSize="TextChanges" Placeholder="Введите ваш текст здесь..." x:Name="EditorTxt"/>
-            </Frame>
-            <Button Margin="10,50,10,10" Text="Воспроизвести" CornerRadius="15" BackgroundColor="#153b5d" TextColor="White" Clicked="OnSendButtonClicked"/>
-        </StackLayout>
+        <ScrollView>
+            <StackLayout>
+                <Label Text="Введите текст для перевода его в аудио" FontAttributes="Bold" Margin="10,15,10,10" FontSize="40" TextColor="{AppThemeBinding Dark=White, Light=Black}" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+                <Frame Margin="10,50,10,10" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
+                    <Editor AutoSize="TextChanges" Placeholder="Введите ваш текст здесь..." x:Name="EditorTxt"/>
+                </Frame>
+                <Button Margin="10,50,10,10" Text="Воспроизвести" CornerRadius="15" BackgroundColor="#153b5d" TextColor="White" Clicked="OnSendButtonClicked"/>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

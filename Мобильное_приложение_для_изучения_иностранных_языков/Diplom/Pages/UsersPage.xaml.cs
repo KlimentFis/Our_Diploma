@@ -6,13 +6,14 @@ using Newtonsoft.Json;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using static Diplom.models;
+using static Diplom.config;
 
 namespace Diplom.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class UsersPage : ContentPage
     {
-        readonly string apiUrl = "http://test.bipchik.keenetic.pro/api/users/";
+        private readonly string apiUrl = $"{Our_addres}/api/users/";
 
         public UsersPage()
         {
