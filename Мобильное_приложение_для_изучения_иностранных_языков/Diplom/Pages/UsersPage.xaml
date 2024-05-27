@@ -35,6 +35,44 @@
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
+
+            <DataTemplate x:Key="AnonymousSpecialFrameTemplate1">
+                <ViewCell>
+                    <StackLayout>
+                        <Label Text="#1" FontSize="30" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" TextColor="#FFB02E" Margin="10"/>
+                        <Frame HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" CornerRadius="15" BackgroundColor="#FFB02E">
+                            <StackLayout>
+                                <Image WidthRequest="150" HeightRequest="150" Aspect="AspectFill" 
+           HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
+           Source="{Binding Image, Converter={StaticResource NullToDefaultImageConverter}}" />
+                                <Label Text="Пользователь:" FontAttributes="Bold" HorizontalTextAlignment="Center" FontSize="20" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                <Label Text="{Binding Username}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Имя: " TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                    <Label Text="{Binding FirstName, Converter={StaticResource NullToPlaceholderConverter}}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Фамилия: " TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                    <Label Text="{Binding LastName, Converter={StaticResource NullToPlaceholderConverter}}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Отчество: " TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                    <Label Text="{Binding Patronymic, Converter={StaticResource NullToPlaceholderConverter}}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Правильные ответы: " TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                    <Label Text="{Binding RightAnswers, StringFormat='{0}'}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Неправильные ответы: " TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                    <Label Text="{Binding WrongAnswers, StringFormat='{0}'}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+            
             <DataTemplate x:Key="SpecialFrameTemplate2">
                 <ViewCell>
                     <StackLayout>
@@ -60,6 +98,44 @@
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
+
+            <DataTemplate x:Key="AnonymousSpecialFrameTemplate2">
+                <ViewCell>
+                    <StackLayout>
+                        <Label Text="#2" FontSize="30" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" TextColor="#696969" Margin="10"/>
+                        <Frame HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" CornerRadius="15" BackgroundColor="#696969">
+                            <StackLayout>
+                                <Image WidthRequest="150" HeightRequest="150" Aspect="AspectFill" 
+           HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
+           Source="{Binding Image, Converter={StaticResource NullToDefaultImageConverter}}" />
+                                <Label Text="Пользователь:" FontAttributes="Bold" HorizontalTextAlignment="Center" FontSize="20" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                <Label Text="{Binding Username}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Имя: " TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                    <Label Text="{Binding FirstName, Converter={StaticResource NullToPlaceholderConverter}}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Фамилия: " TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                    <Label Text="{Binding LastName, Converter={StaticResource NullToPlaceholderConverter}}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Отчество: " TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                    <Label Text="{Binding Patronymic, Converter={StaticResource NullToPlaceholderConverter}}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Правильные ответы: " TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                    <Label Text="{Binding RightAnswers, StringFormat='{0}'}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Неправильные ответы: " TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                    <Label Text="{Binding WrongAnswers, StringFormat='{0}'}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+            
             <DataTemplate x:Key="SpecialFrameTemplate3">
                 <ViewCell>
                     <StackLayout>
@@ -85,7 +161,45 @@
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
+
+            <DataTemplate x:Key="AnonymousSpecialFrameTemplate3">
+                <ViewCell>
+                    <StackLayout>
+                        <Label Text="#3" FontSize="30" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" TextColor="#cd7f32" Margin="10"/>
+                        <Frame HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" CornerRadius="15" BackgroundColor="#cd7f32">
+                            <StackLayout>
+                                <Image WidthRequest="150" HeightRequest="150" Aspect="AspectFill" 
+           HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
+           Source="{Binding Image, Converter={StaticResource NullToDefaultImageConverter}}" />
+                                <Label Text="Пользователь:" FontAttributes="Bold" HorizontalTextAlignment="Center" FontSize="20" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                <Label Text="{Binding Username}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Имя: " TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                    <Label Text="{Binding FirstName, Converter={StaticResource NullToPlaceholderConverter}}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Фамилия: " TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                    <Label Text="{Binding LastName, Converter={StaticResource NullToPlaceholderConverter}}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Отчество: " TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                    <Label Text="{Binding Patronymic, Converter={StaticResource NullToPlaceholderConverter}}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Правильные ответы: " TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                    <Label Text="{Binding RightAnswers, StringFormat='{0}'}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="Неправильные ответы: " TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                    <Label Text="{Binding WrongAnswers, StringFormat='{0}'}" FontAttributes="Bold" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
             
+
             <DataTemplate x:Key="AnonymousTemplate">
                 <ViewCell>
                     <Frame HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
@@ -147,12 +261,14 @@
                                            DetailedTemplate="{StaticResource DetailedTemplate}" 
                                            SpecialFrameTemplate1="{StaticResource SpecialFrameTemplate1}"
                                            SpecialFrameTemplate2="{StaticResource SpecialFrameTemplate2}"
-                                           SpecialFrameTemplate3="{StaticResource SpecialFrameTemplate3}"/>
+                                           SpecialFrameTemplate3="{StaticResource SpecialFrameTemplate3}"
+                                           AnonymousSpecialFrameTemplate1="{StaticResource AnonymousSpecialFrameTemplate1}"
+                                           AnonymousSpecialFrameTemplate2="{StaticResource AnonymousSpecialFrameTemplate2}"
+                                           AnonymousSpecialFrameTemplate3="{StaticResource AnonymousSpecialFrameTemplate3}"/>
         </ResourceDictionary>
     </ContentPage.Resources>
     
     <ContentPage.Content>
-        <ListView x:Name="listView" RowHeight="450" ItemTemplate="{StaticResource UserTemplateSelector}">
-        </ListView>
+        <ListView x:Name="listView" RowHeight="450" ItemTemplate="{StaticResource UserTemplateSelector}"/>
     </ContentPage.Content>
 </ContentPage>

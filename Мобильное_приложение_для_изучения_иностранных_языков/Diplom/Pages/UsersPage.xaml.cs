@@ -43,7 +43,7 @@ namespace Diplom.Pages
                         {
                             if (!string.IsNullOrEmpty(user.Image))
                             {
-                                user.Image = "http://test.bipchik.keenetic.pro" + user.Image;
+                                user.Image = $"{Our_addres}" + user.Image;
                             }
                         }
 
@@ -58,7 +58,7 @@ namespace Diplom.Pages
                             return rightAnswerComparison;
                         });
 
-                        // Take only the top 100 users
+                        // Только топ 100 пользователей выводится
                         var topUsers = users.Take(100).ToList();
 
                         listView.ItemsSource = topUsers;

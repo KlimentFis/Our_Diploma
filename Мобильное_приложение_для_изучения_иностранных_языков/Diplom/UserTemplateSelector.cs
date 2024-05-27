@@ -12,6 +12,9 @@ namespace Diplom
         public DataTemplate SpecialFrameTemplate1 { get; set; }
         public DataTemplate SpecialFrameTemplate2 { get; set; }
         public DataTemplate SpecialFrameTemplate3 { get; set; }
+        public DataTemplate AnonymousSpecialFrameTemplate1 { get; set; }
+        public DataTemplate AnonymousSpecialFrameTemplate2 { get; set; }
+        public DataTemplate AnonymousSpecialFrameTemplate3 { get; set; }
 
         protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
         {
@@ -22,28 +25,18 @@ namespace Diplom
 
             if (index == 0)
             {
-                return SpecialFrameTemplate1;
+                return user.Anonymous ? SpecialFrameTemplate1 : AnonymousSpecialFrameTemplate1;
             }
             else if (index == 1)
             {
-                return SpecialFrameTemplate2;
+                return user.Anonymous ? SpecialFrameTemplate2 : AnonymousSpecialFrameTemplate2;
             }
             else if (index == 2)
             {
-                return SpecialFrameTemplate3;
+                return user.Anonymous ? SpecialFrameTemplate3 : AnonymousSpecialFrameTemplate3;
             }
-            else
-            {
-                // Assuming you have logic to distinguish between anonymous and detailed templates
-                if (user.Anonymous)
-                {
-                    return AnonymousTemplate;
-                }
-                else
-                {
-                    return DetailedTemplate;
-                }
-            }
+
+            return user.Anonymous ? AnonymousTemplate : DetailedTemplate;
         }
     }
 }
