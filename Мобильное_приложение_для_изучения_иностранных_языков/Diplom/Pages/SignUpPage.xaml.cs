@@ -101,10 +101,8 @@ namespace Diplom.Pages
                         Application.Current.Properties["AccessToken"] = accessToken;
                         await Application.Current.SavePropertiesAsync();
 
-                        // Перейти на другую страницу после успешной аутентификации
-                        await DisplayAlert("Успех", "Вы успешно зарегистрировались", "OK");
 
-                        // Создаем новую главную страницу, чтобы открыть страницу авторизации
+                        // Создаем новую главную страницу, чтобы открыть страницу профиля
                         MainPage mainPage = new MainPage();
                         mainPage.Detail = new NavigationPage((Page)Activator.CreateInstance(typeof(ProfilePage)));
                         Application.Current.MainPage = mainPage;

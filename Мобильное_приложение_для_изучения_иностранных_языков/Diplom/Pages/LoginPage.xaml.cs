@@ -66,7 +66,6 @@ namespace Diplom.Pages
                                 Application.Current.Properties["AccessToken"] = accessToken;
                                 await Application.Current.SavePropertiesAsync();
 
-                                await DisplayAlert("Успех", "Вы успешно вошли", "OK");
 
                                 // Создаем новую главную страницу, чтобы открыть страницу авторизации
                                 MainPage mainPage = new MainPage();
