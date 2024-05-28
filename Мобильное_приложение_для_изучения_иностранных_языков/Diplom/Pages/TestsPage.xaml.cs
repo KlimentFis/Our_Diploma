@@ -195,7 +195,7 @@ namespace Diplom.Pages
             }
         }
 
-        private async void OnFrameTranslation(object sender, EventArgs e)
+        private async void OnFrameTranslationEngRus(object sender, EventArgs e)
         {
             if (!IsUserLoggedIn())
             {
@@ -205,6 +205,20 @@ namespace Diplom.Pages
             else
             {
                 await Navigation.PushAsync(new TestsTranslation());
+                return;
+            }
+        }
+
+        private async void OnFrameTranslationRusEng(object sender, EventArgs e)
+        {
+            if (!IsUserLoggedIn())
+            {
+                await Navigation.PushAsync(new LoginPage());
+                return;
+            }
+            else
+            {
+                await Navigation.PushAsync(new TranslationRusEng());
                 return;
             }
         }

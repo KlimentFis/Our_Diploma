@@ -27,12 +27,24 @@
 
                 <Frame Margin="10,50,10,10" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
                     <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnFrameTranslation"/>
+                        <TapGestureRecognizer Tapped="OnFrameTranslationEngRus"/>
                     </Frame.GestureRecognizers>
                     <StackLayout>
-                        <Image Source="TestsTranslation"/>
+                        <Image Source="{AppThemeBinding Dark=EngRusDark, Light=EngRusTest}"/>
                         <Frame BackgroundColor="{AppThemeBinding Dark=#133a5e, Light=#D2EAFE}" CornerRadius="15">
-                            <Label Text="Перевод слова" HorizontalOptions="CenterAndExpand" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20"/>
+                            <Label Text="Перевод слова с английского на русский" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20"/>
+                        </Frame>
+                    </StackLayout>
+                </Frame>
+
+                <Frame Margin="10,50,10,10" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnFrameTranslationRusEng"/>
+                    </Frame.GestureRecognizers>
+                    <StackLayout>
+                        <Image Source="{AppThemeBinding Dark=RusEngTestDark, Light=RusEngTest}"/>
+                        <Frame BackgroundColor="{AppThemeBinding Dark=#133a5e, Light=#D2EAFE}" CornerRadius="15">
+                            <Label Text="Перевод слова с русского на английский" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20"/>
                         </Frame>
                     </StackLayout>
                 </Frame>
