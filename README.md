@@ -63,38 +63,6 @@ python manage.py runserver
 ```shell
 python manage.py runserver 0.0.0.0:8888
 ```
-## Заключение
-При вводе сайта в эксплуатацию, поставьте флаг DEBUG=True в положение False, в фале [settings.py](Сайт_для_изучения_иностранных_языков/main/settings.py)
-
-```
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['*']
-```
-
-При локальной разработке можно использовать sqlite3 вместо MySQL
-```
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'OurDiploma',
-        'USER': 'root',
-        'PASSWORD': 'MySQL',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
-}
-```
-Замените на
-```
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-```
 
 ## Мобильное приложение
 Установите нужные NuGet библиотеки:
