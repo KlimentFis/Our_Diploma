@@ -202,7 +202,7 @@
 
             <DataTemplate x:Key="AnonymousTemplate">
                 <ViewCell>
-                    <Frame HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
+                    <Frame Margin="20" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
                         <StackLayout>
                             <Image WidthRequest="150" HeightRequest="150" Aspect="AspectFill" 
                                    HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
@@ -225,7 +225,7 @@
             
             <DataTemplate x:Key="DetailedTemplate">
                 <ViewCell>
-                    <Frame HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
+                    <Frame Margin="20" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" CornerRadius="15" BackgroundColor="{AppThemeBinding Dark=#0A1F32, Light=#BDBDBD}">
                         <StackLayout>
                             <Image WidthRequest="150" HeightRequest="150" Aspect="AspectFill" 
                                    HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"
@@ -269,6 +269,6 @@
     </ContentPage.Resources>
     
     <ContentPage.Content>
-        <ListView x:Name="listView" RowHeight="450" ItemTemplate="{StaticResource UserTemplateSelector}"/>
+        <ListView x:Name="listView" HasUnevenRows="True" ItemTemplate="{StaticResource UserTemplateSelector}"/>
     </ContentPage.Content>
 </ContentPage>
