@@ -1,11 +1,13 @@
-# Диплом 
-## Тема: Комплекс программных средств для изученя инностранных языков
+# Дипломный проект
+### Тема: Комплекс программных средств для изученя инностранных языков
 
-## Авторы: [Трунов К. А.](https://github.com/KlimentFis) и [Пелипенко В. Б.](https://github.com/bipchik)
 
-# Сайт
+### Авторы: [Трунов К. А.](https://github.com/KlimentFis) и [Пелипенко В. Б.](https://github.com/bipchik)
 
-## Установка
+
+## Сайт
+
+### Установка
 
 Клонирование проекта:
 ```shell
@@ -61,40 +63,8 @@ python manage.py runserver
 ```shell
 python manage.py runserver 0.0.0.0:8888
 ```
-## Заключение
-При вводе сайта в эксплуатацию, поставьте флаг DEBUG=True в положение False, в фале [settings.py](Сайт_для_изучения_иностранных_языков/main/settings.py)
 
-```
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['*']
-```
-
-При локальной разработке можно использовать sqlite3 вместо MySQL
-```
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'OurDiploma',
-        'USER': 'root',
-        'PASSWORD': 'MySQL',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
-}
-```
-Замените на
-```
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-```
-
-# Мобильное приложение
+## Мобильное приложение
 Установите нужные NuGet библиотеки:
 
 | Id                  | Versions      | ProjectName  |
@@ -112,7 +82,7 @@ DATABASES = {
 | Xamarin.Forms       | {5.0.0.2196}  | Diplom.Android |
 | Xamarin.Essentials  | {1.7.0}       | Diplom.Android |
 
-# Руководство по Rest API
+## Руководство по Rest API
 ### Авто-документация:
 - #### http://127.0.0.1:8000/swagger-docs/
 - #### http://127.0.0.1:8000/redoc/
