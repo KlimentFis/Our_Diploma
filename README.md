@@ -1,4 +1,5 @@
-# Дипломный проект ( Django + Django Rest Framework + Xamarin.Forms )
+# Дипломный проект 
+### ( Django + Django Rest Framework + Xamarin.Forms )
 ### Тема: Комплекс программных средств для изученя инностранных языков
 
 
