@@ -184,9 +184,15 @@ namespace Diplom.Pages
                     await photoStream.CopyToAsync(fileStream);
                 }
 
-                UserPhoto.Source = ImageSource.FromFile(_photoFilePath);
+                // Показываем сообщение для сохранения изменений
+                bool saveChanges = await DisplayAlert("Изменения", "Для отображения фото, сохраните изменения.", "Сохранить", "Отмена");
+                if (saveChanges)
+                {
+                    await SaveChanges(); // Вызываем SaveChanges асинхронно без ожидания
+                }
             }
         }
+
 
         private async Task<Stream> PickPhotoAsync()
         {
@@ -214,6 +220,11 @@ namespace Diplom.Pages
         }
 
         private async void SaveBtn_Clicked(object sender, EventArgs e)
+        {
+            await SaveChanges();
+        }
+
+        private async Task SaveChanges()
         {
             MyUser user = new MyUser
             {
@@ -256,6 +267,19 @@ namespace Diplom.Pages
 
                         if (response.IsSuccessStatusCode)
                         {
+                            string responseContent = await response.Content.ReadAsStringAsync();
+                            var updatedUser = JsonConvert.DeserializeObject<MyUser>(responseContent);
+
+                            if (!string.IsNullOrEmpty(updatedUser.Image))
+                            {
+                                updatedUser.Image = $"{Our_addres}" + updatedUser.Image;
+                                UserPhoto.Source = ImageSource.FromUri(new Uri(updatedUser.Image));
+                            }
+                            else
+                            {
+                                UserPhoto.Source = ImageSource.FromFile("DefaultUser.png");
+                            }
+
                             await DisplayAlert("Успех", "Данные успешно отправлены!", "OK");
                         }
                         else
@@ -271,6 +295,8 @@ namespace Diplom.Pages
                 await DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
             }
         }
+
+
 
         private async void DeleteBtn_Clicked(object sender, EventArgs e)
         {
