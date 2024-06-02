@@ -2,7 +2,8 @@
 ### Тема: Комплекс программных средств для изученя инностранных языков
 
 
-### Авторы: [Трунов К. А.](https://github.com/KlimentFis) и [Пелипенко В. Б.](https://github.com/bipchik)
+### Авторы: 
+### [Трунов К. А.](https://github.com/KlimentFis) и [Пелипенко В. Б.](https://github.com/bipchik)
 
 
 ## Сайт
