@@ -206,12 +206,7 @@ namespace Diplom.Pages
 
             var options = new PickMediaOptions
             {
-                PhotoSize = PhotoSize.Custom,
-                CustomPhotoSize = 10,
-                RotateImage = false,
-                MaxWidthHeight = 2000,
-                SaveMetaData = true,
-                CompressionQuality = 92
+                PhotoSize = PhotoSize.Custom
             };
 
             var file = await CrossMedia.Current.PickPhotoAsync(options);
