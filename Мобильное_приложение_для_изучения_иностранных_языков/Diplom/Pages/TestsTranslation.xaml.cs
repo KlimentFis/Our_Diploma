@@ -9,6 +9,8 @@ using static Diplom.models;
 using static Diplom.config;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Http.Headers;
+using System.IO;
 
 namespace Diplom.Pages
 {
@@ -24,7 +26,7 @@ namespace Diplom.Pages
         public TestsTranslation()
         {
             InitializeComponent();
-            GetDataFromAPI();
+            Task task = GetDataFromAPI();
             SendBtn.Clicked += SendBtn_Clicked;
 
             // Добавляем обработчики событий CheckedChanged для каждого RadioButton
@@ -189,10 +191,10 @@ namespace Diplom.Pages
 
         private async void SendBtn_Clicked(object sender, EventArgs e)
         {
-            MyUser user = null; // Инициализируем переменную, но не присваиваем значение Password сразу
+            MyUser user = null; // Initialize the user variable
             bool isAnswerCorrect = correctRadioButton.IsChecked;
 
-            // Обновление UI в зависимости от правильного или неправильного ответа
+            // Update the UI based on whether the answer is correct or not
             if (isAnswerCorrect)
             {
                 ResultLabel.Text = "Правильно!";
@@ -215,14 +217,17 @@ namespace Diplom.Pages
 
                 try
                 {
-                    // Получение данных пользователя
+                    // Get user data
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
                     if (response.IsSuccessStatusCode)
                     {
                         string content = await response.Content.ReadAsStringAsync();
                         user = JsonConvert.DeserializeObject<MyUser>(content);
 
-                        // Обновление количества правильных и неправильных ответов
+                        // Log current user data for debugging
+                        Console.WriteLine($"User before update: RightAnswers={user.RightAnswers}, WrongAnswers={user.WrongAnswers}");
+
+                        // Update the number of correct and incorrect answers
                         if (isAnswerCorrect)
                         {
                             user.RightAnswers++;
@@ -232,24 +237,52 @@ namespace Diplom.Pages
                             user.WrongAnswers++;
                         }
 
-                        // Присваиваем значение Password после получения данных пользователя
+                        // Log updated user data for debugging
+                        Console.WriteLine($"User after update: RightAnswers={user.RightAnswers}, WrongAnswers={user.WrongAnswers}");
+
+                        // Assign the password after retrieving the user data
                         user.Password = Application.Current.Properties["Password"].ToString();
 
-                        // Подготовка данных для отправки
-                        string json = JsonConvert.SerializeObject(user);
-                        HttpContent httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+                        using (var multipartContent = new MultipartFormDataContent())
+                        {
+                            multipartContent.Add(new StringContent(user.Username), "username");
+                            multipartContent.Add(new StringContent(user.Password), "password");
+                            multipartContent.Add(new StringContent(user.FirstName), "first_name");
+                            multipartContent.Add(new StringContent(user.LastName), "last_name");
+                            multipartContent.Add(new StringContent(user.Patronymic), "patronymic");
+                            multipartContent.Add(new StringContent(user.Anonymous.ToString()), "anonymous");
+                            multipartContent.Add(new StringContent(user.UseEnglish.ToString()), "use_english");
+                            multipartContent.Add(new StringContent(user.RightAnswers.ToString()), "right_answers");
+                            multipartContent.Add(new StringContent(user.WrongAnswers.ToString()), "wrong_answers");
 
-                        // Отправка обновленных данных пользователя с использованием PUT запроса
-                        HttpResponseMessage newResponse = await client.PutAsync(apiUrl, httpContent);
-                        if (newResponse.IsSuccessStatusCode)
-                        {
-                            
-                        }
-                        else
-                        {
-                            string errorContent = await newResponse.Content.ReadAsStringAsync();
-                            await DisplayAlert("Ошибка", $"Ошибка при отправке данных: {newResponse.StatusCode}\n{errorContent}", "OK");
-                            Console.WriteLine($"Ошибка при отправке данных: {newResponse.StatusCode}\n{errorContent}");
+                            if (!string.IsNullOrEmpty(user.Image) && File.Exists(user.Image))
+                            {
+                                var photoContent = new StreamContent(File.OpenRead(user.Image));
+                                photoContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+                                multipartContent.Add(photoContent, "image", Path.GetFileName(user.Image));
+                            }
+                            else
+                            {
+                                Console.WriteLine("Image path is invalid or file does not exist.");
+                            }
+
+                            // Rename the variable in the foreach loop to avoid conflict
+                            foreach (var part in multipartContent)
+                            {
+                                Console.WriteLine($"Content: {part.Headers.ContentDisposition.Name} = {await part.ReadAsStringAsync()}");
+                            }
+
+                            HttpResponseMessage updateResponse = await client.PutAsync(apiUrl, multipartContent);
+                            if (updateResponse.IsSuccessStatusCode)
+                            {
+                                Console.WriteLine("User data updated successfully.");
+                            }
+                            else
+                            {
+                                string errorContent = await updateResponse.Content.ReadAsStringAsync();
+                                await DisplayAlert("Ошибка", $"Ошибка при отправке данных: {updateResponse.StatusCode}\n{errorContent}", "OK");
+                                Console.WriteLine($"Ошибка при отправке данных: {updateResponse.StatusCode}\n{errorContent}");
+                            }
                         }
                     }
                     else
@@ -267,7 +300,6 @@ namespace Diplom.Pages
 
             DisplayRandomWord();
         }
-
 
 
 

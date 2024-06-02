@@ -8,6 +8,8 @@ using System.Text;
 using static Diplom.models;
 using static Diplom.config;
 using System.Threading.Tasks;
+using System.Net.Http.Headers;
+using System.IO;
 
 namespace Diplom.Pages
 {
@@ -90,7 +92,6 @@ namespace Diplom.Pages
                 await DisplayAlert("Ошибка", $"Ошибка: {e.Message}", "OK");
             }
         }
-
 
         private async Task<bool> RefreshToken()
         {
@@ -226,18 +227,40 @@ namespace Diplom.Pages
 
                         user.Password = Application.Current.Properties["Password"].ToString();
 
-                        string json = JsonConvert.SerializeObject(user);
-                        HttpContent httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+                        using (var multipartContent = new MultipartFormDataContent())
+                        {
+                            multipartContent.Add(new StringContent(user.Username), "username");
+                            multipartContent.Add(new StringContent(user.Password), "password");
+                            multipartContent.Add(new StringContent(user.FirstName), "first_name");
+                            multipartContent.Add(new StringContent(user.LastName), "last_name");
+                            multipartContent.Add(new StringContent(user.Patronymic), "patronymic");
+                            multipartContent.Add(new StringContent(user.Anonymous.ToString()), "anonymous");
+                            multipartContent.Add(new StringContent(user.UseEnglish.ToString()), "use_english");
+                            multipartContent.Add(new StringContent(user.RightAnswers.ToString()), "right_answers");
+                            multipartContent.Add(new StringContent(user.WrongAnswers.ToString()), "wrong_answers");
 
-                        HttpResponseMessage newResponse = await client.PutAsync(apiUrl, httpContent);
-                        if (newResponse.IsSuccessStatusCode)
-                        {
-                            
-                        }
-                        else
-                        {
-                            string errorContent = await newResponse.Content.ReadAsStringAsync();
-                            await DisplayAlert("Ошибка", $"Ошибка при отправке данных: {newResponse.StatusCode}\n{errorContent}", "OK");
+                            if (!string.IsNullOrEmpty(user.Image) && File.Exists(user.Image))
+                            {
+                                var photoContent = new StreamContent(File.OpenRead(user.Image));
+                                photoContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+                                multipartContent.Add(photoContent, "image", Path.GetFileName(user.Image));
+                            }
+                            else
+                            {
+                                Console.WriteLine("Image path is invalid or file does not exist.");
+                            }
+
+                            HttpResponseMessage updateResponse = await client.PutAsync(apiUrl, multipartContent);
+                            if (updateResponse.IsSuccessStatusCode)
+                            {
+                                Console.WriteLine("User data updated successfully.");
+                            }
+                            else
+                            {
+                                string errorContent = await updateResponse.Content.ReadAsStringAsync();
+                                await DisplayAlert("Ошибка", $"Ошибка при отправке данных: {updateResponse.StatusCode}\n{errorContent}", "OK");
+                                Console.WriteLine($"Ошибка при отправке данных: {updateResponse.StatusCode}\n{errorContent}");
+                            }
                         }
                     }
                     else

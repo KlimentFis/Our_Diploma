@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Net.Http;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -9,6 +9,8 @@ using static Diplom.models;
 using static Diplom.config;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Http.Headers;
+using System.Linq;
 
 namespace Diplom.Pages
 {
@@ -46,7 +48,7 @@ namespace Diplom.Pages
                     // Создание объекта HttpRequestMessage
                     var request = new HttpRequestMessage(HttpMethod.Get, apiUrl);
                     // Добавление токена в заголовок запроса "Authorization"
-                    request.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+                    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
                     // Отправка запроса и получение ответа
                     HttpResponseMessage response = await client.SendAsync(request);
@@ -140,7 +142,6 @@ namespace Diplom.Pages
             }
         }
 
-
         private void DisplayRandomWord()
         {
             Random rand = new Random();
@@ -186,7 +187,6 @@ namespace Diplom.Pages
             };
         }
 
-
         private async void SendBtn_Clicked(object sender, EventArgs e)
         {
             MyUser user = null; // Инициализируем переменную, но не присваиваем значение Password сразу
@@ -210,7 +210,7 @@ namespace Diplom.Pages
             using (HttpClient client = new HttpClient())
             {
                 string accessToken = Application.Current.Properties["AccessToken"].ToString();
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
                 try
                 {
@@ -235,20 +235,29 @@ namespace Diplom.Pages
                         user.Password = Application.Current.Properties["Password"].ToString();
 
                         // Подготовка данных для отправки
-                        string json = JsonConvert.SerializeObject(user);
-                        HttpContent httpContent = new StringContent(json, Encoding.UTF8, "application/json");
+                        using (var multipartContent = new MultipartFormDataContent())
+                        {
+                            multipartContent.Add(new StringContent(user.Username), "username");
+                            multipartContent.Add(new StringContent(user.Password), "password");
+                            multipartContent.Add(new StringContent(user.FirstName), "first_name");
+                            multipartContent.Add(new StringContent(user.LastName), "last_name");
+                            multipartContent.Add(new StringContent(user.Patronymic), "patronymic");
+                            multipartContent.Add(new StringContent(user.Anonymous.ToString()), "anonymous");
+                            multipartContent.Add(new StringContent(user.UseEnglish.ToString()), "use_english");
+                            multipartContent.Add(new StringContent(user.RightAnswers.ToString()), "right_answers");
+                            multipartContent.Add(new StringContent(user.WrongAnswers.ToString()), "wrong_answers");
 
-                        // Отправка обновленных данных пользователя с использованием PUT запроса
-                        HttpResponseMessage newResponse = await client.PutAsync(apiUrl, httpContent);
-                        if (newResponse.IsSuccessStatusCode)
-                        {
-                            // В случае успеха можно выполнить какие-то дополнительные действия или просто продолжить
-                        }
-                        else
-                        {
-                            string errorContent = await newResponse.Content.ReadAsStringAsync();
-                            await DisplayAlert("Ошибка", $"Ошибка при отправке данных: {newResponse.StatusCode}\n{errorContent}", "OK");
-                            Console.WriteLine($"Ошибка при отправке данных: {newResponse.StatusCode}\n{errorContent}");
+                            HttpResponseMessage updateResponse = await client.PutAsync(apiUrl, multipartContent);
+                            if (updateResponse.IsSuccessStatusCode)
+                            {
+                                Console.WriteLine("User data updated successfully.");
+                            }
+                            else
+                            {
+                                string errorContent = await updateResponse.Content.ReadAsStringAsync();
+                                await DisplayAlert("Ошибка", $"Ошибка при отправке данных: {updateResponse.StatusCode}\n{errorContent}", "OK");
+                                Console.WriteLine($"Ошибка при отправке данных: {updateResponse.StatusCode}\n{errorContent}");
+                            }
                         }
                     }
                     else
@@ -257,18 +266,15 @@ namespace Diplom.Pages
                         return;
                     }
                 }
-                catch (Exception ex)
+                catch
+                    (Exception ex)
                 {
                     await DisplayAlert("Ошибка", $"Произошла ошибка: {ex.Message}", "OK");
                     return;
                 }
-            }
-
+            }        // После обновления данных пользователя отображаем новое случайное слово
             DisplayRandomWord();
         }
-
-
-
 
         private void RadioButton_CheckedChanged(object sender, CheckedChangedEventArgs e)
         {

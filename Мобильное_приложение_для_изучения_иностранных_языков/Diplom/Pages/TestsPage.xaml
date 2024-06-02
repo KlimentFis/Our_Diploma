@@ -6,7 +6,7 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-                <Label Margin="10" HorizontalOptions="CenterAndExpand" Text="Слово дня:" FontSize="20" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
+                <Label Margin="10" HorizontalOptions="CenterAndExpand" Text="Учим слова:" FontSize="20" TextColor="{AppThemeBinding Dark=White, Light=Black}"/>
                 <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
                     <Label Text="{Binding Name}" x:Name="wordLabel" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20" FontAttributes="Bold"/>
                     <Label Text="-" TextColor="{AppThemeBinding Dark=White, Light=Black}" FontSize="20" FontAttributes="Bold"/>
