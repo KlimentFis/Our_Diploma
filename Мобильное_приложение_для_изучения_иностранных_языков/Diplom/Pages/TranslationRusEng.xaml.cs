@@ -129,7 +129,6 @@ namespace Diplom.Pages
                     {
                         // Обработка ошибки при запросе нового токена
                         string errorContent = await response.Content.ReadAsStringAsync();
-                        // Можно добавить логику для повторных попыток или обработать ошибку по своему усмотрению
                         return false;
                     }
                 }
@@ -156,7 +155,7 @@ namespace Diplom.Pages
             // Индекс правильного перевода
             int correctTranslationIndex = russianTranslations.IndexOf(currentWord.Name);
 
-            // Отображение переводов на RadioButton'ах
+            // Отображение переводов на RadioButton
             RadioBtn1.Content = russianTranslations[0];
             RadioBtn2.Content = russianTranslations[1];
             RadioBtn3.Content = russianTranslations[2];
@@ -192,7 +191,6 @@ namespace Diplom.Pages
             MyUser user = null; // Инициализируем переменную, но не присваиваем значение Password сразу
             bool isAnswerCorrect = correctRadioButton.IsChecked;
 
-            // Обновление UI в зависимости от правильного или неправильного ответа
             if (isAnswerCorrect)
             {
                 ResultLabel.Text = "Правильно!";
@@ -250,13 +248,13 @@ namespace Diplom.Pages
                             HttpResponseMessage updateResponse = await client.PutAsync(apiUrl, multipartContent);
                             if (updateResponse.IsSuccessStatusCode)
                             {
-                                Console.WriteLine("User data updated successfully.");
+                                //Console.WriteLine("User data updated successfully.");
                             }
                             else
                             {
                                 string errorContent = await updateResponse.Content.ReadAsStringAsync();
                                 await DisplayAlert("Ошибка", $"Ошибка при отправке данных: {updateResponse.StatusCode}\n{errorContent}", "OK");
-                                Console.WriteLine($"Ошибка при отправке данных: {updateResponse.StatusCode}\n{errorContent}");
+                                //Console.WriteLine($"Ошибка при отправке данных: {updateResponse.StatusCode}\n{errorContent}");
                             }
                         }
                     }

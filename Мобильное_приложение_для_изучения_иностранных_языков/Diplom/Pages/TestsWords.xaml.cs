@@ -128,7 +128,6 @@ namespace Diplom.Pages
                     {
                         // Обработка ошибки при запросе нового токена
                         string errorContent = await response.Content.ReadAsStringAsync();
-                        // Можно добавить логику для повторных попыток или обработать ошибку по своему усмотрению
                         return false;
                     }
                 }
@@ -200,7 +199,7 @@ namespace Diplom.Pages
 
         private async System.Threading.Tasks.Task UpdateUserStatistics(bool isAnswerCorrect)
         {
-            MyUser user = null;
+            MyUser user = null; // Инициализируем переменную, но не присваиваем значение Password сразу
             string apiUrl = $"{Our_addres}/api/users/{Application.Current.Properties["Username"]}/";
 
             using (HttpClient client = new HttpClient())
@@ -247,19 +246,19 @@ namespace Diplom.Pages
                             }
                             else
                             {
-                                Console.WriteLine("Image path is invalid or file does not exist.");
+                                //Console.WriteLine("Image path is invalid or file does not exist.");
                             }
 
                             HttpResponseMessage updateResponse = await client.PutAsync(apiUrl, multipartContent);
                             if (updateResponse.IsSuccessStatusCode)
                             {
-                                Console.WriteLine("User data updated successfully.");
+                                //Console.WriteLine("User data updated successfully.");
                             }
                             else
                             {
                                 string errorContent = await updateResponse.Content.ReadAsStringAsync();
                                 await DisplayAlert("Ошибка", $"Ошибка при отправке данных: {updateResponse.StatusCode}\n{errorContent}", "OK");
-                                Console.WriteLine($"Ошибка при отправке данных: {updateResponse.StatusCode}\n{errorContent}");
+                                //Console.WriteLine($"Ошибка при отправке данных: {updateResponse.StatusCode}\n{errorContent}");
                             }
                         }
                     }

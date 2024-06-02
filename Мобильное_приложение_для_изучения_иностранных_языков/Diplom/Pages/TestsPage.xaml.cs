@@ -44,7 +44,7 @@ namespace Diplom.Pages
                 DateTime lastUpdateDate = (DateTime)Application.Current.Properties["LastUpdateDate"];
                 if (lastUpdateDate.Date == DateTime.Now.Date)
                 {
-                    // Загружаем сохраненное слово дня
+                    // Загружаем сохраненное слово для изучения
                     currentWord = new Words
                     {
                         Name = Application.Current.Properties["WordOfDay"].ToString(),
@@ -168,7 +168,6 @@ namespace Diplom.Pages
                     {
                         // Обработка ошибки при запросе нового токена
                         string errorContent = await response.Content.ReadAsStringAsync();
-                        // Можно добавить логику для повторных попыток или обработать ошибку по своему усмотрению
                         return false;
                     }
                 }

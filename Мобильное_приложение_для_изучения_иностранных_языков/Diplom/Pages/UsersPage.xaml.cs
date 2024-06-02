@@ -132,7 +132,6 @@ namespace Diplom.Pages
                     {
                         // Обработка ошибки при запросе нового токена
                         string errorContent = await response.Content.ReadAsStringAsync();
-                        // Можно добавить логику для повторных попыток или обработать ошибку по своему усмотрению
                         return false;
                     }
                 }

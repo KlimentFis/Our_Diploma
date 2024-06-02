@@ -25,7 +25,6 @@ namespace Diplom.Pages
                 string username = LoginEntry.Text;
                 string password = PasswordEntry.Text;
 
-                // Check if username or password fields are empty
                 if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
                 {
                     await DisplayAlert("Ошибка", "Введите логин и пароль", "OK");
@@ -38,14 +37,14 @@ namespace Diplom.Pages
 
                 using (HttpClient client = new HttpClient())
                 {
-                    // Fetch the list of all users
+                    // Извлекаем список всех пользователей
                     HttpResponseMessage usersResponse = await client.GetAsync(usersUrl);
                     if (usersResponse.IsSuccessStatusCode)
                     {
                         string usersContent = await usersResponse.Content.ReadAsStringAsync();
                         var usersList = JsonConvert.DeserializeObject<string[]>(usersContent);
 
-                        // Check if the entered username exists in the list
+                        // Проверка на существующего пользователя
                         if (Array.Exists(usersList, user => user == username))
                         {
                             string authUrl = $"{Our_addres}/api/token/";

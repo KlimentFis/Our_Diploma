@@ -154,7 +154,6 @@ namespace Diplom.Pages
                     {
                         // Обработка ошибки при запросе нового токена
                         string errorContent = await response.Content.ReadAsStringAsync();
-                        // Можно добавить логику для повторных попыток или обработать ошибку по своему усмотрению
                         return false;
                     }
                 }
@@ -206,7 +205,12 @@ namespace Diplom.Pages
 
             var options = new PickMediaOptions
             {
-                PhotoSize = PhotoSize.Custom
+                PhotoSize = PhotoSize.Custom,
+                CustomPhotoSize = 10,
+                RotateImage = false,
+                MaxWidthHeight = 2000,
+                SaveMetaData = true,
+                CompressionQuality = 92
             };
 
             var file = await CrossMedia.Current.PickPhotoAsync(options);

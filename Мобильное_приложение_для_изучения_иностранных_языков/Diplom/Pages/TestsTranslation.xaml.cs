@@ -129,7 +129,6 @@ namespace Diplom.Pages
                     {
                         // Обработка ошибки при запросе нового токена
                         string errorContent = await response.Content.ReadAsStringAsync();
-                        // Можно добавить логику для повторных попыток или обработать ошибку по своему усмотрению
                         return false;
                     }
                 }
@@ -157,7 +156,7 @@ namespace Diplom.Pages
             // Индекс правильного перевода
             int correctTranslationIndex = translations.IndexOf(currentWord.Translate);
 
-            // Отображение переводов на RadioButton'ах
+            // Отображение переводов на RadioButton
             RadioBtn1.Content = translations[0];
             RadioBtn2.Content = translations[1];
             RadioBtn3.Content = translations[2];
@@ -191,10 +190,9 @@ namespace Diplom.Pages
 
         private async void SendBtn_Clicked(object sender, EventArgs e)
         {
-            MyUser user = null; // Initialize the user variable
+            MyUser user = null; // Инициализируем переменную, но не присваиваем значение Password сразу
             bool isAnswerCorrect = correctRadioButton.IsChecked;
 
-            // Update the UI based on whether the answer is correct or not
             if (isAnswerCorrect)
             {
                 ResultLabel.Text = "Правильно!";
@@ -217,17 +215,16 @@ namespace Diplom.Pages
 
                 try
                 {
-                    // Get user data
+                    // Получение данных пользователя
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
                     if (response.IsSuccessStatusCode)
                     {
                         string content = await response.Content.ReadAsStringAsync();
                         user = JsonConvert.DeserializeObject<MyUser>(content);
 
-                        // Log current user data for debugging
-                        Console.WriteLine($"User before update: RightAnswers={user.RightAnswers}, WrongAnswers={user.WrongAnswers}");
+                        // Логги
+                        //Console.WriteLine($"Пользователь перед обновлением: RightAnswers={user.RightAnswers}, WrongAnswers={user.WrongAnswers}");
 
-                        // Update the number of correct and incorrect answers
                         if (isAnswerCorrect)
                         {
                             user.RightAnswers++;
@@ -237,10 +234,9 @@ namespace Diplom.Pages
                             user.WrongAnswers++;
                         }
 
-                        // Log updated user data for debugging
-                        Console.WriteLine($"User after update: RightAnswers={user.RightAnswers}, WrongAnswers={user.WrongAnswers}");
+                        // Логги
+                        //Console.WriteLine($"Пользователь после обновления: RightAnswers={user.RightAnswers}, WrongAnswers={user.WrongAnswers}");
 
-                        // Assign the password after retrieving the user data
                         user.Password = Application.Current.Properties["Password"].ToString();
 
                         using (var multipartContent = new MultipartFormDataContent())
@@ -266,22 +262,21 @@ namespace Diplom.Pages
                                 Console.WriteLine("Image path is invalid or file does not exist.");
                             }
 
-                            // Rename the variable in the foreach loop to avoid conflict
-                            foreach (var part in multipartContent)
-                            {
-                                Console.WriteLine($"Content: {part.Headers.ContentDisposition.Name} = {await part.ReadAsStringAsync()}");
-                            }
+                            //foreach (var part in multipartContent)
+                            //{
+                            //    Console.WriteLine($"Content: {part.Headers.ContentDisposition.Name} = {await part.ReadAsStringAsync()}");
+                            //}
 
                             HttpResponseMessage updateResponse = await client.PutAsync(apiUrl, multipartContent);
                             if (updateResponse.IsSuccessStatusCode)
                             {
-                                Console.WriteLine("User data updated successfully.");
+                                //Console.WriteLine("User data updated successfully.");
                             }
                             else
                             {
                                 string errorContent = await updateResponse.Content.ReadAsStringAsync();
                                 await DisplayAlert("Ошибка", $"Ошибка при отправке данных: {updateResponse.StatusCode}\n{errorContent}", "OK");
-                                Console.WriteLine($"Ошибка при отправке данных: {updateResponse.StatusCode}\n{errorContent}");
+                                //Console.WriteLine($"Ошибка при отправке данных: {updateResponse.StatusCode}\n{errorContent}");
                             }
                         }
                     }
