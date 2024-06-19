@@ -1,3 +1,4 @@
+import os
 from random import randint, sample, shuffle
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from language_tool_python import LanguageTool
@@ -7,6 +8,8 @@ from users.views import check_auth
 from django.shortcuts import render
 from gtts import gTTS
 import re
+from main import settings
+
 
 def index(request):
     return render(request, 'tests/index.html')

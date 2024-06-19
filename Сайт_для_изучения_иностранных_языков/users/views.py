@@ -28,7 +28,7 @@ def userList(request):
     context = {
         'users': users
     }
-    return render(request, 'users/userList.html', context)
+    return render(request, 'users/user_list.html', context)
 
 def profile(request):
     error = check_auth(request, "Необходимо авторизоваться!")
