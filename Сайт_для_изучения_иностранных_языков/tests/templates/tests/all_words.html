@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
+<div class="container" id="start_data">
   <h1 style="text-align: center; padding-top: 40px; padding-bottom: 40px" class="white-text">
       <strong>
           {% if request.user.use_english %}Dictionary{% else %}Словарь{% endif %}
@@ -15,7 +15,7 @@
         <th scope="col">{% if request.user.use_english %}Translate{% else %}Перевод{% endif %}</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="dictionaryTable">
     {% for i in data %}
       <tr>
         <th scope="row">{{ i.id }}</th>
@@ -25,5 +25,56 @@
     {% endfor %}
     </tbody>
   </table>
+  <!-- Search form -->
+  <form id="searchForm" class="mb-3" onsubmit="search(); return false;">
+    <div class="input-group">
+      <input type="text" id="searchInput" class="form-control" placeholder="{% if request.user.use_english %}Search{% else %}Поиск{% endif %}" aria-label="Search">
+      <button class="btn btn-outline-secondary" type="button" id="searchButton" onclick="search()">{% if request.user.use_english %}Search{% else %}Поиск{% endif %}</button>
+    </div>
+  </form>
 </div>
+
+<script>
+  function fetchAndDisplayData(query) {
+    fetch(`/tests/search/?q=${query}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        const tableBody = document.getElementById('dictionaryTable');
+        tableBody.innerHTML = '';
+        data.forEach(item => {
+          const row = `<tr>
+            <th scope="row">${item.id}</th>
+            <td>${item.name}</td>
+            <td>${item.translate}</td>
+          </tr>`;
+          tableBody.insertAdjacentHTML('beforeend', row);
+        });
+      })
+      .catch(error => console.error('Error:', error));
+  }
+
+  function search() {
+    const query = document.getElementById('searchInput').value;
+    fetchAndDisplayData(query);
+  }
+
+  function start_data() {
+    fetchAndDisplayData('a');
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    start_data();
+  });
+
+  document.getElementById('searchInput').addEventListener('keyup', function(event) {
+    if (event.key === 'Enter') {
+      search();
+    }
+  });
+</script>
 {% endblock %}
