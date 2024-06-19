@@ -1,4 +1,3 @@
-import os
 from random import randint, sample, shuffle
 from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from language_tool_python import LanguageTool
@@ -8,8 +7,6 @@ from users.views import check_auth
 from django.shortcuts import render
 from gtts import gTTS
 import re
-from main import settings
-
 
 def index(request):
     return render(request, 'tests/index.html')
@@ -23,37 +20,25 @@ def links(request):
 def about_us(request):
     return render(request, 'tests/about_as.html')
 
-
 @csrf_exempt
 def letter_verification(request):
     error = check_auth(request, "Необходимо авторизоваться!")
     if error:
         return error
-
+    tool = LanguageTool('en-US')
     if request.method == 'GET':
         return render(request, 'tests/letter_verification.html')
     elif request.method == 'POST':
         text = request.POST.get('not_checked_text', '')
-
-        # Проверяем, был ли введен текст перед его проверкой
-        if not text:
-            errors = "Введите текст для проверки"
-            context = {'text': text, 'errors': errors}
-            return render(request, 'tests/letter_verification.html', context)
-
-        # Проверяем текст на наличие только английских букв, пробелов и некоторых знаков препинания
-        if not re.match(r'^[^\u0400-\u04FF]*$', text):
-            errors = "Текст должен содержать только английские буквы и символы"
-            context = {'text': text, 'errors': errors}
-            return render(request, 'tests/letter_verification.html', context)
-
-        # Если текст прошел проверку, выполняем проверку с помощью LanguageTool
-        tool = LanguageTool('en-US')
         errors = tool.check(text)
+        if errors:
+            context = {'text': text, 'errors': errors}
+        else:
+            context = {'text': text, 'errors': None}
 
-        context = {'text': text, 'errors': errors}
+        print(errors)
+
         return render(request, 'tests/letter_verification.html', context)
-
 
 @csrf_protect
 def check_word(request):
@@ -181,7 +166,7 @@ def check_suggestion(request):
         context['words'] = words
         context['proposal'] = right_word  # Предполагая, что здесь должен быть перевод
 
-    return render(request, 'tests/insert_word.html', context)
+    return render(request, 'tests/insertWord.html', context)
 
 
 def translateWord(request):
@@ -189,6 +174,33 @@ def translateWord(request):
     if error:
         return error
     return render(request, 'tests/translate_word.html')
+
+
+import os
+from django.http import HttpResponse
+from django.conf import settings
+
+def download_app(request):
+    # Путь к файлу приложения
+    app_file_path = os.path.join(settings.STATIC_ROOT, 'Duolingo-Logo-2019-present.jpg')
+
+    # Проверяем существование файла
+    if os.path.exists(app_file_path):
+        with open(app_file_path, 'rb') as file:
+            # Читаем содержимое файла
+            file_content = file.read()
+
+        # Определяем тип содержимого для заголовка Content-Type
+        content_type = 'image/jpeg'
+
+        # Устанавливаем заголовки для скачивания файла
+        response = HttpResponse(file_content, content_type=content_type)
+        response['Content-Disposition'] = 'attachment; filename="Duolingo-Logo-2019-present.jpg"'
+
+        return response
+    else:
+        # Если файл не существует, возвращаем сообщение об ошибке
+        return HttpResponse("Файл не найден", status=404)
 
 
 def text_to_audio(request):
@@ -202,7 +214,7 @@ def text_to_audio(request):
         text = request.POST.get('text', '')
         if text:
             # Проверяем, содержит ли текст только символы английского языка и пробелы
-            if re.match("^[a-zA-Z0-9.,'’!?-]+$", text):
+            if re.match("^[a-zA-Z ]+", text):
                 # Если текст на английском языке, преобразуем его в аудио
                 try:
                     # Проверяем и создаем директорию media, если ее нет
