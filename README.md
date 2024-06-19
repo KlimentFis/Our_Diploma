@@ -3,7 +3,8 @@
 
 
 ### Авторы: 
-### [Трунов К. А.](https://github.com/KlimentFis) и [Пелипенко В. Б.](https://github.com/bipchik)
+### - [Трунов К. А.](https://github.com/KlimentFis) (Сайт + API)
+### - [Пелипенко В. Б.](https://github.com/bipchik) (Мобильное приложение)
 
 
 ## Сайт

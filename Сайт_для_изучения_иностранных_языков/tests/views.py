@@ -178,7 +178,7 @@ def check_suggestion(request):
         context['words'] = words
         context['proposal'] = right_word  # Предполагая, что здесь должен быть перевод
 
-    return render(request, 'tests/insertWord.html', context)
+    return render(request, 'tests/insert_word.html', context)
 
 
 def translateWord(request):
@@ -186,33 +186,6 @@ def translateWord(request):
     if error:
         return error
     return render(request, 'tests/translate_word.html')
-
-
-import os
-from django.http import HttpResponse
-from django.conf import settings
-
-def download_app(request):
-    # Путь к файлу приложения
-    app_file_path = os.path.join(settings.STATIC_ROOT, 'Duolingo-Logo-2019-present.jpg')
-
-    # Проверяем существование файла
-    if os.path.exists(app_file_path):
-        with open(app_file_path, 'rb') as file:
-            # Читаем содержимое файла
-            file_content = file.read()
-
-        # Определяем тип содержимого для заголовка Content-Type
-        content_type = 'image/jpeg'
-
-        # Устанавливаем заголовки для скачивания файла
-        response = HttpResponse(file_content, content_type=content_type)
-        response['Content-Disposition'] = 'attachment; filename="Duolingo-Logo-2019-present.jpg"'
-
-        return response
-    else:
-        # Если файл не существует, возвращаем сообщение об ошибке
-        return HttpResponse("Файл не найден", status=404)
 
 
 def text_to_audio(request):

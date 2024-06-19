@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from tests.views import index, about_us, tests, links, about_us, download_app
+from tests.views import index, about_us, tests, links, about_us
 from users.views import userList, login_or_register
 
 schema_view = get_schema_view(
@@ -45,7 +45,6 @@ urlpatterns = [
     path('user/', include('users.urls')),
     path('links/', links, name='links'),
     path('about_us/', about_us, name='about_us'),
-    path('download_app/', download_app, name="download_app"),
     path('api/', include('api.urls'), name="api"),
     path('swagger-docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
