@@ -2,15 +2,14 @@
 ### Тема: Комплекс программных средств для изученя инностранных языков
 
 
-## Авторы: 
-### - [Трунов К. А.](https://github.com/KlimentFis) (Сайт + API)
-### - [Пелипенко В. Б.](https://github.com/bipchik) (Мобильное приложение)
+### Авторы: 
+- [Трунов К. А.](https://github.com/KlimentFis) (Сайт + API)
+- [Пелипенко В. Б.](https://github.com/bipchik) (Мобильное приложение)
 
 
-## Сайт
+### Сайт
 
 ### Установка
-
 Клонирование проекта:
 ```shell
 git clone https://github.com/KlimentFis/Our_Diploma 
@@ -56,7 +55,7 @@ python manage.py create_suggestions static/seggestions.txt
 python manage.py createsuperuser
 ```
 
-## Запуск проекта
+### Запуск проекта
 Для локальной разработки:
 ```shell
 python manage.py runserver
@@ -66,7 +65,7 @@ python manage.py runserver
 python manage.py runserver 0.0.0.0:8888
 ```
 
-## Мобильное приложение
+### Мобильное приложение
 Установите нужные NuGet библиотеки:
 
 | Id                  | Versions      | ProjectName  |
@@ -84,7 +83,7 @@ python manage.py runserver 0.0.0.0:8888
 | Xamarin.Forms       | {5.0.0.2196}  | Diplom.Android |
 | Xamarin.Essentials  | {1.7.0}       | Diplom.Android |
 
-## Руководство по Rest API
-### Авто-документация:
-- #### http://127.0.0.1:8000/swagger-docs/
-- #### http://127.0.0.1:8000/redoc/
+### Руководство по Rest API
+Авто-документация:
+- http://127.0.0.1:8000/swagger-docs/
+- http://127.0.0.1:8000/redoc/
