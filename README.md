@@ -8,8 +8,6 @@
 
 
 ### Сайт
-
-### Установка
 Клонирование проекта:
 ```shell
 git clone https://github.com/KlimentFis/Our_Diploma 
@@ -87,6 +85,7 @@ python manage.py runserver 0.0.0.0:8888
 | Xamarin.Forms       | {5.0.0.2196}  | Diplom.Android |
 | Xamarin.Essentials  | {1.7.0}       | Diplom.Android |
 
+Запустите мобильное приложение, посредством запуска проекта в Visual Studio.
 
 ### Руководство по Rest API
 Авто-документация:
