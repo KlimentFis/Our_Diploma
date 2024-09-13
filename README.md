@@ -7,7 +7,7 @@
 - [Пелипенко В. Б.](https://github.com/bipchik) ( Мобильное приложение )
 
 
-### Сайт
+### Установка
 Клонирование проекта:
 ```shell
 git clone https://github.com/KlimentFis/Our_Diploma 
