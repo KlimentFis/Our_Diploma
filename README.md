@@ -90,4 +90,8 @@ python manage.py runserver 0.0.0.0:8888
 | Xamarin.Forms       | {5.0.0.2196}  | Diplom.Android |
 | Xamarin.Essentials  | {1.7.0}       | Diplom.Android |
 
+### Зпуск
+<p>
+  <img src="https://avatars.mds.yandex.net/i?id=0131f3b8ed7d7cc23cd520919a5583e3d26a0ca3-10803837-images-thumbs&n=13" alt="Контактная книга">
+</p>
 Запустите мобильное приложение, посредством запуска проекта в Visual Studio.
