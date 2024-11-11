@@ -6,6 +6,9 @@
 - [Трунов К. А.](https://github.com/KlimentFis) ( Сайт + API )
 - [Пелипенко В. Б.](https://github.com/bipchik) ( Мобильное приложение )
 
+### Отчеты по проделанной работе:
+- [Трунов К. А.](https://github.com/KlimentFis/Our_Diploma/blob/main/Отчеты/220%20Трунов%20ДП.docx)
+- [Пелипенко В. Б.](https://github.com/KlimentFis/Our_Diploma/blob/main/Отчеты/220%20Пелипенко%20ДП.docx) 
 
 ### Установка
 Клонирование проекта:
