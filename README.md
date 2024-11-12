@@ -1,14 +1,13 @@
-# Дипломный проект 
+### Отчеты по проделанной работе:
+- [Трунов К. А.](https://github.com/KlimentFis/Our_Diploma/blob/main/Отчеты/220%20Трунов%20ДП.docx)
+- [Пелипенко В. Б.](https://github.com/KlimentFis/Our_Diploma/blob/main/Отчеты/220%20Пелипенко%20ДП.docx) # Дипломный проект 
 ### Тема: Комплекс программных средств для изученя инностранных языков
 
 
 ### Авторы:
-- [Трунов К. А.](https://github.com/KlimentFis) ( Сайт + API )
-- [Пелипенко В. Б.](https://github.com/bipchik) ( Мобильное приложение )
+- [Трунов К. А.](https://github.com/KlimentFis) ( [Сайт + API](https://github.com/KlimentFis/Our_Diploma/blob/main/Отчеты/220%20Трунов%20ДП.docx) )
+- [Пелипенко В. Б.](https://github.com/bipchik) ( [Мобильное приложение](https://github.com/KlimentFis/Our_Diploma/blob/main/Отчеты/220%20Пелипенко%20ДП.docx)  )
 
-### Отчеты по проделанной работе:
-- [Трунов К. А.](https://github.com/KlimentFis/Our_Diploma/blob/main/Отчеты/220%20Трунов%20ДП.docx)
-- [Пелипенко В. Б.](https://github.com/KlimentFis/Our_Diploma/blob/main/Отчеты/220%20Пелипенко%20ДП.docx) 
 
 ### Установка
 Клонирование проекта:
@@ -56,7 +55,7 @@ python manage.py create_suggestions static/seggestions.txt
 python manage.py createsuperuser
 ```
 
-### Запуск сайта
+### Запуск са1та
 Для локальной разработки:
 ```shell
 python manage.py runserver
