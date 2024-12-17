@@ -55,7 +55,7 @@ python manage.py create_suggestions static/seggestions.txt
 python manage.py createsuperuser
 ```
 
-### Запуск са1та
+### Запуск сайта
 Для локальной разработки:
 ```shell
 python manage.py runserver
